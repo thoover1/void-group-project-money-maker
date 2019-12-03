@@ -2,7 +2,7 @@ import React from "react";
 import {Switch, Route, withRouter, Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {setUser} from './reducer';
-import "./App.css";
+import "./App.scss";
 import Header from './Components/Header/Header';
 import Landing from './Components/Landing/Landing';
 import AuthComponent from './Components/Login/AuthComponent';

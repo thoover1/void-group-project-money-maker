@@ -1,5 +1,5 @@
 import React from "react";
 
 export default function sockets() {
-  return <div>sockets component</div>;
+  return <div>chat feature component</div>;
 }

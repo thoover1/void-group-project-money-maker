@@ -34,7 +34,7 @@ massive(CONNECTION_STRING).then(db => {
   console.log("database connected");
   app.set("db", db);
 
-  // connects sockets to server, I think...
+  // allows sockets to listen to server, I think...
   const io = socket(
     app.listen(SERVER_PORT, () => {
       console.log(`Server running on port ${SERVER_PORT}`);
@@ -46,10 +46,10 @@ massive(CONNECTION_STRING).then(db => {
     // console.log(client.id);
 
     // used for chat/messaging
-    client.on("SEND_MESSAGE", function(data) {
-      console.log("message sent");
-      io.emit("RECEIVE_MESSAGE", data);
-    });
+    // client.on("SEND_MESSAGE", function(data) {
+    //   console.log("message sent");
+    //   io.emit("RECEIVE_MESSAGE", data);
+    // });
 
     // creating group boards
     client.on("createGroupBoard", data => {
@@ -77,6 +77,11 @@ massive(CONNECTION_STRING).then(db => {
       let { board2, groupBoard } = data;
       io.in(groupBoard).emit("groupBoardJoined", { board2 });
       (user1 = ""), io.emit("gotGroupBoard", io.sockets.adapter.groupBoards);
+    });
+
+    // moving cards around into other columns
+    client.on("moveCard", payload => {
+      client.emit("cardMoved", payload);
     });
 
     // exiting boards

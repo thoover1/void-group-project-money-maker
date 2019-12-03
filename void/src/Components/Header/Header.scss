@@ -1,0 +1,22 @@
+.header-main {
+    font-family: 'Oswald', sans-serif;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .logo {
+        max-height: 50px;
+        margin: 5px;
+    }
+    .navbar {
+        margin: 5px;
+        .active {
+            font-weight: bold;
+        }
+        .nav {
+            color: black;
+            text-decoration: none;
+            margin: 3px;
+        }
+    }
+}

@@ -48,10 +48,12 @@ module.exports = {
   },
   userSession: (req, res) => {
     res.status(200).send(req.session.user);
+  },
+  deleteAccount: (req,res,next) => {
+    const {user} = req.session;
+    const db = req.app.get('db');
+    db.delete_user(user).then((res) => {
+      res.status(200).send(console.log('account deleted'))
+    })
   }
-  // ,
-  // needs to be added -OR- make new userGroupCtrl file:
-  // delete user from Void
-  // add user to group
-  // remove user from group
 };

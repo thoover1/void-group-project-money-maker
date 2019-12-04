@@ -3,7 +3,7 @@ import logo from "../../void_logo.png";
 import { NavLink } from 'react-router-dom';
 import './Header.scss';
 
-export default function Header() {
+export default function Header(props) {
   return (
     <div className='header-main' >
       <div className='header-contents'>
@@ -12,7 +12,7 @@ export default function Header() {
         </NavLink>
         <span className='navbar'>
           <NavLink className='nav' activeClassName='active' to='/dashboard' >Dashboard</NavLink>
-          <NavLink className='nav' activeClassName='active' to='/login-register' >Login</NavLink>
+          <NavLink className='nav' activeClassName='active' to='/login-register' >{props.title}</NavLink>
         </span>
       </div>
     </div>

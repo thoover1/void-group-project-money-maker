@@ -1,3 +1,2 @@
-SELECT users.user_id, username, email
-FROM users
+SELECT * FROM users
 WHERE email = $1;

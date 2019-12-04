@@ -1,0 +1,16 @@
+.auth-container {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    form {
+        background-color: #96d4d7;
+        box-shadow: 5px 5px #61a0c8, 10px 10px #327cb9, 15px 15px #2460ad;
+        height: 300px;
+        width: 300px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+}

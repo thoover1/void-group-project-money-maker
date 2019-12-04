@@ -1,12 +1,13 @@
 .header-main {
     font-family: 'Oswald', sans-serif;
     background-color: white;
+    height: 100px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     .logo {
-        max-height: 50px;
-        margin: 5px;
+        max-height: 70px;
+        margin-left: 200px;
     }
     .navbar {
         margin: 5px;

@@ -5,6 +5,8 @@ const massive = require("massive");
 const socket = require("socket.io");
 
 const uc = require("./controllers/userCtrl");
+const gc = require("./controllers/groupCtrl");
+const tc = require("./controllers/tasksCtrl");
 
 const { SERVER_PORT, SESSION_SECRET, CONNECTION_STRING } = process.env;
 
@@ -98,6 +100,18 @@ app.post("/auth/register", uc.register);
 app.post("/auth/login", uc.login);
 app.get("/auth/userSession", uc.userSession);
 app.delete("/auth/logout", uc.logout);
+
+// endpoints for groups
+app.post("/api/create_group", gc.createGroup);
+// app.post("/api/add_user", gc.addUser);
+// app.delete("/api/remove_user/", gc.removeUser);
+
+// endpoints for tasks
+app.get("/api/display_board", tc.displayBoard);
+app.post("/api/add_task", tc.addTask);
+app.put("/api/update_task/:task_id", tc.updateTask);
+app.delete("/api/delete_task/:task_id/", tc.deleteTask);
+app.put("/api/move_task", tc.moveTask);
 
 // only allows users with profile to use app
 // app.use((req, res, next) => {

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
 import axios from 'axios';
+import { setUser } from '../../reducer';
 
 class Profile extends Component {
   constructor(props) {
@@ -68,48 +69,68 @@ class Profile extends Component {
   });
  };
 
-
   render() {
-    const { username, email, password, img, loggedInUser, editInfo } = this.state;
-    let display;
-    if(loggedInUser) {
-      display = <div className='profile-display'>
-    <label>Username: {username}</label>
-    <label>Email: {email}</label>
-      </div>
+    const { username, email, password, img, editInfo } = this.state;
+    let editInfoDisplay;
+    if(editInfo) {
+      editInfoDisplay = <div className='profile-form-container'>
+        <form onSubmit={e => { e.preventDefault(); 
+          if(username) {
+            this.updateUsername()
+          } else if (email) {
+            this.updateEmail()
+          } else if (password) {
+            this.updatePassword()
+          } else if (img) {
+            this.updatePic()
+          }
+        }}>
+          <div className='update-user-input'>
+            <label>Username: </label>
+            <input value={username} onChange={(e) => this.setState ( { username: e.target.value } )} /> 
+          </div>
+          <div className='update-user-input'>
+            <label>Email: </label>
+            <input type="email" value={email} onChange={(e) => this.setState ( { email: e.target.value } )} />
+          </div>
+          <div className='update-user-input'>
+            <label>Password: </label>
+            <input type="password" value={password} onChange={(e) => this.setState ( { password: e.target.value } )} />
+          </div>
+          <div className='update-user-input'>
+            <label>Pic: <img src={this.props.user && this.props.user.image}></img></label>
+            {/* <input value={img} onChange={(e) => this.setState ( { img: e.target.value } )} /> */}
+            <button className='picture-edit-button' onClick={() => this.updatePic()}>Edit</button>
+          </div>
+          <button className='save-profile-updates-btn' onClick={() => this.setState({editInfo: false})}>Save</button>
+          </form>
+          <button className='delete-account-btn' onClick={() => this.deleteAccount()}>Delete Account</button>
+      </div>;
+    } else {
+      editInfoDisplay = <div>
+        <label>Picture: {this.props.user && this.props.user.image}</label>
+        <label>Username: {this.props.user && this.props.users.username}</label>
+        <label>Email: {this.props.email && this.props.users.email}</label>
+        <button onClick={() => this.setState({editInfo: true})}>Edit</button>
+        </div>;
     }
 
     return (
       <div className='profile-main'>
-        <div className='profile-form-container'>
-          <form onSubmit={e => { e.preventDefault(); this.handleChange()}}>
-            <div className='update-user-input'>
-              <label>Username: </label>
-               <input value={username} onChange={(e) => this.setState ( { username: e.target.value } )} /> 
-            </div>
-            <div className='update-user-input'>
-              <label>Email: </label>
-              <input type="email" value={email} onChange={(e) => this.setState ( { email: e.target.value } )} />
-            </div>
-            <div className='update-user-input'>
-              <label>Password: </label>
-              <input type="password" value={password} onChange={(e) => this.setState ( { password: e.target.value } )} />
-            </div>
-            <div className='update-user-input'>
-              <label>Pic: </label>
-              <input value={img} onChange={(e) => this.setState ( { img: e.target.value } )} />
-            </div>
-            <button className='save-profile-updates-btn'>Save</button>
-            </form>
-            <button className='delete-account-btn' onClick={() => this.deleteAccount()}>Delete Account</button>
-        </div>
+        {editInfoDisplay}
       </div>
-    )
+    );
   }
-}
+};
 
 function mapReduxStateToProps(reduxState) {
   return reduxState
 }
 
-export default connect(mapReduxStateToProps)(Profile);
+const mapDispatchStateToProps = {
+  setUser
+}
+
+const invokedConnect = connect(mapReduxStateToProps, mapDispatchStateToProps);
+
+export default invokedConnect(Profile);

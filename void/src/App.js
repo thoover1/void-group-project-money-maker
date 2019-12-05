@@ -32,7 +32,8 @@ class App extends React.Component {
           <Route exact path='/' render={(props) => <Landing changeTitle={this.changeTitle} {...props} />}/>
           <Route path='/login-register' render={(props) => <AuthComponent changeTitle={this.changeTitle} {...props}/>} />
           <Route path='/dashboard' render={(props) => <Main changeTitle={this.changeTitle} {...props} />}/>
-          <Route path='/profile' render={(props) => <Profile changeTitle={this.changeTitle} {...props} />}/>
+          {this.props.user && <Route path='/profile' render={(props) => <Profile changeTitle={this.changeTitle} {...props} />}/>}
+          <Route path='*' render={() => {return <Redirect to='/login-register' />}} />
         </Switch>
       </div>
     );

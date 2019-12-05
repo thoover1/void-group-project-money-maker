@@ -30,6 +30,7 @@ module.exports = {
             req.session.user = {
               user_id: foundUser.user_id,
               username: foundUser.username,
+              password: foundUser.password,
               email: foundUser.email,
               image: foundUser.image
             }
@@ -49,11 +50,11 @@ module.exports = {
     res.status(200).send(req.session.user);
   },
   deleteAccount: (req,res,next) => {
-    const {user} = req.session;
+    const {user_id} = req.session.user;
     const db = req.app.get('db');
-    db.delete_user(user).then((res) => {
+    db.delete_user(user_id).then((res) => {
       res.status(200).send(console.log('account deleted'))
-    })
+    }).catch(err => {res.status(500).send(console.log(err))})
   },
   updatePicture: (req,res,next) => {
     const db = req.app.get('db');
@@ -79,12 +80,19 @@ module.exports = {
       res.status(200).send(email);
     }).catch(err => {res.status(500).send(console.log(err))})
   },
-  updatePassword: (req, res, next) => {
+  updatePassword: async (req, res) => {
     const db = req.app.get('db');
-    const { password } = req.body;
-    const { user_id } = req.session.user;
-    db.update_password(password, user_id).then(password => {
-      res.status(200).send(password);
-    }).catch(err => {res.status(500).send(console.log(err))})
+    const { password, oldPassword } = req.body;
+    const { user } = req.session;
+    const isAuth =  await bcrypt.compare(oldPassword, user.password);
+      if(isAuth) {
+        const saltRounds = 12;
+        const salt = await bcrypt.genSalt(saltRounds);
+        const hashedPassword = await bcrypt.hash(password, salt);
+        const [ newPassword ] = await db.update_password(hashedPassword, user.user_id);
+        user.password = newPassword;
+        res.status(200).send(user);
+      }
+    
   }
 };

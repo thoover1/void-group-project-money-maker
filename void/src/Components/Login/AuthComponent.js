@@ -22,6 +22,7 @@ class AuthComponent extends React.Component {
   async register(){
       const {username, password, email} = this.state;
       const registeredUser = await axios.post('/auth/register', {username, password, email});
+      console.log(registeredUser.data)
       this.props.setUser(registeredUser.data);
   }
 

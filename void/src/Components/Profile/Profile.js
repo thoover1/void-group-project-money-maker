@@ -18,7 +18,8 @@ class Profile extends Component {
       editName: false,
       editEmail: false,
       editPassword: false,
-      editImage: false
+      editImage: false,
+      oldPassword: '',
     };
     this.updateUsername = this.updateUsername.bind(this);
     this.updateEmail = this.updateEmail.bind(this);
@@ -48,7 +49,7 @@ class Profile extends Component {
  };
 
  updatePassword() {
-  axios.put(`/api/update_password`, {password: this.state.password}).then(res => {
+  axios.put(`/api/update_password`, {password: this.state.password, oldPassword: this.state.oldPassword}).then(res => {
     this.props.setUser(res.data[0])
   });
  };
@@ -60,7 +61,7 @@ class Profile extends Component {
  };
 
  async deleteAccount(user_id) {
-  const deletedUser = await axios.delete(`/api/${user_id}`);
+  const deletedUser = await axios.delete(`/api/delete_account`);
   
   this.setState({
     user: deletedUser.data
@@ -78,6 +79,9 @@ class Profile extends Component {
     const { editName, editEmail, editPassword, editImage, username, email, password, img } = this.state;
     return (
       <div className='profile-main'>
+        <div className='account'>
+          <h1>My Account</h1>
+        </div>
         <div className='profile-display'>
           {editImage 
             ? <div className='picture-holder'> <input onChange={(e) => {this.toggle('img', e.target.value)}} placeholder='New Image' />
@@ -98,12 +102,14 @@ class Profile extends Component {
               <button onClick={() => this.toggle('editEmail', true)}>Edit</button> </div>
           }
           {editPassword
-            ? <div className='password-holder'> <input onChange={(e) => {this.toggle('password', e.target.value)}} placeholder='New Password' />
+            ? <div className='password-holder'> 
+              <input type='password' onChange={(e) => {this.toggle('oldPassword', e.target.value)}} placeholder='Current Password' />
+              <input type='password' onChange={(e) => {this.toggle('password', e.target.value)}} placeholder='New Password' />
               <button onClick={() => {password ? this.updatePassword() : (window.alert('Please enter a new password')); this.toggle('editName', false);}} >Save</button> </div>
-            : <div className='password-holder'> <label className='password'>Password: ************</label>
+            : <div className='password-holder'> <label className='password'>Change Password</label>
               <button onClick={() => this.toggle('editPassword', true)}>Edit</button> </div>
           }
-          <button className='delete-account-btn' onClick={() => this.deleteAccount()}>Delete Account</button>
+          <button className='delete-account-btn' onClick={() => {this.deleteAccount(); this.props.setUser(null)}}>Delete Account</button>
           </div>
         </div>
       </div>

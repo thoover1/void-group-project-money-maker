@@ -10,15 +10,29 @@ import Main from './Components/Main/Main';
 import Profile from './Components/Profile/Profile';
 
 class App extends React.Component {
+  constructor(props){
+    super(props)
+    this.state = {
+      title: 'Login'
+    }
+    this.changeTitle = this.changeTitle.bind(this);
+  }
+
+  changeTitle(title){
+    this.setState({
+      title: title
+    })
+  }
+
   render(){
     return (
       <div className="App">
-        <Header />
+        <Header title={this.state.title} />
         <Switch>
-          <Route exact path='/' component={Landing}/>
-          <Route path='/login-register' component={AuthComponent} />
-          <Route path='/dashboard' component={Main} />
-          <Route path='/profile' component={Profile} />
+          <Route exact path='/' render={(props) => <Landing changeTitle={this.changeTitle} {...props} />}/>
+          <Route path='/login-register' render={(props) => <AuthComponent changeTitle={this.changeTitle} {...props}/>} />
+          <Route path='/dashboard' render={(props) => <Main changeTitle={this.changeTitle} {...props} />}/>
+          <Route path='/profile' render={(props) => <Profile changeTitle={this.changeTitle} {...props} />}/>
         </Switch>
       </div>
     );

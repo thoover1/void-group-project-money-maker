@@ -1,0 +1,123 @@
+%delete-button-style {
+    color: rgb(194, 7, 7);
+    border: 2px solid rgb(194, 7, 7);
+    background-color: #f0f0f0;
+    border-radius: 4px;
+    text-transform: uppercase;
+    height: 30px;
+    width: 150px;
+}
+%delete-button-style-hover {
+    color: #f0f0f0;
+    border: 2px solid rgb(194, 7, 7);
+    background-color: rgb(194, 7, 7);
+    border-radius: 4px;
+    text-transform: uppercase;
+    height: 30px;
+    width: 150px;
+}
+
+%holder-style {
+    background-color: #61a0c8;
+    height: 50px;
+    width: 70%;
+    // border: 3px solid black;
+    border-radius: 15px;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.profile-main {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    // button {
+    //     // @extend %button-style;
+    // }
+    .profile-display {
+        background-color: #93d1d7;
+        height: 100vh;
+        width: 80%;
+        display: flex;
+        align-items: center;
+        .picture-holder {
+            height: 100vh;
+            width: 35%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            .user-image {
+                width: 200px;
+                height: 200px;
+                border-radius: 100px;
+                content: 'Edit Picture';
+                p {
+                    display: none;
+                }
+            }
+            .user-image:hover {
+                width: 200px;
+                height: 200px;
+                opacity: 0.2;
+                border-radius: 100px;
+                p {
+                    color: white;
+                }
+            }
+            
+        }
+        .info-holder {
+            // background-color: white;
+            height: 50%;
+            width: 65%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-around;
+            .username-holder {
+                @extend %holder-style;
+                .username {
+                    margin: 0px 15px;
+                }
+                button {
+                    margin: 0px 15px;
+                }
+            }
+            .email-holder {
+                @extend %holder-style;
+                .email {
+                    margin: 0px 15px;
+                }
+                button {
+                    margin: 0px 15px;
+                }
+            }
+            .password-holder {
+                @extend %holder-style;
+                margin-bottom: 20px;
+                .password {
+                    margin: 0px 15px;
+                }
+                button {
+                    margin: 0px 15px;
+                }
+            }
+            .delete-account-btn {
+                @extend %delete-button-style
+            }
+            .delete-account-btn:hover {
+                @extend %delete-button-style-hover
+            }
+        }
+    }
+    .profile-form-container {
+        .user-image {
+            max-width: 200px;
+        }
+    }
+}

@@ -3,6 +3,26 @@
 //   src: url('http://dl.dafont.com/dl/?f=lemon_milk');
 // }
 
+button {
+  color: #2460ad;
+  border: 2px solid #2460ad;
+  background-color: #f0f0f0;
+  border-radius: 4px;
+  text-transform: uppercase;
+  height: 30px;
+  width: 150px;
+}
+
+button:hover {
+  color: #f0f0f0;
+  border: 2px solid #2460ad;
+  background-color: #2460ad;
+  border-radius: 4px;
+  text-transform: uppercase;
+  height: 30px;
+  width: 150px;
+}
+
 @import url('http://dl.dafont.com/dl/?f=lemon_milk');
 
 .App {

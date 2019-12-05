@@ -54,5 +54,37 @@ module.exports = {
     db.delete_user(user).then((res) => {
       res.status(200).send(console.log('account deleted'))
     })
+  },
+  updatePicture: (req,res,next) => {
+    const db = req.app.get('db');
+    const {image} = req.body;
+    const {user_id} = req.session.user;
+    db.update_picture(image, user_id).then(image => {
+      res.status(200).send(image);
+    }).catch(err => {res.status(500).send(console.log(err))})
+  },
+  updateUsername: (req, res, next) => {
+    const db = req.app.get('db');
+    const { username } = req.body;
+    const { user_id } = req.session.user;
+    db.update_username(username, user_id).then(username => {
+      res.status(200).send(username);
+    }).catch(err => {res.status(500).send(console.log(err))})
+  },
+  updateEmail: (req, res, next) => {
+    const db = req.app.get('db');
+    const { email } = req.body;
+    const { user_id } = req.session.user;
+    db.update_email(email, user_id).then(email => {
+      res.status(200).send(email);
+    }).catch(err => {res.status(500).send(console.log(err))})
+  },
+  updatePassword: (req, res, next) => {
+    const db = req.app.get('db');
+    const { password } = req.body;
+    const { user_id } = req.session.user;
+    db.update_password(password, user_id).then(password => {
+      res.status(200).send(password);
+    }).catch(err => {res.status(500).send(console.log(err))})
   }
 };

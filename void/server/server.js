@@ -6,7 +6,7 @@ app.use(express.json());
 const massive = require("massive");
 const session = require("express-session");
 // const socket = require("socket.io");
-const {register, login, userSession, logout, updatePicture, updateUsername, updateEmail, updatePassword } = require("./controllers/userCtrl");
+const {register, login, userSession, logout, updatePicture, updateUsername, updateEmail, updatePassword, deleteAccount } = require("./controllers/userCtrl");
 
 // for static server
 // app.use(express.static(__dirname + `../build`));
@@ -96,7 +96,9 @@ app.delete("/auth/logout", logout);
 app.put('/api/update_pic', updatePicture);
 app.put('/api/update_username', updateUsername);
 app.put('/api/update_email', updateEmail);
-app.put('api/update_password', updatePassword);
+app.put('/api/update_password', updatePassword);
+
+app.delete('/api/delete_account', deleteAccount);
 
 // only allows users with profile to use app
 // app.use((req, res, next) => {

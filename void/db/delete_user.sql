@@ -1,3 +1,2 @@
-DELETE 
-FROM users
-WHERE username = $;
+DELETE FROM users
+WHERE user_id = $1;

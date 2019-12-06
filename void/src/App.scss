@@ -1,32 +1,42 @@
-// @font-face {
-//   font-family: LemonMilk;
-//   src: url('http://dl.dafont.com/dl/?f=lemon_milk');
-// }
+$lightest-blue: #96d4d7;
+$light-blue: #93d1d7;
+$mid-blue: #61a0c8;
+$dark-blue: #2561ad;
+$darkest-blue: #2460ad;
+$background-grey: #282c34;
 
-button {
+%button-setting{
   color: #2460ad;
   border: 2px solid #2460ad;
   background-color: #f0f0f0;
   border-radius: 4px;
   text-transform: uppercase;
   height: 30px;
-  width: 150px;
+  outline: none;
 }
 
-button:hover {
+%button-hover {
   color: #f0f0f0;
   border: 2px solid #2460ad;
   background-color: #2460ad;
   border-radius: 4px;
   text-transform: uppercase;
   height: 30px;
-  width: 150px;
+  outline: none;
 }
 
-@import url('http://dl.dafont.com/dl/?f=lemon_milk');
+@font-face {
+  font-family: 'lemonmilk_lightregular';
+  src: url('./fonts/lemonmilklight-webfont.woff2') format('woff2'),
+       url('./fonts/lemonmilklight-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
 
 .App {
-  font-family: 'lemon_milk', sans-serif;
+  font-family: 'lemonmilk_lightregular', Arial, sans-serif;
+  font-weight: normal;
+  font-style: normal;
   height: 100vh;
   width: 100%;
   background-color: #24528f;

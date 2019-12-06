@@ -1,6 +1,7 @@
 DROP TABLE IF EXISTS groups;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS tasks;
+DROP TABLE IF EXISTS columns;
 
 CREATE TABLE groups
 (
@@ -34,5 +35,12 @@ CREATE TABLE tasks
 (
     task_id SERIAL PRIMARY KEY,
     task_name TEXT NOT NULL,
-    group_id INTEGER REFERENCES groups(group_id),
+    column_id INTEGER REFERENCES columns(column_id)
 );
+
+CREATE TABLE columns
+(
+    column_id SERIAL PRIMARY KEY,
+    column_name TEXT NOT NULL,
+    group_id INTEGER REFERENCES groups(group_id),
+)

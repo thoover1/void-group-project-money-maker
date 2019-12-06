@@ -6,6 +6,7 @@ const socket = require("socket.io");
 
 const uc = require("./controllers/userCtrl");
 const gc = require("./controllers/groupCtrl");
+const cc = require("./controllers/columnsCtrl");
 const tc = require("./controllers/tasksCtrl");
 
 const { SERVER_PORT, SESSION_SECRET, CONNECTION_STRING } = process.env;
@@ -105,13 +106,19 @@ app.delete("/auth/logout", uc.logout);
 app.post("/api/create_group", gc.createGroup);
 // app.post("/api/add_user", gc.addUser);
 // app.delete("/api/remove_user/", gc.removeUser);
+app.get("/api/display_board", gc.displayBoard);
+
+// endpoints for columns
+app.get("/api/display_columns", cc.displayColumns);
+app.post("/api/add_column", cc.addColumn);
+app.put("/api/update_column/:column_id", cc.updateColumn);
+app.delete("/api/delete_column/:column_id/", cc.deleteColumn);
 
 // endpoints for tasks
-app.get("/api/display_board", tc.displayBoard);
+app.get("/api/display_tasks", tc.displayTasks);
 app.post("/api/add_task", tc.addTask);
 app.put("/api/update_task/:task_id", tc.updateTask);
 app.delete("/api/delete_task/:task_id/", tc.deleteTask);
-app.put("/api/move_task", tc.moveTask);
 
 // only allows users with profile to use app
 // app.use((req, res, next) => {

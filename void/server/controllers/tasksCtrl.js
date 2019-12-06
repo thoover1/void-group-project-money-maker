@@ -1,13 +1,13 @@
 module.exports = {
   displayTasks: async (req, res) => {
     const { group_id } = req.body;
-    const db = await req.app.get("db");
+    const db = req.app.get("db");
     const getTasks = await db.get_tasks([group_id]);
     res.status(200).send(getTasks);
   },
   addTask: async (req, res) => {
     const { task_name, column_id, group_id } = req.body;
-    const db = await req.app.get("db");
+    const db = req.app.get("db");
     const getTasks = await db.add_task([task_name, column_id, group_id]);
     return res.status(200).send(getTasks);
   },

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Columns from "./ColumnComponent";
+import "./Main.scss";
 import axios from "axios";
 
 export default class Main extends Component {
@@ -18,7 +19,7 @@ export default class Main extends Component {
     this.displayBoard = this.displayBoard.bind(this);
     this.displayColumns = this.displayColumns.bind(this);
     this.addColumn = this.addColumn.bind(this);
-    this.updateColumn = this.updateColumn.bind(this);
+    this.editColumn = this.editColumn.bind(this);
     this.deleteColumn = this.deleteColumn.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -27,7 +28,7 @@ export default class Main extends Component {
   componentDidMount() {
     this.displayBoard();
     this.displayColumns();
-    // this.props.changeTitle("Login");
+    this.props.changeTitle("Login");
   }
 
   async displayBoard() {

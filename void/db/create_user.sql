@@ -1,5 +1,5 @@
-INSERT INTO users(first_name, last_name, username, email, password)
-VALUES ($1, $2, $3, $4, $5)
-SELECT username, email, password
-FROM users
-WHERE username = $3;
+INSERT INTO users(username, email, password, image)
+VALUES ($1, $2, $3, 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png');
+
+SELECT * FROM users
+WHERE email = $2;

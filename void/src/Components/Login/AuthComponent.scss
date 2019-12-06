@@ -1,0 +1,60 @@
+@import '../../App.scss';
+
+.auth-container {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'lemonmilk_lightregular', Arial, sans-serif;
+    font-weight: normal;
+    font-style: normal;
+    form {
+        background-color: #96d4d7;
+        box-shadow: 5px 5px #61a0c8, 10px 10px #327cb9, 15px 15px #2460ad;
+        height: 300px;
+        width: 300px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-evenly;
+        .error {
+            height: 20px;
+        }
+        .inputs {
+            // background-color: white;
+            height: 200px;
+            width: 200px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            .username-i {
+                // background-color: red;
+                display: flex;
+                flex-direction: column;
+            }
+            .email-i {
+                // background-color: blue;
+                display: flex;
+                flex-direction: column;
+            }
+            .password-i {
+                // background-color: yellow;
+                display: flex;
+                flex-direction: column;
+            }
+        }
+        .submit {
+            @extend %button-setting;
+        }
+        .submit:hover {
+            @extend %button-hover;
+        }
+    }
+    .switcher {
+        @extend %button-setting;
+    }
+    .switcher:hover {
+        @extend %button-hover;
+    }
+}

@@ -27,7 +27,7 @@ class App extends React.Component {
   render(){
     return (
       <div className="App">
-        <Header title={this.state.title} />
+        <Header title={this.state.title} user={this.props.user} />
         <Switch>
           <Route exact path='/' render={(props) => <Landing changeTitle={this.changeTitle} {...props} />}/>
           <Route path='/login-register' render={(props) => <AuthComponent changeTitle={this.changeTitle} {...props}/>} />

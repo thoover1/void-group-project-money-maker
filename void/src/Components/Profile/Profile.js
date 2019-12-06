@@ -80,19 +80,24 @@ class Profile extends Component {
     return (
       <div className='profile-main'>
         <div className='account'>
-          <h1>My Account</h1>
+          <h1 className='account-text'>My Account</h1>
         </div>
         <div className='profile-display'>
           {editImage 
             ? <div className='picture-holder'> <input onChange={(e) => {this.toggle('img', e.target.value)}} placeholder='New Image' />
               <button onClick={() => {img ? this.updatePic() : (window.alert('Please input a new image.')); this.toggle('editImage', false);}} >Save</button> </div>
-              : <div className='picture-holder'> <img src={this.props.user.image} className='user-image' onClick={() => this.toggle('editImage', true)} /> </div>
+              : <div className='picture-holder'> 
+                  <img src={this.props.user.image} className='user-image' onClick={() => this.toggle('editImage', true)} /> 
+                    <div className='middle'>
+                      <div className='image-text' onClick={() => this.toggle('editImage', true)}>Change Picture</div>
+                    </div>
+                </div>
           }
           <div className='info-holder'>
           {editName 
             ? <div className='username-holder'> <input onChange={(e) => {this.toggle('username', e.target.value)}} placeholder='New Username' />
               <button onClick={() => {username ? this.updateUsername() : (window.alert('Please enter a new username')); this.toggle('editName', false);}} >Save</button> </div>
-            : <div className='username-holder'> <label className='username'>{this.props.user.username}</label>
+            : <div className='username-holder'> <label className='username'>Username: {this.props.user.username}</label>
               <button onClick={() => this.toggle('editName', true)}>Edit</button> </div>
           }
           {editEmail

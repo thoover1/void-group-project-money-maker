@@ -1,5 +1,5 @@
 UPDATE users
-SET email = $1
+SET password = $1
 WHERE user_id = $2;
 
 SELECT * FROM users

@@ -9,8 +9,8 @@
     font-weight: normal;
     font-style: normal;
     form {
-        background-color: #96d4d7;
-        box-shadow: 5px 5px #61a0c8, 10px 10px #327cb9, 15px 15px #2460ad;
+        background-color: $lightest-blue;
+        box-shadow: 5px 5px $mid-blue, 10px 10px $mid-dark-blue, 15px 15px $darkest-blue;
         height: 300px;
         width: 300px;
         display: flex;
@@ -21,7 +21,6 @@
             height: 20px;
         }
         .inputs {
-            // background-color: white;
             height: 200px;
             width: 200px;
             display: flex;
@@ -29,17 +28,14 @@
             align-items: center;
             justify-content: space-between;
             .username-i {
-                // background-color: red;
                 display: flex;
                 flex-direction: column;
             }
             .email-i {
-                // background-color: blue;
                 display: flex;
                 flex-direction: column;
             }
             .password-i {
-                // background-color: yellow;
                 display: flex;
                 flex-direction: column;
             }

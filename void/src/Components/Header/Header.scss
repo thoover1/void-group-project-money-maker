@@ -1,7 +1,6 @@
 @import '../../App.scss';
 
 .header-main {
-    font-family: 'lemonmilk_lightregular', Arial, sans-serif;
     font-weight: normal;
     font-style: normal;
     background-color: white;
@@ -31,6 +30,7 @@
                 margin: 0px 30px;
             }
             .toggler {
+                border: none;
                 border-radius: 100px;
                 height: 70px;
                 width: 70px;
@@ -45,6 +45,8 @@
                     border-radius: 100px;
                     max-height: 70px;
                     max-width: 70px;
+                    min-height: 70px;
+                    min-width: 70px;
                 }
             }
             div {

@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { connect } from 'react-redux';
 import axios from 'axios';
 import { setUser } from '../../reducer';
-import {Redirect} from 'react-router-dom';
 import './Profile.scss';
 
 class Profile extends Component {
@@ -33,7 +32,7 @@ class Profile extends Component {
     this.setState({
       loggedInUser : true
     })
-    // this.props.changeTitle('Login')
+    this.props.changeTitle('Login')
   }
 
  updateUsername() {
@@ -60,7 +59,7 @@ class Profile extends Component {
   });
  };
 
- async deleteAccount(user_id) {
+ async deleteAccount() {
   const deletedUser = await axios.delete(`/api/delete_account`);
   
   this.setState({
@@ -75,7 +74,6 @@ class Profile extends Component {
  }
 
   render() {
-    console.log(this.props.user)
     const { editName, editEmail, editPassword, editImage, username, email, password, img } = this.state;
     return (
       <div className='profile-main'>
@@ -87,7 +85,7 @@ class Profile extends Component {
             ? <div className='picture-holder'> <input onChange={(e) => {this.toggle('img', e.target.value)}} placeholder='New Image' />
               <button onClick={() => {img ? this.updatePic() : (window.alert('Please input a new image.')); this.toggle('editImage', false);}} >Save</button> </div>
               : <div className='picture-holder'> 
-                  <img src={this.props.user.image} className='user-image' onClick={() => this.toggle('editImage', true)} /> 
+                  <img src={this.props.user.image} className='user-image' onClick={() => this.toggle('editImage', true)} alt={`${this.props.user.username}'s profile pic`} /> 
                     <div className='middle'>
                       <div className='image-text' onClick={() => this.toggle('editImage', true)}>Change Picture</div>
                     </div>

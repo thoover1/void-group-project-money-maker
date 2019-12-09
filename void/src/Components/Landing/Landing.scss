@@ -1,13 +1,7 @@
-// @font-face {
-//     font-family: 'LemonMilk';
-//     src: url('LemonMilklight.oft');
-// }
-
-@import url('http://dl.dafont.com/dl/?f=lemon_milk');
+@import '../../App.scss';
 
 .home-main {
-    font-family: 'lemon_milk', sans-serif;
-    background-color: #282c34;
+    background-color: $background-grey;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -18,8 +12,8 @@
         font-size: 40px;
     }
     h1 {
-        color: #96d4d7;
-        text-shadow: 5px 5px #61a0c8, 10px 10px #327cb9, 15px 15px #2460ad;
+        color: $lightest-blue;
+        text-shadow: 5px 5px $mid-blue, 10px 10px $mid-dark-blue, 15px 15px $background-blue;
         font-size: 100px;
     }
 }

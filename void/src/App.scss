@@ -1,13 +1,15 @@
 $lightest-blue: #96d4d7;
 $light-blue: #93d1d7;
 $mid-blue: #61a0c8;
+$mid-dark-blue: #327cb9;
 $dark-blue: #2561ad;
 $darkest-blue: #2460ad;
+$background-blue: #24528f;
 $background-grey: #282c34;
 
 %button-setting{
-  color: #2460ad;
-  border: 2px solid #2460ad;
+  color: $darkest-blue;
+  border: 2px solid $darkest-blue;
   background-color: #f0f0f0;
   border-radius: 4px;
   text-transform: uppercase;
@@ -17,8 +19,8 @@ $background-grey: #282c34;
 
 %button-hover {
   color: #f0f0f0;
-  border: 2px solid #2460ad;
-  background-color: #2460ad;
+  border: 2px solid $darkest-blue;
+  background-color: $darkest-blue;
   border-radius: 4px;
   text-transform: uppercase;
   height: 30px;
@@ -39,6 +41,6 @@ $background-grey: #282c34;
   font-style: normal;
   height: 100vh;
   width: 100%;
-  background-color: #24528f;
+  background-color: $background-blue;
   text-align: center;
 }

@@ -48,7 +48,7 @@
     }
     .profile-display {
         background-color: $light-blue;
-        height: 90%;
+        height: 100%;
         width: 80%;
         display: flex;
         align-items: center;
@@ -59,29 +59,54 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            .edit-holder {
+                background-color: $mid-blue;
+                border: 3px solid $background-blue;
+                width: 250px;
+                height: 250px;
+                border-radius: 150px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                input {
+                    margin: 0px 15px;
+                }
+                button {
+                    @extend %button-setting;
+                    margin: 5px;
+                }
+                button:hover {
+                    @extend %button-hover;
+                    margin: 5px;
+                }
+            }
             .user-image {
-                width: 200px;
-                height: 200px;
-                border-radius: 100px;
+                border: 3px solid $background-blue;
+                width: 250px;
+                height: 250px;
+                border-radius: 150px;
                 content: "Edit Picture";
                 p {
                     display: none;
                 }
             }
             .middle {
+                border: 3px solid $background-blue;
                 position: absolute;
-                width: 200px;
-                height: 200px;
-                border-radius: 100px;
+                width: 250px;
+                height: 250px;
+                border-radius: 150px;
                 .image-text {
                     display: none;
                 } 
             }
             .middle:hover {
                 position: absolute;
-                width: 200px;
-                height: 200px;
-                border-radius: 100px;
+                width: 250px;
+                height: 250px;
+                border-radius: 150px;
+                border: 3px solid $background-blue;
                 background-color: white;
                 opacity: 0.8;
                 .image-text {
@@ -95,10 +120,10 @@
                 } 
             }
             .user-image:hover {
-                width: 200px;
-                height: 200px;
+                width: 250px;
+                height: 250px;
                 opacity: 0.5;
-                border-radius: 100px;
+                border-radius: 150px;
                 p {
                     color: white;
                 }
@@ -124,6 +149,9 @@
                     @extend %button-hover;
                     margin: 0px 15px;
                 }
+                input {
+                    margin: 0px 15px;
+                }
             }
             .email-holder {
                 @extend %holder-style;
@@ -136,6 +164,9 @@
                 }
                 button:hover {
                     @extend %button-hover;
+                    margin: 0px 15px;
+                }
+                input {
                     margin: 0px 15px;
                 }
             }
@@ -154,6 +185,21 @@
                     margin: 0px 15px;
                 }
             }
+            .password-holder-edit {
+                @extend %holder-style;
+                margin-bottom: 20px;
+                button {
+                    @extend %button-setting;
+                    margin: 0px 15px;
+                }
+                button:hover {
+                    @extend %button-hover;
+                    margin: 0px 15px;
+                }
+                input {
+                    margin: 0px 15px;
+                }
+            }
             .delete-account-btn {
                 @extend %delete-button-style;
             }
@@ -165,6 +211,307 @@
     .profile-form-container {
         .user-image {
             max-width: 200px;
+        }
+    }
+}
+
+@media (max-width: 1000px) {
+    .profile-main {
+        .profile-display {
+            .picture-holder {
+                .edit-holder {
+                    width: 200px;
+                    height: 200px;
+                }
+                .user-image {
+                    width: 200px;
+                    height: 200px;
+                }
+                .middle {
+                    width: 200px;
+                    height: 200px;
+                }
+                .middle:hover {
+                    width: 200px;
+                    height: 200px;
+                }
+                .user-image:hover {
+                    width: 200px;
+                    height: 200px;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 850px) {
+    .profile-main {
+        .account {
+            .account-text {
+                font-size: 20px;
+            }
+        }
+        .profile-display {
+            flex-direction: column;
+            .picture-holder {
+                height: 45%;
+                width: 100%;
+                justify-content: flex-end;
+                .edit-holder {
+                    width: 200px;
+                    height: 200px;
+                }
+                .user-image {
+                    width: 200px;
+                    height: 200px;
+                }
+                .middle {
+                    width: 200px;
+                    height: 200px;
+                }
+                .middle:hover {
+                    width: 200px;
+                    height: 200px;
+                }
+                .user-image:hover {
+                    width: 200px;
+                    height: 200px;
+                }
+            }
+            .info-holder {
+                height: 55%;
+                width: 100%;
+                .username-holder {
+                    .username {
+                        margin: 0px 15px;
+                    }
+                    button {
+                        height: 20px;
+                        padding: 2px;
+                        margin: 0px 15px;
+                    }
+                    button:hover {
+                        margin: 0px 15px;
+                    }
+                    input {
+                        width: 90px;
+                        margin: 0px 5px;
+                    }
+                }
+                .email-holder {
+                    .email {
+                        margin: 0px 15px;
+                    }
+                    button {
+                        height: 20px;
+                        padding: 2px;
+                        margin: 0px 15px;
+                    }
+                    button:hover {
+                        margin: 0px 15px;
+                    }
+                    input {
+                        width: 90px;
+                        margin: 0px 5px;
+                    }
+                }
+                .password-holder {
+                    margin-bottom: 20px;
+                    .password {
+                        margin: 0px 15px;
+                    }
+                    button {
+                        height: 20px;
+                        padding: 2px;
+                        margin: 0px 15px;
+                    }
+                    button:hover {
+                        margin: 0px 15px;
+                    }
+                    input {
+                        width: 90px;
+                        margin: 0px 5px;
+                    }
+                }
+                .password-holder-edit {
+                    height: 100px;
+                    flex-direction: column;
+                    margin-bottom: 0px;
+                    button {
+                        height: 20px;
+                        padding: 2px;
+                        margin: 0px 15px;
+                    }
+                    button:hover {
+                        margin: 0px 15px;
+                    }
+                    input {
+                        width: 90px;
+                        margin: 0px 5px;
+                    }
+                }
+            }
+        }
+        .profile-form-container {
+            .user-image {
+                max-width: 100px;
+            }
+        }
+    }
+}
+
+@media (max-width: 650px) {
+    .profile-main {
+        .account {
+            .account-text {
+                font-size: 20px;
+            }
+        }
+        .profile-display {
+            flex-direction: column;
+            .picture-holder {
+                height: 45%;
+                width: 100%;
+                justify-content: flex-end;
+                .edit-holder {
+                    width: 150px;
+                    height: 150px;
+                }
+                .user-image {
+                    width: 150px;
+                    height: 150px;
+                }
+                .middle {
+                    width: 150px;
+                    height: 150px;
+                }
+                .middle:hover {
+                    width: 150px;
+                    height: 150px;
+                }
+                .user-image:hover {
+                    width: 150px;
+                    height: 150px;
+                }
+            }
+            .info-holder {
+                height: 55%;
+                width: 100%;
+                .username-holder {
+                    .username {
+                        margin: 0px 15px;
+                    }
+                    button {
+                        height: 20px;
+                        padding: 2px;
+                        margin: 0px 15px;
+                    }
+                    button:hover {
+                        margin: 0px 15px;
+                    }
+                    input {
+                        width: 90px;
+                        margin: 0px 5px;
+                    }
+                }
+                .email-holder {
+                    .email {
+                        margin: 0px 15px;
+                    }
+                    button {
+                        height: 20px;
+                        padding: 2px;
+                        margin: 0px 15px;
+                    }
+                    button:hover {
+                        margin: 0px 15px;
+                    }
+                    input {
+                        width: 90px;
+                        margin: 0px 5px;
+                    }
+                }
+                .password-holder {
+                    margin-bottom: 20px;
+                    .password {
+                        margin: 0px 15px;
+                    }
+                    button {
+                        height: 20px;
+                        padding: 2px;
+                        margin: 0px 15px;
+                    }
+                    button:hover {
+                        margin: 0px 15px;
+                    }
+                    input {
+                        width: 90px;
+                        margin: 0px 5px;
+                    }
+                }
+                .password-holder-edit {
+                    height: 100px;
+                    flex-direction: column;
+                    margin-bottom: 0px;
+                    button {
+                        height: 20px;
+                        padding: 2px;
+                        margin: 0px 15px;
+                    }
+                    button:hover {
+                        margin: 0px 15px;
+                    }
+                    input {
+                        width: 90px;
+                        margin: 0px 5px;
+                    }
+                }
+            }
+        }
+        .profile-form-container {
+            .user-image {
+                max-width: 100px;
+            }
+        }
+    }
+}
+
+@media (max-height: 650px) {
+    .profile-main {
+        .account {
+            .account-text {
+                font-size: 20px;
+            }
+        }
+        .profile-display {
+            flex-direction: column;
+            .picture-holder {
+                height: 45%;
+                width: 100%;
+                justify-content: flex-end;
+                .edit-holder {
+                    border: none;
+                    background-color: transparent;
+                    width: 150px;
+                    height: 100px;
+                }
+                .user-image {
+                    width: 100px;
+                    height: 100px;
+                }
+                .middle {
+                    width: 100px;
+                    height: 100px;
+                }
+                .middle:hover {
+                    width: 100px;
+                    height: 100px;
+                }
+                .user-image:hover {
+                    width: 100px;
+                    height: 100px;
+                }
+            }
         }
     }
 }

@@ -20,13 +20,11 @@ function Header(props) {
           <img className='logo' src={logo} alt="logo" />
         </NavLink>
         <span className='navbar'>
-          {props.user && <NavLink className='nav' to='/dashboard' >Dashboard</NavLink>}
-          {!props.user && <NavLink className='nav' to='/login-register' >{props.title}</NavLink>}
-
-          {props.user && <button className='toggler' onClick={toggler} ><img className='toggle-img' src={props.user.image} alt={`${props.user.username}'s profile pic`} /></button>}
+          {props.user ? <button className='toggler' onClick={toggler} ><img className='toggle-img' src={props.user.image} alt={`${props.user.username}'s profile pic`} /></button> : <NavLink className='nav' to='/login-register' >{props.title}</NavLink>}
           
           {props.user && 
             <div className={show ? 'show' : ''}>
+              <NavLink className='nav' to='/dashboard' >Dashboard</NavLink>
               <NavLink className='nav' onClick={toggler} to='/profile' >My Account</NavLink>
               <button 
                 className='logout'

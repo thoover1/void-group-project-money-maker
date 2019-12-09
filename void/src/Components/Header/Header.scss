@@ -15,7 +15,7 @@
         justify-content: space-between;
         .logo {
             max-height: 70px;
-            margin-left: 200px;
+            margin-left: 20px;
         }
         .navbar {
             height: 90px;
@@ -77,7 +77,7 @@
             }
             .show {
                 background: white;
-                height: 100px;
+                height: 120px;
                 .nav {
                     margin: 10px 0px;
                 }
@@ -89,6 +89,16 @@
                     @extend %button-hover;
                     margin: 10px 0px;
                 }
+            }
+        }
+    }
+}
+
+@media (max-width: 350px) {
+    .header-main {
+        .header-contents {
+            .logo {
+                max-height: 50px;
             }
         }
     }

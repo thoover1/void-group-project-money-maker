@@ -1,51 +1,77 @@
 import React from "react";
-import {Switch, Route, withRouter, Redirect} from 'react-router-dom';
-import {connect} from 'react-redux';
-import {setUser} from './reducer';
+import { Switch, Route, withRouter, Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+import { setUser } from "./reducer";
 import "./App.scss";
-import Header from './Components/Header/Header';
-import Landing from './Components/Landing/Landing';
-import AuthComponent from './Components/Login/AuthComponent';
-import Main from './Components/Main/Main';
-import Profile from './Components/Profile/Profile';
+import Header from "./Components/Header/Header";
+import Landing from "./Components/Landing/Landing";
+import AuthComponent from "./Components/Login/AuthComponent";
+import Main from "./Components/Main/Main";
+import Profile from "./Components/Profile/Profile";
 
 class App extends React.Component {
-  constructor(props){
-    super(props)
+  constructor(props) {
+    super(props);
     this.state = {
-      title: 'Login'
-    }
+      title: "Login"
+    };
     this.changeTitle = this.changeTitle.bind(this);
   }
 
-  changeTitle(title){
+  changeTitle(title) {
     this.setState({
       title: title
-    })
+    });
   }
 
-  render(){
+  render() {
     return (
       <div className="App">
         <Header title={this.state.title} user={this.props.user} />
         <Switch>
-          <Route exact path='/' render={(props) => <Landing changeTitle={this.changeTitle} {...props} />}/>
-          <Route path='/login-register' render={(props) => <AuthComponent changeTitle={this.changeTitle} {...props}/>} />
-          <Route path='/dashboard' render={(props) => <Main changeTitle={this.changeTitle} {...props} />}/>
-          {this.props.user && <Route path='/profile' render={(props) => <Profile changeTitle={this.changeTitle} {...props} />}/>}
-          <Route path='*' render={() => {return <Redirect to='/login-register' />}} />
+          <Route
+            exact
+            path="/"
+            render={props => (
+              <Landing changeTitle={this.changeTitle} {...props} />
+            )}
+          />
+          <Route
+            path="/login-register"
+            render={props => (
+              <AuthComponent changeTitle={this.changeTitle} {...props} />
+            )}
+          />
+          <Route
+            path="/dashboard"
+            render={props => <Main changeTitle={this.changeTitle} {...props} />}
+          />
+          {this.props.user && (
+            <Route
+              path="/profile"
+              render={props => (
+                <Profile changeTitle={this.changeTitle} {...props} />
+              )}
+            />
+          )}
+          <Route
+            path="*"
+            render={() => {
+              return <Redirect to="/login-register" />;
+            }}
+          />
         </Switch>
       </div>
     );
   }
 }
 
-function mapReduxStateToProps(reduxState){
-  return reduxState
-};
+function mapReduxStateToProps(reduxState) {
+  return reduxState;
+}
 const mapDispatchToProps = {
   setUser
-}
+};
 const invokedConnect = connect(mapReduxStateToProps, mapDispatchToProps);
 
 export default invokedConnect(withRouter(App));

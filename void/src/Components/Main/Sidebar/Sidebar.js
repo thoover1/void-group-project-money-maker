@@ -12,6 +12,18 @@ export default class Sidebar extends Component {
             <span>
               <FaBars className="ham-menu" />
             </span>
+            <span className="user-around">
+              <div className="user-avi"></div>
+              <div className="user-avi"></div>
+              <div className="user-avi"></div>
+              <div className="user-avi"></div>
+              <div className="user-avi"></div>
+              <div className="user-avi"></div>
+              <div className="user-avi"></div>
+              <div className="user-avi"></div>
+              <div className="user-avi"></div>
+              <div className="user-avi"></div>
+            </span>
             <span>
               <MdMoreHoriz className="three-dots" />
             </span>

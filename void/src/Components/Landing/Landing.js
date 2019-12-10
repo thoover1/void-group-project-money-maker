@@ -20,11 +20,11 @@ export default class Landing extends React.Component {
         <div className='icon-block'>
           <div className='dashboard-icon-container'>
             <img className='dashboard-icon' src='https://image.flaticon.com/icons/svg/348/348186.svg'/>
-            View All of Your Group's Tasks in Your Dashboard
+            <div className='dashboard-icon-text'>View All of Your Group's Tasks in Your Dashboard</div>
           </div>
           <div className='chat-icon-container'>
             <img className='chat-icon' src='https://image.flaticon.com/icons/svg/2025/2025049.svg' />
-            Chat Live with Everyone In Your Group
+            <div className='chat-icon-text'>Chat Live with Everyone In Your Group</div>
           </div>
         </div>
         {/* <div className='light-color-block'>Text</div> */}

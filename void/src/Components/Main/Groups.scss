@@ -1,0 +1,28 @@
+@import '../../App.scss';
+
+.groups-holder {
+    height: 77%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .group-search {
+        position: absolute;
+        top: 150px;
+    }
+    .groups {
+        display: flex;
+        flex-wrap: wrap;
+        padding: 10px;
+        .group {
+            border-radius: 100px;
+            margin: 10px;
+            .group-button {
+                border: none;
+                border-radius: 100px;
+                height: 100px;
+                width: 100px;
+            }
+        }
+    }
+}

@@ -18,7 +18,7 @@ class Profile extends Component {
       editEmail: false,
       editPassword: false,
       editImage: false,
-      oldPassword: '',
+      oldPassword: ""
     };
     this.updateUsername = this.updateUsername.bind(this);
     this.updateEmail = this.updateEmail.bind(this);
@@ -26,6 +26,7 @@ class Profile extends Component {
     this.updatePic = this.updatePic.bind(this);
     this.deleteAccount = this.deleteAccount.bind(this);
     this.toggle = this.toggle.bind(this);
+    // this.fileSelectedHandler = this.fileSelectedHandler.bind(this);
   }
 
   componentDidMount() {
@@ -75,9 +76,9 @@ class Profile extends Component {
   render() {
     const { editName, editEmail, editPassword, editImage, username, email, password, img } = this.state;
     return (
-      <div className='profile-main'>
-        <div className='account'>
-          <h1 className='account-text'>My Account</h1>
+      <div className="profile-main">
+        <div className="account">
+          <h1 className="account-text">My Account</h1>
         </div>
         <div className='profile-display'>
           {editImage 
@@ -143,15 +144,15 @@ class Profile extends Component {
       </div>
     );
   }
-};
+}
 
 function mapReduxStateToProps(reduxState) {
-  return reduxState
+  return reduxState;
 }
 
 const mapDispatchStateToProps = {
   setUser
-}
+};
 
 const invokedConnect = connect(mapReduxStateToProps, mapDispatchStateToProps);
 

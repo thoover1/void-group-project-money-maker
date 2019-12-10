@@ -1,4 +1,4 @@
-SELECT task_id, task_name, columns.column_id
+SELECT task_id, task_name, columns.column_id, groups.group_id
 FROM tasks
     JOIN columns
     ON columns.column_id = tasks.column_id

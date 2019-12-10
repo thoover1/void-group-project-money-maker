@@ -1,9 +1,12 @@
 import React, { Component } from "react";
+import Sidebar from "./Sidebar/Sidebar";
 import Columns from "./ColumnComponent";
+import Groups from "./Groups";
 import "./Main.scss";
+import { connect } from "react-redux";
 import axios from "axios";
 
-export default class Main extends Component {
+class Main extends Component {
   // const Login = UseFetch(props.url)
   // const [board, setBoard] = useState([]);
   // const [columns, setColumns] = useState([]);
@@ -12,8 +15,13 @@ export default class Main extends Component {
     super(props);
 
     this.state = {
-      board: [],
-      columns: []
+      groups: [],
+      groupSelected: false,
+      group_id: null,
+      board_name: "",
+      columns: [],
+      // used for filtering/adding to group //
+      input: ""
     };
 
     this.displayBoard = this.displayBoard.bind(this);
@@ -23,19 +31,31 @@ export default class Main extends Component {
     this.deleteColumn = this.deleteColumn.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleSelectionClick = this.handleSelectionClick.bind(this);
+    this.universalInput = this.universalInput.bind(this);
+    this.updateSearch = this.updateSearch.bind(this);
   }
 
   componentDidMount() {
+    this.getGroups();
     this.displayBoard();
     this.displayColumns();
     this.props.changeTitle("Login");
   }
 
-  async displayBoard() {
-    const res = await axios.get(`/api/display_board`);
+  async getGroups(user_id) {
+    const res = await axios.get(`/api/get_groups`, { user_id });
     const { data } = await res;
     this.setState({
-      board: data
+      groups: data
+    });
+  }
+
+  async displayBoard(group_id) {
+    const res = await axios.get(`/api/display_board/${group_id}`);
+    const { data } = await res;
+    this.setState({
+      board_name: data
     });
   }
 
@@ -85,28 +105,81 @@ export default class Main extends Component {
     );
   }
 
+  handleSelectionClick() {
+    this.setState({ groupSelected: true });
+  }
+
+  universalInput(prop, val) {
+    this.setState({
+      [prop]: val
+    });
+  }
+
+  updateSearch = e => {
+    this.setState({ input: e.target.value.substr(0, 20) });
+  };
+
   render() {
     const mappedColumns = this.state.columns;
+    const mappedGroups = this.state.groups.filter(groupie => {
+      return (
+        groupie.group_name
+          .toLowerCase()
+          .indexOf(this.state.input.toLowerCase()) !== -1
+      );
+    });
+    console.log(1111, this.state.board_name);
+    console.log(2222, this.state.board_name.group_name);
+    console.log(3333, this.state.groups);
     return (
       <div className="board-container">
-        <h1>{this.state.board.group_name}</h1>
-        <div className="mapped-columns">
-          {mappedColumns.map(allColumns => {
-            return (
-              <Columns
-                allColumns={allColumns}
-                addColumn={this.addColumn}
-                editColumn={this.editColumn}
-                deleteColumn={this.deleteColumn}
-              />
-            );
-          })}
-        </div>
-        <div className="new-column">
-          <p>Add New Column</p>
-          <i onClick={this.addColumn} class="fas fa-plus"></i>
-        </div>
+        <Sidebar />
+        {!this.state.groupSelected ? (
+          <div className="select-group">
+            <h1>Please select your group to get started!</h1>
+            <input
+              type="text"
+              placeholder="search for group"
+              onChange={this.updateSearch}
+            />
+            {mappedGroups.map(groupie => {
+              return (
+                <Groups
+                  groupie={groupie}
+                  handleSelectionClick={this.handleSelectionClick}
+                />
+              );
+            })}
+          </div>
+        ) : (
+          <div className="displayed-group">
+            <h1>{this.state.board_name.group_name}</h1>
+            <div className="mapped-columns">
+              {mappedColumns.map(allColumns => {
+                return (
+                  <Columns
+                    allColumns={allColumns}
+                    editColumn={this.editColumn}
+                    deleteColumn={this.deleteColumn}
+                  />
+                );
+              })}
+            </div>
+            <div className="new-column">
+              <p>Add New Column</p>
+              <i onClick={this.addColumn} class="fas fa-plus"></i>
+            </div>
+          </div>
+        )}
       </div>
     );
   }
 }
+
+function mapReduxStateToProps(reduxState) {
+  return reduxState;
+}
+
+const invokedConnect = connect(mapReduxStateToProps);
+
+export default invokedConnect(Main);

@@ -1,9 +1,9 @@
-DROP TABLE IF EXISTS tasks;
-DROP TABLE IF EXISTS groups;
 DROP TABLE IF EXISTS users;
-DROP TABLE IF EXISTS tasks;
+DROP TABLE IF EXISTS groups;
 DROP TABLE IF EXISTS columns;
+DROP TABLE IF EXISTS tasks;
 
+--  two users tables in here - this one is default when pulled up in SQL tabs
 CREATE TABLE users
 (
     user_id SERIAL PRIMARY KEY,
@@ -34,23 +34,28 @@ CREATE TABLE groups
     user7 INTEGER,
     user8 INTEGER,
     user9 INTEGER,
-    user10 INTEGER
+    user10 INTEGER,
+    user_id INTEGER REFERENCES users(user_id)
 );
 
-CREATE TABLE users
-(
-    user_id SERIAL PRIMARY KEY,
-    email TEXT unique NOT NULL,
-    username TEXT unique NOT NULL,
-    password VARCHAR(64) NOT NULL,
-    first_name TEXT NOT NULL,
-    last_name TEXT NOT NULL,
-    image TEXT NOT NULL
-);
 INSERT INTO groups
     (group_name, user1, user2, user3, user4)
 VALUES
     ('VOID', 1, 2, 3, 4);
+
+CREATE TABLE columns
+(
+    column_id SERIAL PRIMARY KEY,
+    column_name TEXT NOT NULL,
+    group_id INTEGER REFERENCES groups(group_id)
+);
+
+INSERT INTO columns
+    (column_name, group_id)
+VALUES
+    ('to-do', 1),
+    ('in progress', 1),
+    ('completed', 1);
 
 CREATE TABLE tasks
 (
@@ -59,17 +64,10 @@ CREATE TABLE tasks
     column_id INTEGER REFERENCES columns(column_id)
 );
 
-CREATE TABLE columns
-(
-    column_id SERIAL PRIMARY KEY,
-    column_name TEXT NOT NULL,
-    group_id INTEGER REFERENCES groups(group_id),
-);
-
 INSERT INTO tasks
-    (task_name, group_id, column_id)
+    (task_name, column_id)
 VALUES
-    ('Finish VOID', 1, 1);
+    ('Finish VOID', 1);
+    
 
-SELECT *
-FROM users;
+

@@ -7,7 +7,8 @@ export default class TaskComponent extends Component {
     super(props);
 
     this.state = {
-      tasks: []
+      tasks: [],
+      filter: []
     };
 
     this.displayTasks = this.displayTasks.bind(this);
@@ -16,6 +17,7 @@ export default class TaskComponent extends Component {
     this.deleteTask = this.deleteTask.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.searching = this.searching.bind(this);
   }
 
   componentDidMount() {
@@ -65,10 +67,25 @@ export default class TaskComponent extends Component {
     this.updateTask(this.state.tasks.task_name, this.state.tasks.task_id);
   }
 
+  searching = e => {
+    this.setState({ filter: e.target.value.substr(0, 20) });
+  };
+
   render() {
-    const mappedTasks = this.state.tasks;
+    const mappedTasks = this.state.tasks.filter(allTasks => {
+      return (
+        allTasks.task_name
+          .toLowerCase()
+          .indexOf(this.state.filter.toLowerCase()) !== -1
+      );
+    });
     return (
       <div className="column-container">
+        <input
+          type="text"
+          placeholder="search for tasks"
+          onChange={this.searching}
+        />
         <div className="column-header">
           <h3>{this.props.allColumns.column_name}</h3>
           <i class="far fa-edit"></i>

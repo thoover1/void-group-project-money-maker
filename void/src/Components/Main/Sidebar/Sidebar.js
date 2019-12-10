@@ -39,7 +39,7 @@ export default class Sidebar extends Component {
 
   componentDidMount() {
     this.groupMembers();
-    this.allUsers();
+    // this.allUsers();
   }
 
   async groupMembers() {
@@ -130,17 +130,17 @@ export default class Sidebar extends Component {
     });
   }
 
-  openUserSearch() {
-    this.setState({
-      findUser: !findUser
-    });
-  }
+  // openUserSearch() {
+  //   this.setState({
+  //     findUser: !findUser
+  //   });
+  // }
 
   render() {
-    console.log(777, this.state.members);
+    // console.log(777, this.state.members);
     const user = this.state.members;
     return (
-      <div>
+      <div className='sidebar-container'>
         <div className="sidebar-background">
           <div className="inner">
             <span>

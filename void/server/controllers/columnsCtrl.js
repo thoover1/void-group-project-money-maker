@@ -1,9 +1,12 @@
 module.exports = {
-  displayColumns: async (req, res) => {
-    const { group_id } = req.body;
+  displayColumns: (req, res) => {
     const db = req.app.get("db");
-    const getColumns = await db.get_columns([group_id]);
-    res.status(200).send(getColumns);
+    const {group_id} = req.params;
+    console.log(group_id);
+    db.get_columns(group_id).then(columns => {
+      console.log(group_id)
+      res.status(200).send(columns);
+    }).catch(err => console.log(err))
   },
   addColumn: async (req, res) => {
     const { column_name, group_id } = req.body;

@@ -118,7 +118,8 @@ app.get("/api/group_members", gc.groupMembers);
 // app.post("/api/add_user", gc.addUser);
 // app.delete("/api/remove_user/", gc.removeUser);
 app.get("/api/get_groups", gc.getGroups);
-app.get("/api/display_board/:group_id", gc.displayBoard);
+app.get('/api/get_group/:group_id', gc.getGroup);
+// app.get("/api/display_board/:group_id", gc.displayBoard);
 
 // endpoints for sidebar users
 app.post("/api/add_user1", sbc.addUser1);
@@ -133,13 +134,13 @@ app.post("/api/add_user9", sbc.addUser9);
 app.post("/api/add_user10", sbc.addUser10);
 
 // endpoints for columns
-app.get("/api/display_columns", cc.displayColumns);
+app.get("/api/display_columns/:group_id", cc.displayColumns);
 app.post("/api/add_column", cc.addColumn);
 app.put("/api/update_column/:column_id", cc.updateColumn);
 app.delete("/api/delete_column/:column_id/", cc.deleteColumn);
 
 // endpoints for tasks
-app.get("/api/display_tasks", tc.displayTasks);
+app.get("/api/display_tasks/:group_id", tc.displayTasks);
 app.post("/api/add_task", tc.addTask);
 app.put("/api/update_task/:task_id", tc.updateTask);
 app.delete("/api/delete_task/:task_id/", tc.deleteTask);

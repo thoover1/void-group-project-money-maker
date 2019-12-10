@@ -1,50 +1,57 @@
 import React, { Component } from "react";
+import Sidebar from "./Sidebar/Sidebar";
 import Columns from "./ColumnComponent";
+import Groups from "./Groups";
 import "./Main.scss";
+import { connect } from "react-redux";
 import axios from "axios";
 
-export default class Main extends Component {
-  // const Login = UseFetch(props.url)
-  // const [board, setBoard] = useState([]);
-  // const [columns, setColumns] = useState([]);
-
+class Main extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      board: [],
+      group: [],
+      groupSelected: false,
       columns: []
     };
 
-    this.displayBoard = this.displayBoard.bind(this);
+    this.handleSelectionClick = this.handleSelectionClick.bind(this);
+    this.getGroup = this.getGroup.bind(this);
     this.displayColumns = this.displayColumns.bind(this);
     this.addColumn = this.addColumn.bind(this);
     this.editColumn = this.editColumn.bind(this);
     this.deleteColumn = this.deleteColumn.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    // this.handleChange = this.handleChange.bind(this);
+    // this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
-    this.displayBoard();
-    this.displayColumns();
     this.props.changeTitle("Login");
   }
 
-  async displayBoard() {
-    const res = await axios.get(`/api/display_board`);
-    const { data } = await res;
-    this.setState({
-      board: data
+  handleSelectionClick(group) {
+    this.setState({ 
+      groupSelected: true
     });
+    this.getGroup(group);
   }
 
-  async displayColumns() {
-    const res = await axios.get(`/api/display_columns`);
-    const { data } = await res;
-    this.setState({
-      columns: data
-    });
+  getGroup(group){
+    axios.get(`/api/get_group/${group}`).then(group => {
+      this.setState({
+        group: group.data[0]
+      })
+    })
+    this.displayColumns(group);
+  }
+
+  displayColumns(group) {
+    axios.get(`/api/display_columns/${group}`).then(response => {
+      this.setState({
+        columns: response.data
+      });
+    })
   }
 
   addColumn(column_name, column_id) {
@@ -71,42 +78,64 @@ export default class Main extends Component {
     });
   }
 
-  handleChange(e) {
-    this.setState({
-      [e.target.name]: e.target.value
-    });
-  }
+  // handleChange(e) {
+  //   this.setState({
+  //     [e.target.name]: e.target.value
+  //   });
+  // }
 
-  handleSubmit(e) {
-    e.preventDefault();
-    this.updateColumn(
-      this.state.columns.column_name,
-      this.state.columns.column_id
-    );
-  }
+  // handleSubmit(e) {
+  //   e.preventDefault();
+  //   this.updateColumn(
+  //     this.state.columns.column_name,
+  //     this.state.columns.column_id
+  //   );
+  // }
 
   render() {
+    console.log(this.state.group)
     const mappedColumns = this.state.columns;
+    let width;
+    if(this.state.group.length != []){
+      width = '92%'
+    } else {
+      width = '100%'
+    }
     return (
       <div className="board-container">
-        <h1>{this.state.board.group_name}</h1>
-        <div className="mapped-columns">
-          {mappedColumns.map(allColumns => {
-            return (
-              <Columns
-                allColumns={allColumns}
-                addColumn={this.addColumn}
-                editColumn={this.editColumn}
-                deleteColumn={this.deleteColumn}
-              />
-            );
-          })}
-        </div>
-        <div className="new-column">
-          <p>Add New Column</p>
-          <i onClick={this.addColumn} class="fas fa-plus"></i>
+        {this.state.group.length != [] ? <Sidebar /> : <></>}
+
+        <div className='groups-columns' style={{width: width}}>
+          {!this.state.groupSelected 
+            ? (
+                <div className="select-group">
+                  <h1 className='main-h1'>Please select your group to get started!</h1>
+                  <Groups handleSelectionClick={this.handleSelectionClick} />
+                </div>
+              ) 
+            : (
+                <div className="displayed-group">
+                  <h1 className='main-h1'>{this.state.group.group_name}</h1>
+                  <div className="mapped-columns">
+                    {mappedColumns.map(allColumns => <Columns displayColumns={this.displayColumns} allColumns={allColumns} editColumn={this.editColumn} deleteColumn={this.deleteColumn} group={this.state.group}/>)}
+                  </div>
+                  <div className="new-column">
+                    <p>Add New Column</p>
+                    <i onClick={this.addColumn} className="fas fa-plus"></i>
+                  </div>
+                </div>
+              )
+          }
         </div>
       </div>
     );
   }
 }
+
+function mapReduxStateToProps(reduxState) {
+  return reduxState;
+}
+
+const invokedConnect = connect(mapReduxStateToProps);
+
+export default invokedConnect(Main);

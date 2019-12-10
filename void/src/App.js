@@ -42,10 +42,12 @@ class App extends React.Component {
               <AuthComponent changeTitle={this.changeTitle} {...props} />
             )}
           />
-          <Route
+          {this.props.user && (
+            <Route
             path="/dashboard"
             render={props => <Main changeTitle={this.changeTitle} {...props} />}
-          />
+            />
+          )}
           {this.props.user && (
             <Route
               path="/profile"

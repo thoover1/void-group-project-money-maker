@@ -1,7 +1,50 @@
+@import '../../App.scss';
+
 .board-container {
+  width: 100%;
+  height: 100%;
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
-  width: 100vw;
-  height: 89.8vh;
+  align-items: center;
+  justify-content: space-between;
+  .groups-columns {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .select-group {
+      background-color: $light-blue;
+      height: 100%;
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      .main-h1 {
+        position: absolute;
+        top: 120px;
+      }
+    }
+    .displayed-group {
+      background-color: $light-blue;
+      height: 100%;
+      width: 90%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      .main-h1 {
+        position: absolute;
+        top: 120px;
+      }
+      .mapped-columns {
+        // background-color: cyan;
+        height: 80%;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+      }
+    }
+  }
 }

@@ -1,14 +1,18 @@
 import React, { Component } from "react";
 import Tasks from "./TaskComponent";
 import axios from "axios";
+import './ColumnComponent.scss';
 
 export default class TaskComponent extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      tasks: [],
-      filter: []
+      tasks: []
+      // ,
+      // filterer: []
+      // ,
+      // groupID: this.props.group.group_id
     };
 
     this.displayTasks = this.displayTasks.bind(this);
@@ -24,12 +28,21 @@ export default class TaskComponent extends Component {
     this.displayTasks();
   }
 
-  async displayTasks() {
-    const res = await axios.get(`/api/display_tasks`);
-    const { data } = await res;
-    this.setState({
-      tasks: data
-    });
+  // getGroup(group) {
+  //   axios.get(`/api/get_group/${group}`).then(group => {
+  //     this.setState({
+  //       group: group.data[0]
+  //     })
+  //   })
+  //   this.displayTasks(group);
+  // }
+
+  displayTasks() {
+    axios.get(`/api/display_tasks/${this.props.group.group_id}`).then(response => {
+      this.setState({
+        tasks: response.data
+      })
+    })
   }
 
   addTask(task_name, column_id) {
@@ -68,39 +81,41 @@ export default class TaskComponent extends Component {
   }
 
   searching = e => {
-    this.setState({ filter: e.target.value.substr(0, 20) });
+    this.setState({ filterer: e.target.value.substr(0, 20) });
   };
 
   render() {
-    const mappedTasks = this.state.tasks.filter(allTasks => {
-      return (
-        allTasks.task_name
-          .toLowerCase()
-          .indexOf(this.state.filter.toLowerCase()) !== -1
-      );
-    });
+    let mappedTasks; 
+    let task = [];
+    for(var i = 0; i < this.state.tasks.length; i++){
+      if(this.state.tasks[i]['column_id'] === this.props.allColumns.column_id){
+        task.push(this.state.tasks[i])
+        mappedTasks = task.map(allTasks => {
+          return (
+            <div className='task' key={allTasks.task_name}>
+              <h1 className='task-name'>
+                {allTasks.task_name}
+              </h1>
+            </div>
+          )
+        });
+      }
+    }
     return (
       <div className="column-container">
-        <input
+        {/* <input
+          className='task-search'
           type="text"
           placeholder="search for tasks"
           onChange={this.searching}
-        />
+        /> */}
         <div className="column-header">
           <h3>{this.props.allColumns.column_name}</h3>
-          <i class="far fa-edit"></i>
-          <i onClick={this.addTask} class="fas fa-plus"></i>
+          <i className="far fa-edit"></i>
+          <i onClick={this.addTask} className="fas fa-plus"></i>
         </div>
         <div className="mapped-tasks">
-          {mappedTasks.map(allTasks => {
-            return (
-              <Tasks
-                allTasks={allTasks}
-                updateTask={this.updateTask}
-                deleteTask={this.deleteTask}
-              />
-            );
-          })}
+          {mappedTasks}
         </div>
       </div>
     );

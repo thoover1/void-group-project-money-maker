@@ -104,7 +104,6 @@ class Profile extends Component {
   // };
 
   render() {
-    console.log(this.props.user);
     const {
       editName,
       editEmail,

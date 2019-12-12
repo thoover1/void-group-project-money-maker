@@ -46,11 +46,11 @@ export default class TaskComponent extends Component {
   }
 
   addTask(task_name, column_id) {
-    axios.post(`/api/add_task`, { task_name, column_id }).then(res => {
+    axios.post(`/api/add_task/`, { task_name, column_id }).then(res => {
       this.setState({
         tasks: res.data
       });
-    });
+    }).catch(err => console.log(err))
   }
 
   updateTask(task_id, task_name) {
@@ -58,15 +58,15 @@ export default class TaskComponent extends Component {
       this.setState({
         tasks: res.data
       });
-    });
+    }).catch(err => console.log(err))
   }
 
   deleteTask(task_id) {
-    axios.delete(`/api/delete_task/${task_id}/`).then(res => {
+    axios.delete(`/api/delete_task/${task_id}`).then(res => {
       this.setState({
         tasks: res.data
       });
-    });
+    }).catch(err => console.log(err))
   }
 
   handleChange(e) {
@@ -84,8 +84,8 @@ export default class TaskComponent extends Component {
     this.setState({ filterer: e.target.value.substr(0, 20) });
   };
 
-  render() {
-    let mappedTasks; 
+  render() { 
+    let mappedTasks;
     let task = [];
     for(var i = 0; i < this.state.tasks.length; i++){
       if(this.state.tasks[i]['column_id'] === this.props.allColumns.column_id){
@@ -95,6 +95,8 @@ export default class TaskComponent extends Component {
             <div className='task' key={allTasks.task_name}>
               <h1 className='task-name'>
                 {allTasks.task_name}
+                <button onClick={() => this.updateTask()} className="far fa-edit">Edit Task</button>
+                <button onClick={() => this.deleteTask()} className='far fa-delete'>Delete</button>
               </h1>
             </div>
           )
@@ -111,11 +113,10 @@ export default class TaskComponent extends Component {
         /> */}
         <div className="column-header">
           <h3>{this.props.allColumns.column_name}</h3>
-          <i className="far fa-edit"></i>
-          <i onClick={this.addTask} className="fas fa-plus"></i>
         </div>
         <div className="mapped-tasks">
           {mappedTasks}
+          <button onClick={() => this.addTask()} className="fas fa-plus">Add Task</button>
         </div>
       </div>
     );

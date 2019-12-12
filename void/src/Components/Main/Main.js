@@ -55,7 +55,7 @@ class Main extends Component {
   }
 
   addColumn(column_name, column_id) {
-    axios.post(`/api/add_task`, { column_name, column_id }).then(res => {
+    axios.post(`/api/add_column`, { column_name, column_id }).then(res => {
       this.setState({
         columns: res.data
       });
@@ -63,7 +63,7 @@ class Main extends Component {
   }
 
   editColumn(column_id, column_name) {
-    axios.put(`/api/update_task/${column_id}`, { column_name }).then(res => {
+    axios.put(`/api/update_column/${column_id}`, { column_name }).then(res => {
       this.setState({
         columns: res.data
       });
@@ -71,7 +71,7 @@ class Main extends Component {
   }
 
   deleteColumn(column_id) {
-    axios.delete(`/api/delete_task/${column_id}/`).then(res => {
+    axios.delete(`/api/delete_column/${column_id}`).then(res => {
       this.setState({
         columns: res.data
       });

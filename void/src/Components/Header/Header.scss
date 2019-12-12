@@ -14,8 +14,18 @@
         align-items: center;
         justify-content: space-between;
         .logo {
+            position: fixed;
+            left: 20px;
+            top: 15px;
             max-height: 70px;
-            margin-left: 20px;
+            transition: .3s;
+        }
+        .moved {
+            position: fixed;
+            left: 140px;
+            top: 15px;
+            max-height: 70px;
+            transition: .3s;
         }
         .navbar {
             height: 90px;

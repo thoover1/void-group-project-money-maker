@@ -1,0 +1,2 @@
+SELECT * FROM users
+WHERE user_id IS NOT NULL;

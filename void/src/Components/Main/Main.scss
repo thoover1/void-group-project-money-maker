@@ -7,8 +7,61 @@
   justify-content: space-between;
   align-items: center;
   justify-content: space-between;
+  .footer-toggle {
+    background-color: transparent;
+    border: solid black;
+    border-width: 0 5px 5px 0;
+    outline: none;
+    padding: 3px;
+    position: fixed;
+    left: 5px;
+    margin: auto;
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    transition: .3s;
+  }
+  .move-right {
+    background-color: transparent;
+    border: solid black;
+    border-width: 0 5px 5px 0;
+    outline: none;
+    padding: 3px;
+    position: fixed;
+    left: 125px;
+    margin: auto;
+    transform: rotate(135deg);
+    -webkit-transform: rotate(135deg);
+    transition: .3s;
+  }
+  footer {
+    background-color: #333;
+    position: fixed;
+    left: 0;
+    width: 0;
+    overflow: hidden;
+    height: 100%;
+    transition: .3s;
+    .sidebar-holder {
+      display: none;
+      transition: .3s;
+    }
+  }
+  .show {
+    background-color: #333;
+    width: 120px;
+    transition: .3s;
+    overflow: visible;
+    .sidebar-holder {
+      background-color: #333;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      transition: .3s;
+    }
+  }  
   .groups-columns {
     height: 100%;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -26,19 +79,24 @@
       }
     }
     .displayed-group {
-      background-color: $light-blue;
       height: 100%;
-      width: 90%;
+      width: 80%;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: flex-end;
       .main-h1 {
+        background-color: $light-blue;
+        border-radius: 15px;
+        font-weight: bold;
+        font-size: 32px;
         position: absolute;
-        top: 120px;
+        top: 110px;
+        text-anchor: center;
+        line-height: 40px;
+        padding: 6px;
       }
       .mapped-columns {
-        // background-color: cyan;
         height: 80%;
         width: 100%;
         display: flex;

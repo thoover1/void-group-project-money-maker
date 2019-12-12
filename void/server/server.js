@@ -114,12 +114,14 @@ app.delete("/api/delete_account", uc.deleteAccount);
 
 // endpoints for groups
 app.post("/api/create_group", gc.createGroup);
-app.get("/api/group_members", gc.groupMembers);
-// app.post("/api/add_user", gc.addUser);
+app.get("/api/group_members/:group_id", gc.groupMembers);
+app.get('/api/group_member/:user_id', gc.getGroupMember);
+app.post("/api/add_user/:user", gc.addUser);
 // app.delete("/api/remove_user/", gc.removeUser);
 app.get("/api/get_groups", gc.getGroups);
 app.get('/api/get_group/:group_id', gc.getGroup);
 // app.get("/api/display_board/:group_id", gc.displayBoard);
+app.get('/api/get_all_users', gc.getAllUsers);
 
 // endpoints for sidebar users
 app.post("/api/add_user1", sbc.addUser1);

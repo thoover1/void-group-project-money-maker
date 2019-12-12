@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Sidebar from "./Sidebar/Sidebar";
 import Columns from "./ColumnComponent";
 import Groups from "./Groups";
+import { DragDropContext } from "react-beautiful-dnd";
 import "./Main.scss";
 import { connect } from "react-redux";
 import axios from "axios";
@@ -24,6 +25,7 @@ class Main extends Component {
     this.deleteColumn = this.deleteColumn.bind(this);
     // this.handleChange = this.handleChange.bind(this);
     // this.handleSubmit = this.handleSubmit.bind(this);
+    this.swtichColumns = this.swtichColumns.bind(this);
   }
 
   componentDidMount() {
@@ -31,31 +33,33 @@ class Main extends Component {
   }
 
   handleSelectionClick(group) {
-    this.setState({ 
+    this.setState({
       groupSelected: true
     });
     this.getGroup(group);
   }
 
-  getGroup(group){
+  getGroup(group) {
+    console.log("get group" + group);
     axios.get(`/api/get_group/${group}`).then(group => {
       this.setState({
         group: group.data[0]
-      })
-    })
+      });
+    });
     this.displayColumns(group);
   }
 
   displayColumns(group) {
+    console.log("display columns" + group);
     axios.get(`/api/display_columns/${group}`).then(response => {
       this.setState({
         columns: response.data
       });
-    })
+    });
   }
 
-  addColumn(column_name, column_id) {
-    axios.post(`/api/add_task`, { column_name, column_id }).then(res => {
+  addColumn(column_name, group_id) {
+    axios.post(`/api/add_task`, { column_name, group_id }).then(res => {
       this.setState({
         columns: res.data
       });
@@ -92,40 +96,103 @@ class Main extends Component {
   //   );
   // }
 
+  onDragEnd = result => {
+    const { destination, source, draggableId } = result;
+
+    // not a valid destination to drop -- returns to baseline
+    if (!destination) {
+      return;
+    }
+
+    // if picked up and put back where it was before --return baseline
+    if (
+      destination.droppableId === source.droppableId &&
+      destination.index === source.index
+    ) {
+      return;
+    }
+
+    // const tasker = this.state.tasks[source.droppableId];
+    // const newTaskIds = Array.from(column.task_id);
+    // newTaskIds.splice(source.index, 1);
+    // newTaskIds.splice(destination.index, 0, draggableId);
+
+    // const newColumn = {
+    //   ...column,
+    //   task_id: newTaskIds
+    // };
+
+    // const newState = {
+    //   ...this.state,
+    //   columns: {
+    //     ...this.state.columns,
+    //     [newColumn.id]: newColumn
+    //   }
+    // };
+
+    // this.setState(newState);
+
+    let IDofTask = draggableId;
+
+    let newColumn = destination.droppableId;
+
+    this.swtichColumns(newColumn, IDofTask);
+  };
+
+  swtichColumns(newColumn, IDofTask) {
+    console.log(newColumn, IDofTask);
+    axios
+      .put(`/api/switch_columns/${IDofTask}`, {
+        column_id: newColumn,
+        group_id: this.state.group.group_id
+      })
+      .then(this.getGroup(this.state.group.group_id));
+  }
+
   render() {
-    console.log(this.state.group)
+    // console.log(this.state.group);
     const mappedColumns = this.state.columns;
     let width;
-    if(this.state.group.length != []){
-      width = '92%'
+    if (this.state.group.length != []) {
+      width = "92%";
     } else {
-      width = '100%'
+      width = "100%";
     }
     return (
       <div className="board-container">
         {this.state.group.length != [] ? <Sidebar /> : <></>}
 
-        <div className='groups-columns' style={{width: width}}>
-          {!this.state.groupSelected 
-            ? (
-                <div className="select-group">
-                  <h1 className='main-h1'>Please select your group to get started!</h1>
-                  <Groups handleSelectionClick={this.handleSelectionClick} />
+        <div className="groups-columns" style={{ width: width }}>
+          {!this.state.groupSelected ? (
+            <div className="select-group">
+              <h1 className="main-h1">
+                Please select your group to get started!
+              </h1>
+              <Groups handleSelectionClick={this.handleSelectionClick} />
+            </div>
+          ) : (
+            <div className="displayed-group">
+              <h1 className="main-h1">{this.state.group.group_name}</h1>
+              <DragDropContext onDragEnd={this.onDragEnd}>
+                <div className="mapped-columns">
+                  {mappedColumns.map(allColumns => (
+                    <Columns
+                      displayColumns={this.displayColumns}
+                      allColumns={allColumns}
+                      editColumn={this.editColumn}
+                      deleteColumn={this.deleteColumn}
+                      group={this.state.group}
+                    />
+                  ))}
+                  {console.log("mapping.......")}
                 </div>
-              ) 
-            : (
-                <div className="displayed-group">
-                  <h1 className='main-h1'>{this.state.group.group_name}</h1>
-                  <div className="mapped-columns">
-                    {mappedColumns.map(allColumns => <Columns displayColumns={this.displayColumns} allColumns={allColumns} editColumn={this.editColumn} deleteColumn={this.deleteColumn} group={this.state.group}/>)}
-                  </div>
-                  <div className="new-column">
-                    <p>Add New Column</p>
-                    <i onClick={this.addColumn} className="fas fa-plus"></i>
-                  </div>
-                </div>
-              )
-          }
+              </DragDropContext>
+              <div className="new-column">
+                <p>Add New Column</p>
+                <i onClick={this.addColumn} className="fas fa-plus"></i>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     );

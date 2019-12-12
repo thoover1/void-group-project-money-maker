@@ -42,7 +42,7 @@ export default class Groups extends React.Component {
         return (
           <div key={group[0]} className='group'>
             <button className='group-button' onClick={() => {this.props.handleSelectionClick(group[0])}}>
-              <a>{group[1]}</a>
+              <h2>{group[1]}</h2>
             </button>
           </div>
         )
@@ -52,7 +52,7 @@ export default class Groups extends React.Component {
       return (
         <div key={group[0]} className='group'>
           <button className='group-button' onClick={() => {this.props.handleSelectionClick(group[0])}}>
-            <a>{group[1]}</a>
+            <h2>{group[1]}</h2>
           </button>
         </div>
       )
@@ -60,7 +60,7 @@ export default class Groups extends React.Component {
   
     return (
       <div className='groups-holder'>
-        <input className='group-search' type="text" placeholder="Search Through Groups" onChange={(e) => this.universalInput('input', e.target.value)} />
+        <input className='group-search' type="text" placeholder="Group Search" onChange={(e) => this.universalInput('input', e.target.value)} />
         <div className='groups'>
           {mappedGroups}
         </div>

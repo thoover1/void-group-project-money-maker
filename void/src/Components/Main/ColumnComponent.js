@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import Tasks from "./TaskComponent";
+import { Droppable, Draggable } from "react-beautiful-dnd";
 import axios from "axios";
-import './ColumnComponent.scss';
+import "./ColumnComponent.scss";
 
 export default class TaskComponent extends Component {
   constructor(props) {
@@ -9,8 +9,6 @@ export default class TaskComponent extends Component {
 
     this.state = {
       tasks: []
-      // ,
-      // filterer: []
       // ,
       // groupID: this.props.group.group_id
     };
@@ -38,11 +36,13 @@ export default class TaskComponent extends Component {
   // }
 
   displayTasks() {
-    axios.get(`/api/display_tasks/${this.props.group.group_id}`).then(response => {
-      this.setState({
-        tasks: response.data
-      })
-    })
+    axios
+      .get(`/api/display_tasks/${this.props.group.group_id}`)
+      .then(response => {
+        this.setState({
+          tasks: response.data
+        });
+      });
   }
 
   addTask(task_name, column_id) {
@@ -85,20 +85,38 @@ export default class TaskComponent extends Component {
   };
 
   render() {
-    let mappedTasks; 
+    let mappedTasks;
     let task = [];
-    for(var i = 0; i < this.state.tasks.length; i++){
-      if(this.state.tasks[i]['column_id'] === this.props.allColumns.column_id){
-        task.push(this.state.tasks[i])
-        mappedTasks = task.map(allTasks => {
+    for (var i = 0; i < this.state.tasks.length; i++) {
+      if (
+        this.state.tasks[i]["column_id"] === this.props.allColumns.column_id
+      ) {
+        task.push(this.state.tasks[i]);
+        mappedTasks = task.map((allTasks, index) => {
           return (
-            <div className='task' key={allTasks.task_name}>
-              <h1 className='task-name'>
-                {allTasks.task_name}
-              </h1>
-            </div>
-          )
+            <Draggable draggableId={allTasks.task_id.toString()} index={index}>
+              {provided => (
+                <div
+                  className="task"
+                  key={allTasks.task_id}
+                  // index={index}
+                  {...provided.draggableProps}
+                  {...provided.dragHandleProps}
+                  ref={provided.innerRef}
+                >
+                  <h1 className="task-name">{allTasks.task_name}</h1>
+                  {console.log("OHHHHHHHHH SNAPPPPPP")}
+                </div>
+              )}
+            </Draggable>
+          );
         });
+        // if (mappedTasks.length) {
+        //   console.log(mappedTasks);
+        //   console.log(mappedTasks[0].props);
+        //   console.log("draggableId", mappedTasks[0].props.draggableId);
+        //   console.log("index", mappedTasks[0].props.index);
+        // }
       }
     }
     return (
@@ -109,14 +127,25 @@ export default class TaskComponent extends Component {
           placeholder="search for tasks"
           onChange={this.searching}
         /> */}
+        {console.log("reeeeeeeeerenderingggggggggg")}
+        {this.displayTasks()}
         <div className="column-header">
           <h3>{this.props.allColumns.column_name}</h3>
           <i className="far fa-edit"></i>
           <i onClick={this.addTask} className="fas fa-plus"></i>
         </div>
-        <div className="mapped-tasks">
-          {mappedTasks}
-        </div>
+        <Droppable droppableId={this.props.allColumns.column_id.toString()}>
+          {provided => (
+            <div
+              className="mapped-tasks"
+              ref={provided.innerRef}
+              {...provided.droppableProps}
+            >
+              {mappedTasks}
+              {provided.placeholder}
+            </div>
+          )}
+        </Droppable>
       </div>
     );
   }

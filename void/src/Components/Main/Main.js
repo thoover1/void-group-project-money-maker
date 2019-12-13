@@ -6,17 +6,16 @@ import { DragDropContext } from "react-beautiful-dnd";
 import "./Main.scss";
 import { connect } from "react-redux";
 import axios from "axios";
-
 class Main extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       group: [],
       groupSelected: false,
-      columns: []
+      columns: [],
+      tasks: []
     };
-
+    this.displayTasks = this.displayTasks.bind(this);
     this.handleSelectionClick = this.handleSelectionClick.bind(this);
     this.getGroup = this.getGroup.bind(this);
     this.displayColumns = this.displayColumns.bind(this);
@@ -27,37 +26,31 @@ class Main extends Component {
     // this.handleSubmit = this.handleSubmit.bind(this);
     this.swtichColumns = this.swtichColumns.bind(this);
   }
-
   componentDidMount() {
     this.props.changeTitle("Login");
   }
-
   handleSelectionClick(group) {
     this.setState({
       groupSelected: true
     });
     this.getGroup(group);
   }
-
   getGroup(group) {
-    console.log("get group" + group);
     axios.get(`/api/get_group/${group}`).then(group => {
       this.setState({
         group: group.data[0]
       });
     });
     this.displayColumns(group);
+    this.displayTasks(group);
   }
-
   displayColumns(group) {
-    console.log("display columns" + group);
     axios.get(`/api/display_columns/${group}`).then(response => {
       this.setState({
         columns: response.data
       });
     });
   }
-
   addColumn(column_name, group_id) {
     axios.post(`/api/add_task`, { column_name, group_id }).then(res => {
       this.setState({
@@ -65,7 +58,6 @@ class Main extends Component {
       });
     });
   }
-
   editColumn(column_id, column_name) {
     axios.put(`/api/update_task/${column_id}`, { column_name }).then(res => {
       this.setState({
@@ -73,7 +65,6 @@ class Main extends Component {
       });
     });
   }
-
   deleteColumn(column_id) {
     axios.delete(`/api/delete_task/${column_id}/`).then(res => {
       this.setState({
@@ -81,13 +72,11 @@ class Main extends Component {
       });
     });
   }
-
   // handleChange(e) {
   //   this.setState({
   //     [e.target.name]: e.target.value
   //   });
   // }
-
   // handleSubmit(e) {
   //   e.preventDefault();
   //   this.updateColumn(
@@ -95,15 +84,12 @@ class Main extends Component {
   //     this.state.columns.column_id
   //   );
   // }
-
   onDragEnd = result => {
     const { destination, source, draggableId } = result;
-
     // not a valid destination to drop -- returns to baseline
     if (!destination) {
       return;
     }
-
     // if picked up and put back where it was before --return baseline
     if (
       destination.droppableId === source.droppableId &&
@@ -112,45 +98,27 @@ class Main extends Component {
       return;
     }
 
-    // const tasker = this.state.tasks[source.droppableId];
-    // const newTaskIds = Array.from(column.task_id);
-    // newTaskIds.splice(source.index, 1);
-    // newTaskIds.splice(destination.index, 0, draggableId);
-
-    // const newColumn = {
-    //   ...column,
-    //   task_id: newTaskIds
-    // };
-
-    // const newState = {
-    //   ...this.state,
-    //   columns: {
-    //     ...this.state.columns,
-    //     [newColumn.id]: newColumn
-    //   }
-    // };
-
-    // this.setState(newState);
-
     let IDofTask = draggableId;
-
     let newColumn = destination.droppableId;
-
     this.swtichColumns(newColumn, IDofTask);
   };
-
   swtichColumns(newColumn, IDofTask) {
-    console.log(newColumn, IDofTask);
     axios
       .put(`/api/switch_columns/${IDofTask}`, {
         column_id: newColumn,
         group_id: this.state.group.group_id
       })
-      .then(this.getGroup(this.state.group.group_id));
+      .then(this.displayTasks(this.state.group.group_id));
+    this.displayTasks(this.state.group.group_id);
   }
-
+  displayTasks(group) {
+    axios.get(`/api/display_tasks/${group}`).then(response => {
+      this.setState({
+        tasks: response.data
+      });
+    });
+  }
   render() {
-    // console.log(this.state.group);
     const mappedColumns = this.state.columns;
     let width;
     if (this.state.group.length != []) {
@@ -161,7 +129,6 @@ class Main extends Component {
     return (
       <div className="board-container">
         {this.state.group.length != [] ? <Sidebar /> : <></>}
-
         <div className="groups-columns" style={{ width: width }}>
           {!this.state.groupSelected ? (
             <div className="select-group">
@@ -182,9 +149,9 @@ class Main extends Component {
                       editColumn={this.editColumn}
                       deleteColumn={this.deleteColumn}
                       group={this.state.group}
+                      tasks={this.state.tasks}
                     />
                   ))}
-                  {console.log("mapping.......")}
                 </div>
               </DragDropContext>
               <div className="new-column">
@@ -198,11 +165,8 @@ class Main extends Component {
     );
   }
 }
-
 function mapReduxStateToProps(reduxState) {
   return reduxState;
 }
-
 const invokedConnect = connect(mapReduxStateToProps);
-
 export default invokedConnect(Main);

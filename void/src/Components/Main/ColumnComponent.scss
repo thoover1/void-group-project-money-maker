@@ -1,25 +1,25 @@
-@import '../../App.scss';
+@import "../../App.scss";
 
 .column-container {
-    background-color: white;
-    border-radius: 15px;
+  background-color: white;
+  border-radius: 15px;
+  height: 90%;
+  width: 30%;
+  padding: 5px;
+  .column-header {
+    height: 5%;
+  }
+  .mapped-tasks {
     height: 90%;
-    width: 30%;
-    padding: 5px;
-    .column-header {
-        height: 5%;
+    .task {
+      background-color: #e4e3e3;
+      box-shadow: 4px 4px #d8d8d8;
+      border-radius: 5px;
+      height: 10%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 10px;
     }
-    .mapped-tasks {
-        height: 90%;
-        .task {
-            background-color: #e4e3e3;
-            box-shadow: 4px 4px #d8d8d8;
-            border-radius: 5px;
-            height: 10%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 10px;
-        }
-    }
+  }
 }

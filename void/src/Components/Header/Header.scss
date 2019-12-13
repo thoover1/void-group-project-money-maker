@@ -104,11 +104,22 @@
     }
 }
 
+@media (max-width: 550px) {
+    .header-main {
+        .header-contents {
+            .moved {
+                display: none;
+            }
+        }
+    }
+}
+
 @media (max-width: 350px) {
     .header-main {
         .header-contents {
             .logo {
                 max-height: 50px;
+                margin-top: 10px;
             }
         }
     }

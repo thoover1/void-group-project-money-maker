@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import logo from "../../void_logo.png";
 import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
-import { setUser } from "../../reducer";
+import { setUser, setSidebar } from "../../reducer";
 import axios from "axios";
 import "./Header.scss";
 
@@ -16,7 +16,7 @@ function Header(props) {
   return (
     <div className="header-main">
       <div className="header-contents">
-        <NavLink to="/">
+        <NavLink to="/" onClick={() => {props.setSidebar(false)}}>
           <img className={props.sidebar ? "moved" : "logo"} src={logo} alt="logo"/>
         </NavLink>
         <span className='navbar'>
@@ -24,8 +24,8 @@ function Header(props) {
           
           {props.user && 
             <div className={show ? 'show' : ''}>
-              <NavLink className='nav' onClick={toggler} to='/dashboard' >Dashboard</NavLink>
-              <NavLink className='nav' onClick={toggler} to='/profile' >My Account</NavLink>
+              <NavLink className='nav' onClick={() => {toggler(); props.setSidebar(false)}} to='/dashboard' >Dashboard</NavLink>
+              <NavLink className='nav' onClick={() => {toggler(); props.setSidebar(false)}} to='/profile' >My Account</NavLink>
               <button 
                 className='logout'
                 onClick={() => {
@@ -50,7 +50,8 @@ function mapReduxStateToProps(reduxState) {
   return reduxState;
 }
 const mapDispatchToProps = {
-  setUser
+  setUser,
+  setSidebar
 };
 const invokedConnect = connect(mapReduxStateToProps, mapDispatchToProps);
 

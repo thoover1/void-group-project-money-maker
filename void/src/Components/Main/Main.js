@@ -137,12 +137,12 @@ class Main extends Component {
   render() {
     // console.log(this.state.group)
     const mappedColumns = this.state.columns;
-    // let width;
-    // if(this.state.group.length != []){
-    //   width = '92%'
-    // } else {
-    //   width = '100%'
-    // }
+    let width;
+    if(this.props.sidebar){
+      width = '92%'
+    } else {
+      width = '100%'
+    }
     return (
       <div className="board-container">
         {this.state.groupSelected ? <button className={this.state.sidebar ? 'move-right' : 'footer-toggle'} onClick={this.toggleSidebar}></button> : <></>}
@@ -169,7 +169,7 @@ class Main extends Component {
           }
         </footer>
 
-        <div className='groups-columns'>
+        <div className='groups-columns' style={{width: width}}>
           {!this.state.groupSelected 
             ? (
                 <div className="select-group">

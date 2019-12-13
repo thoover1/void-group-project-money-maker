@@ -11,15 +11,16 @@ class Sidebar extends Component {
 
     this.state = {
       users: [],
-      foundUser: 0,
-      input: '',
-      search: false,
-      spot: '',
-      img: '',
-      imgUser: '',
-      groupChange: false,
       groups: [],
       groupNames: [],
+      img: '',
+      spot: '',
+      input: '',
+      imgUser: '',
+      more: false,
+      search: false,
+      remove: false,
+      groupChange: false,
       user1: this.props.user1,
       user2: this.props.user2,
       user3: this.props.user3,
@@ -43,11 +44,14 @@ class Sidebar extends Component {
     };
     this.getMember = this.getMember.bind(this);
     this.addUser = this.addUser.bind(this);
-    this.universalInput= this.universalInput.bind(this);
+    this.removeUser = this.removeUser.bind(this);
+    this.universalInput = this.universalInput.bind(this);
     this.getAllUsers = this.getAllUsers.bind(this);
     this.getGroups = this.getGroups.bind(this);
     this.toggleGroup = this.toggleGroup.bind(this);
     this.toggleSearch = this.toggleSearch.bind(this);
+    this.toggleMore = this.toggleMore.bind(this);
+    this.toggleRemove = this.toggleRemove.bind(this);
   }
 
   componentDidMount(){
@@ -76,12 +80,24 @@ class Sidebar extends Component {
   }
 
   addUser (user, user_id) {
-    axios.post(`/api/add_user/${user}`, {user_id: user_id, group_id: this.props.group}).then(res => {
+    axios.post(`/api/update_user/${user}`, {user_id: user_id, group_id: this.props.group}).then(res => {
       this.setState({
         user: user_id,
         search: false
       })
       this.getMember(this.state.img, user_id);
+      this.props.groupMembers(this.props.group);
+      this.props.toggleSidebar();
+    });
+  }
+
+  removeUser (user, user_id) {
+    axios.post(`/api/update_user/${user}`, {user_id: user_id, group_id: this.props.group}).then(res => {
+      this.setState({
+        user: user_id,
+        search: false
+      })
+      // this.getMember(this.state.img, user_id);
       this.props.groupMembers(this.props.group);
       this.props.toggleSidebar();
     });
@@ -130,9 +146,23 @@ class Sidebar extends Component {
       }
     })
   }
+  toggleMore(){
+    this.setState((prevState) => {
+      return {
+        more: !prevState.more
+      }
+    })
+  }
+  toggleRemove(){
+    this.setState((prevState) => {
+      return {
+        remove: !prevState.remove
+      }
+    })
+  }
 
   render(){
-    const {users, foundUser, input, search, spot, groupChange, user1, user2, user3, user4, user5, user6, user7, user8, user9, user10, img1, img2, img3, img4, img5, img6, img7, img8, img9, img10} = this.state;
+    const {users, input, search, spot, groupChange, more, remove, user1, user2, user3, user4, user5, user6, user7, user8, user9, user10, img1, img2, img3, img4, img5, img6, img7, img8, img9, img10} = this.state;
     
     const mappedGroups = this.state.groups.map(group => {
       return (
@@ -145,7 +175,6 @@ class Sidebar extends Component {
     })
     
     const filteredUsers = users.filter(user => user.username.startsWith(input.toLowerCase()));
-    
     const mappedUsers = filteredUsers.map(user => 
       <div key={user.user_id} className='user'>
         <h1 className='username'>{user.username}</h1>
@@ -156,7 +185,7 @@ class Sidebar extends Component {
     return (
         <div className="sidebar-background">
           <div className="inner">
-            <button className='ham-butt' onClick={() => {this.getGroups(); this.toggleGroup()}}>
+            <button className='ham-butt' onClick={() => {this.getGroups(); this.toggleGroup(); this.setState({more: false, search: false, remove: false})}}>
               <FaBars className="ham-menu" />
             </button>
             {groupChange 
@@ -170,49 +199,55 @@ class Sidebar extends Component {
             }
             <span className="user-around">
                 {user1 
-                  ? <img className="user-avi" src={img1} alt='user profile pic' /> 
-                  : <button className='plus-button' onClick={() => {this.toggleSearch(); this.setState({spot: 'user1', img: 'img1', foundUser: 1})}}></button>
+                  ? (remove ? <button onClick={() => {this.removeUser('user1', null);}} className='minus-button'></button> : <img className="user-avi" src={img1} alt='user profile pic' />)
+                  : <button className='plus-button' onClick={() => {this.toggleSearch(); this.setState({groupChange: false, more: false, remove: false, spot: 'user1', img: 'img1', foundUser: 1})}}></button>
                 }
                 {user2 
-                  ? <img className="user-avi" src={img2} alt='user profile pic' />
-                  : <button className='plus-button' onClick={() => {this.toggleSearch(); this.setState({spot: 'user2', img: 'img2', foundUser: 2})}}></button>
+                  ? (remove ? <button onClick={() => {this.removeUser('user2', null);}} className='minus-button'></button> : <img className="user-avi" src={img2} alt='user profile pic' />)
+                  : <button className='plus-button' onClick={() => {this.toggleSearch(); this.setState({groupChange: false, more: false, remove: false, spot: 'user2', img: 'img2', foundUser: 2})}}></button>
                 }
                 {user3 
-                  ? <img className="user-avi" src={img3} alt='user profile pic' />
-                  : <button className='plus-button' onClick={() => {this.toggleSearch(); this.setState({spot: 'user3', img: 'img3', foundUser: 3})}}></button>
+                  ? (remove ? <button onClick={() => {this.removeUser('user3', null);}} className='minus-button'></button> : <img className="user-avi" src={img3} alt='user profile pic' />)
+                  : <button className='plus-button' onClick={() => {this.toggleSearch(); this.setState({groupChange: false, more: false, remove: false, spot: 'user3', img: 'img3', foundUser: 3})}}></button>
                 }
                 {user4 
-                  ? <img className="user-avi" src={img4} alt='user profile pic' />
-                  : <button className='plus-button' onClick={() => {this.toggleSearch(); this.setState({spot: 'user4', img: 'img4', foundUser: 4})}}></button>
+                  ? (remove ? <button onClick={() => {this.removeUser('user4', null);}} className='minus-button'></button> : <img className="user-avi" src={img4} alt='user profile pic' />)
+                  : <button className='plus-button' onClick={() => {this.toggleSearch(); this.setState({groupChange: false, more: false, remove: false, spot: 'user4', img: 'img4', foundUser: 4})}}></button>
                 }
                 {user5 
-                  ? <img className="user-avi" src={img5} alt='user profile pic' />
-                  : <button className='plus-button' onClick={() => {this.toggleSearch(); this.setState({spot: 'user5', img: 'img5', foundUser: 5})}}></button>
+                  ? (remove ? <button onClick={() => {this.removeUser('user5', null);}} className='minus-button'></button> : <img className="user-avi" src={img5} alt='user profile pic' />)
+                  : <button className='plus-button' onClick={() => {this.toggleSearch(); this.setState({groupChange: false, more: false, remove: false, spot: 'user5', img: 'img5', foundUser: 5})}}></button>
                 }
                 {user6 
-                  ? <img className="user-avi" src={img6} alt='user profile pic' />
-                  : <button className='plus-button' onClick={() => {this.toggleSearch(); this.setState({spot: 'user6', img: 'img6', foundUser: 6})}}></button>
+                  ? (remove ? <button onClick={() => {this.removeUser('user6', null);}} className='minus-button'></button> : <img className="user-avi" src={img6} alt='user profile pic' />)
+                  : <button className='plus-button' onClick={() => {this.toggleSearch(); this.setState({groupChange: false, more: false, remove: false, spot: 'user6', img: 'img6', foundUser: 6})}}></button>
                 }
                 {user7 
-                  ? <img className="user-avi" src={img7} alt='user profile pic' />
-                  : <button className='plus-button' onClick={() => {this.toggleSearch(); this.setState({spot: 'user7', img: 'img7', foundUser: 7})}}></button>
+                  ? (remove ? <button onClick={() => {this.removeUser('user7', null);}} className='minus-button'></button> : <img className="user-avi" src={img7} alt='user profile pic' />)
+                  : <button className='plus-button' onClick={() => {this.toggleSearch(); this.setState({groupChange: false, more: false, remove: false, spot: 'user7', img: 'img7', foundUser: 7})}}></button>
                 }
                 {user8 
-                  ? <img className="user-avi" src={img8} alt='user profile pic' />
-                  : <button className='plus-button' onClick={() => {this.toggleSearch(); this.setState({spot: 'user8', img: 'img8', foundUser: 8})}}></button>
+                  ? (remove ? <button onClick={() => {this.removeUser('user8', null);}} className='minus-button'></button> : <img className="user-avi" src={img8} alt='user profile pic' />)
+                  : <button className='plus-button' onClick={() => {this.toggleSearch(); this.setState({groupChange: false, more: false, remove: false, spot: 'user8', img: 'img8', foundUser: 8})}}></button>
                 }
                 {user9 
-                  ? <img className="user-avi" src={img9} alt='user profile pic' />
-                  : <button className='plus-button' onClick={() => {this.toggleSearch(); this.setState({spot: 'user9', img: 'img9', foundUser: 9})}}></button>
+                  ? (remove ? <button onClick={() => {this.removeUser('user9', null);}} className='minus-button'></button> : <img className="user-avi" src={img9} alt='user profile pic' />)
+                  : <button className='plus-button' onClick={() => {this.toggleSearch(); this.setState({groupChange: false, more: false, remove: false, spot: 'user9', img: 'img9', foundUser: 9})}}></button>
                 }
                 {user10 
-                  ? <img className="user-avi" src={img10} alt='user profile pic' />
-                  : <button className='plus-button' onClick={() => {this.toggleSearch(); this.setState({spot: 'user10', img: 'img10', foundUser: 10})}}></button>
+                  ? (remove ? <button onClick={() => {this.removeUser('user10', null);}} className='minus-button'></button> : <img className="user-avi" src={img10} alt='user profile pic' />)
+                  : <button className='plus-button' onClick={() => {this.toggleSearch(); this.setState({groupChange: false, more: false, remove: false, spot: 'user10', img: 'img10', foundUser: 10})}}></button>
                 }
             </span>
-            <span>
-              <MdMoreHoriz className="three-dots" />
-            </span>
+            <div className='something'>
+              <button className='more-button' onClick={() => {this.toggleMore(); this.setState({search: false, groupChange: false, remove: false})}} >
+                <MdMoreHoriz className="three-dots"/>
+              </button>
+              {more
+                ? <div className='more-screen'><button className='remove-user' onClick={() => this.toggleRemove()}>{remove ? 'Cancel' : 'Delete Users'}</button></div>
+                : <></>
+              }
+            </div>
             {search 
               ? <div className='search-box'>
                   <input className='search-input' onChange={(e) => this.universalInput('input', e.target.value)} placeholder='User Search' />

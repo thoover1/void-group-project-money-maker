@@ -45,6 +45,7 @@
                 flex-direction: column;
                 justify-content: space-evenly;
                 align-items: center;
+                z-index: 9999;
                 .switch-groups {
                     font-size: 24px;
                 }
@@ -86,9 +87,9 @@
                     border: 2px solid black;
                     background-color: #515151;
                     font-size: 16px;
-                    height: 60px;
-                    width: 60px;
-                    border-radius: 999px;
+                    height: 64px;
+                    width: 64px;
+                    border-radius: 50px;
                     position: relative;
                     outline: none;
                     &:after,
@@ -116,17 +117,96 @@
                         cursor: pointer;
                     }
                 }
-            }
-            .three-dots {
-                color: white;
-                    width: 50px;
-                    height: 50px;
+                .minus-button {
+                    border: 2px solid black;
+                    background-color: #515151;
+                    font-size: 16px;
+                    height: 64px;
+                    width: 64px;
+                    border-radius: 50px;
+                    position: relative;
+                    outline: none;
+                    &:after {
+                        content: "";
+                        display: block;
+                        background-color: black;
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                    }
+                    
+                    &:before {
+                        height: 1em;
+                        width: 0.2em;
+                    }
                 
-                    &:hover { 
-                        color: lightgray;
+                    &:after {
+                        height: 0.2em;
+                        width: 1em;
+                    }
+
+                    &:hover {
                         cursor: pointer;
                     }
+                }
             }
+            .something {
+                .more-button {
+                    background-color: #333;
+                    border: none;
+                    display: flex;
+                    outline: none;
+                    .three-dots {
+                        color: white;
+                        width: 50px;
+                        height: 50px;
+                        &:hover { 
+                            color: lightgray;
+                            cursor: pointer;
+                        }
+                    }
+                }
+                .more-screen {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    padding: 10px;
+                    width: 90px;
+                    border-radius: 6px;
+                    margin-right: 40px;
+                    color: black;
+                    background-color: $light-blue;
+                    position: absolute;
+                    bottom: 3.2vh;
+                    left: 100px;
+                    z-index: 9999;
+                    .remove-user {
+                        font-family: 'lemonmilk_lightregular', Arial, sans-serif;
+                        font-weight: normal;
+                        font-style: normal;
+                        background-color: $light-blue;
+                        border: none;
+                        outline: none;
+                        &:hover {
+                            color: white;
+                            cursor: pointer;
+                        }
+                    }
+                }
+            }
+            .more-screen:after {
+                content: "";
+                position: absolute;
+                margin-top:-6px;
+                margin-left:-5px;
+                border-left: 12px solid transparent;
+                border-bottom: 12px solid $light-blue;
+                transform:rotate(135deg);
+                left: 0px; 
+                top: 18px;
+            }
+
             .search-box {
                 background-color: $mid-dark-blue;
                 border-radius: 0px 15px 0px 0px;
@@ -141,6 +221,7 @@
                 flex-direction: column;
                 justify-content: space-evenly;
                 align-items: center;
+                z-index: 9999;
                 .search-input {
                     width: 180px
                 }
@@ -172,3 +253,47 @@
             }
         }
     }
+
+@media (max-height: 800px) {
+    .sidebar-background {
+        .inner {
+            .user-around {
+                .user-avi {
+                    width: 50px;
+                    height: 50px;
+                }
+                .plus-button {
+                    height: 54px;
+                    width: 54px;
+                }
+                .minus-button {
+                    font-size: 16px;
+                    height: 54px;
+                    width: 54px;
+                }
+            }
+        }
+    }
+}
+
+@media (max-height: 700px) {
+    .sidebar-background {
+        .inner {
+            .user-around {
+                .user-avi {
+                    width: 40px;
+                    height: 40px;
+                }
+                .plus-button {
+                    height: 44px;
+                    width: 44px;
+                }
+                .minus-button {
+                    font-size: 16px;
+                    height: 44px;
+                    width: 44px;
+                }
+            }
+        }
+    }
+}

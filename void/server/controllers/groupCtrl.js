@@ -38,7 +38,7 @@ module.exports = {
       res.status(200).send(user)
     }).catch(err => console.log(err))
   },
-  addUser: (req, res, next) => {
+  updateUser: (req, res, next) => {
     const db = req.app.get("db");
     const {user} = req.params;
     const {user_id, group_id} = req.body;
@@ -74,17 +74,11 @@ module.exports = {
     db.get_all_users(user_id).then(users => {
       res.status(200).send(users)
     })
-  }
-  ,
+  },
   // displayBoard: async (req, res) => {
   //   const { group_id } = req.params;
   //   const db = req.app.get("db");
   //   const getBoard = await db.get_board([group_id]);
   //   res.status(200).send(getBoard);
   // }
-  // ,
-  // removeUser:
 };
-
-// add user to group
-// remove user from group

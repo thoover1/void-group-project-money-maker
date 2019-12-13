@@ -8,7 +8,8 @@ export default class TaskComponent extends Component {
     super(props);
 
     this.state = {
-      tasks: []
+      tasks: [],
+      taskEdit: []
       // ,
       // filterer: []
       // ,
@@ -45,24 +46,26 @@ export default class TaskComponent extends Component {
     })
   }
 
-  addTask(task_name, column_id) {
-    axios.post(`/api/add_task/`, { task_name, column_id }).then(res => {
+  addTask(task_name, column_id, group_id) {
+    axios.post(`/api/add_task/${task_name}/${group_id}`, { task_name, column_id, group_id }).then(res => {
       this.setState({
         tasks: res.data
       });
     }).catch(err => console.log(err))
   }
 
-  updateTask(task_id, task_name) {
-    axios.put(`/api/update_task/${task_id}`, { task_name }).then(res => {
+  updateTask(task_id) {
+    axios.put(`/api/update_task/${task_id}`, { task_name: this.state.taskEdit, group_id:this.props.group_id }).then(res => {
       this.setState({
         tasks: res.data
       });
+      this.displayTasks();
     }).catch(err => console.log(err))
   }
 
   deleteTask(task_id) {
-    axios.delete(`/api/delete_task/${task_id}`).then(res => {
+    let { group_id } = this.props.group
+    axios.delete(`/api/delete_task/${task_id}/${group_id}`).then(res => {
       this.setState({
         tasks: res.data
       });
@@ -84,9 +87,16 @@ export default class TaskComponent extends Component {
     this.setState({ filterer: e.target.value.substr(0, 20) });
   };
 
+  toggle(prop, val) {
+    this.setState({
+      [prop]: val
+    })
+  };
+
   render() { 
     let mappedTasks;
     let task = [];
+    let { editTask, taskEdit } = this.state;
     for(var i = 0; i < this.state.tasks.length; i++){
       if(this.state.tasks[i]['column_id'] === this.props.allColumns.column_id){
         task.push(this.state.tasks[i])
@@ -95,8 +105,21 @@ export default class TaskComponent extends Component {
             <div className='task' key={allTasks.task_name}>
               <h1 className='task-name'>
                 {allTasks.task_name}
-                <button onClick={() => this.updateTask()} className="far fa-edit">Edit Task</button>
-                <button onClick={() => this.deleteTask()} className='far fa-delete'>Delete</button>
+                <div className='task-holder'>
+                  {editTask 
+                  ? <div className='task-editor'>
+                    <input onChange={(e) => {this.toggle('taskEdit', e.target.value)}} placeholder='Edit Task' />
+                    <span>
+                      <button onClick={() => this.toggle(editTask, false)}>Cancel</button>
+                      <button onClick={() => {taskEdit ? this.updateTask(allTasks.task_id) : this.toggle('editTask', false);}}>Save</button>
+                    </span>
+                    </div>
+                   : <div className='task-holder'>
+                      <button onClick={() => this.toggle('editTask', true)}>Edit</button>
+                    </div>
+                }
+                </div>
+                <button onClick={() => this.deleteTask(allTasks.task_id)} className='far fa-delete'>Delete</button>
               </h1>
             </div>
           )

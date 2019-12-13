@@ -19,8 +19,7 @@ module.exports = {
     return res.status(200).send(getTasks);
   },
   deleteTask: async (req, res) => {
-    const { task_id } = req.params;
-    const { group_id } = req.body;
+    const { task_id, group_id } = req.params;
     const db = req.app.get("db");
     const getTasks = await db.delete_task([task_id, group_id]);
     return res.status(200).send(getTasks);

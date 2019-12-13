@@ -1,21 +1,14 @@
 import React, { Component } from "react";
-import Tasks from "./TaskComponent";
+import { Droppable, Draggable } from "react-beautiful-dnd";
 import axios from "axios";
-import './ColumnComponent.scss';
-
+import "./ColumnComponent.scss";
 export default class TaskComponent extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
-      tasks: []
-      // ,
-      // filterer: []
-      // ,
-      // groupID: this.props.group.group_id
+      tasks: this.props.tasks
     };
 
-    this.displayTasks = this.displayTasks.bind(this);
     this.addTask = this.addTask.bind(this);
     this.updateTask = this.updateTask.bind(this);
     this.deleteTask = this.deleteTask.bind(this);
@@ -24,100 +17,110 @@ export default class TaskComponent extends Component {
     this.searching = this.searching.bind(this);
   }
 
-  componentDidMount() {
-    this.displayTasks();
-  }
-
-  // getGroup(group) {
-  //   axios.get(`/api/get_group/${group}`).then(group => {
-  //     this.setState({
-  //       group: group.data[0]
-  //     })
-  //   })
-  //   this.displayTasks(group);
-  // }
-
-  displayTasks() {
-    axios.get(`/api/display_tasks/${this.props.group.group_id}`).then(response => {
-      this.setState({
-        tasks: response.data
-      })
-    })
-  }
-
   addTask(task_name, column_id) {
-    axios.post(`/api/add_task/`, { task_name, column_id }).then(res => {
-      this.setState({
-        tasks: res.data
-      });
-    }).catch(err => console.log(err))
+    axios
+      .post(`/api/add_task/`, { task_name, column_id })
+      .then(res => {
+        this.setState({
+          tasks: res.data
+        });
+      })
+      .catch(err => console.log(err));
   }
-
   updateTask(task_id, task_name) {
-    axios.put(`/api/update_task/${task_id}`, { task_name }).then(res => {
-      this.setState({
-        tasks: res.data
-      });
-    }).catch(err => console.log(err))
+    axios
+      .put(`/api/update_task/${task_id}`, { task_name })
+      .then(res => {
+        this.setState({
+          tasks: res.data
+        });
+      })
+      .catch(err => console.log(err));
   }
-
   deleteTask(task_id) {
-    axios.delete(`/api/delete_task/${task_id}`).then(res => {
-      this.setState({
-        tasks: res.data
-      });
-    }).catch(err => console.log(err))
+    axios
+      .delete(`/api/delete_task/${task_id}`)
+      .then(res => {
+        this.setState({
+          tasks: res.data
+        });
+      })
+      .catch(err => console.log(err));
   }
-
   handleChange(e) {
     this.setState({
       [e.target.name]: e.target.value
     });
   }
-
   handleSubmit(e) {
     e.preventDefault();
-    this.updateTask(this.state.tasks.task_name, this.state.tasks.task_id);
+    this.updateTask(this.props.tasks.task_name, this.props.tasks.task_id);
   }
-
   searching = e => {
     this.setState({ filterer: e.target.value.substr(0, 20) });
   };
-
-  render() { 
+  render() {
     let mappedTasks;
     let task = [];
-    for(var i = 0; i < this.state.tasks.length; i++){
-      if(this.state.tasks[i]['column_id'] === this.props.allColumns.column_id){
-        task.push(this.state.tasks[i])
-        mappedTasks = task.map(allTasks => {
+    for (var i = 0; i < this.props.tasks.length; i++) {
+      if (
+        this.props.tasks[i]["column_id"] === this.props.allColumns.column_id
+      ) {
+        task.push(this.props.tasks[i]);
+        mappedTasks = task.map((allTasks, index) => {
           return (
-            <div className='task' key={allTasks.task_name}>
-              <h1 className='task-name'>
-                {allTasks.task_name}
-                <button onClick={() => this.updateTask()} className="far fa-edit">Edit Task</button>
-                <button onClick={() => this.deleteTask()} className='far fa-delete'>Delete</button>
-              </h1>
-            </div>
-          )
+            <Draggable
+              draggableId={allTasks.task_id.toString()}
+              key={allTasks.task_id}
+              index={index}
+            >
+              {provided => (
+                <div
+                  className="task"
+                  key={allTasks.task_id}
+                  // index={index}
+                  {...provided.draggableProps}
+                  {...provided.dragHandleProps}
+                  ref={provided.innerRef}
+                >
+                  <h1 className="task-name">{allTasks.task_name}</h1>
+                  <div className="task-buttons">
+                    <i
+                      class="far fa-edit"
+                      onClick={() => this.updateTask()}
+                    ></i>
+                    <i
+                      class="far fa-trash-alt"
+                      onClick={() => this.deleteTask()}
+                    ></i>
+                  </div>
+                </div>
+              )}
+            </Draggable>
+          );
         });
       }
     }
     return (
       <div className="column-container">
-        {/* <input
-          className='task-search'
-          type="text"
-          placeholder="search for tasks"
-          onChange={this.searching}
-        /> */}
         <div className="column-header">
           <h3>{this.props.allColumns.column_name}</h3>
+          <i onClick={() => this.addTask()} className="fas fa-plus">
+            Task
+          </i>
         </div>
-        <div className="mapped-tasks">
-          {mappedTasks}
-          <button onClick={() => this.addTask()} className="fas fa-plus">Add Task</button>
-        </div>
+        <Droppable droppableId={this.props.allColumns.column_id.toString()}>
+          {provided => (
+            <div
+              className="mapped-tasks"
+              ref={provided.innerRef}
+              {...provided.droppableProps}
+            >
+              {mappedTasks}
+              {provided.placeholder}
+            </div>
+          )}
+        </Droppable>
       </div>
     );
   }

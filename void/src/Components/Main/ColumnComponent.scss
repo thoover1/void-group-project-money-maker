@@ -1,28 +1,51 @@
-@import '../../App.scss';
+@import "../../App.scss";
 
 .column-container {
-    background-color: white;
-    border-radius: 15px;
+  background-color: white;
+  border-radius: 15px;
+  height: 90%;
+  width: 30%;
+  padding: 5px;
+  .column-header {
+    height: 5%;
+  }
+  .mapped-tasks {
     height: 90%;
-    width: 30%;
-    padding: 5px;
-    .column-header {
-        height: 5%;
-        .fa-edit {
-            background-color: red;
-        }
-    }
-    .mapped-tasks {
-        height: 90%;
-        .task {
-            background-color: #e4e3e3;
-            box-shadow: 4px 4px #d8d8d8;
-            border-radius: 5px;
-            height: 10%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 10px;
-        }
-    }
+    width: 100%;
+    padding: 0px;
+    overflow-y: scroll;
+  }
+  .column-header {
+    height: 5%;
+  }
+  .far:hover {
+    opacity: 1;
+    color: red;
+    cursor: pointer;
+  }
+  .task {
+    background-color: #e4e3e3;
+    box-shadow: 4px 4px #d8d8d8;
+    border-radius: 5px;
+    height: 10%;
+    display: flex;
+    // justify-content: space-between;
+    margin: 10px;
+    cursor: move;
+  }
+  .task-name {
+    width: 85%;
+    display: flex;
+    align-items: baseline;
+  }
+  .task-buttons {
+    width: 15%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+  }
+  .far {
+    opacity: 0.2;
+  }
 }

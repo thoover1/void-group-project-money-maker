@@ -1,0 +1,89 @@
+@font-face {
+  font-family: 'lemonmilk_lightregular';
+  src: url("./fonts/lemonmilklight-webfont.woff2") format("woff2"), url("./fonts/lemonmilklight-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+.App {
+  font-family: 'lemonmilk_lightregular', Arial, sans-serif;
+  font-weight: normal;
+  font-style: normal;
+  height: 100vh;
+  width: 100%;
+  background-color: #24528f;
+  text-align: center;
+}
+
+.column-container {
+  background-color: white;
+  border-radius: 15px;
+  height: 90%;
+  width: 30%;
+  padding: 5px;
+}
+
+.column-container .column-header {
+  height: 5%;
+}
+
+.column-container .mapped-tasks {
+  height: 90%;
+  width: 100%;
+  padding: 0px;
+  overflow-y: scroll;
+}
+
+.column-container .column-header {
+  height: 5%;
+}
+
+.column-container .far:hover {
+  opacity: 1;
+  color: red;
+  cursor: pointer;
+}
+
+.column-container .task {
+  background-color: #e4e3e3;
+  -webkit-box-shadow: 4px 4px #d8d8d8;
+          box-shadow: 4px 4px #d8d8d8;
+  border-radius: 5px;
+  height: 10%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 10px;
+  cursor: move;
+}
+
+.column-container .task-name {
+  width: 85%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: baseline;
+      -ms-flex-align: baseline;
+          align-items: baseline;
+}
+
+.column-container .task-buttons {
+  width: 15%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.column-container .far {
+  opacity: 0.2;
+}
+/*# sourceMappingURL=ColumnComponent.css.map */

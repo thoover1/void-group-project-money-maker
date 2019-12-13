@@ -93,7 +93,6 @@ class Main extends Component {
   // }
 
   render() {
-    console.log(this.state.group)
     const mappedColumns = this.state.columns;
     let width;
     if(this.state.group.length != []){
@@ -117,7 +116,7 @@ class Main extends Component {
                 <div className="displayed-group">
                   <h1 className='main-h1'>{this.state.group.group_name}</h1>
                   <div className="mapped-columns">
-                    {mappedColumns.map(allColumns => <Columns displayColumns={this.displayColumns} allColumns={allColumns} editColumn={this.editColumn} deleteColumn={this.deleteColumn} group={this.state.group}/>)}
+                    {mappedColumns.map(allColumns => <Columns displayColumns={this.displayColumns} allColumns={allColumns} editColumn={this.editColumn} deleteColumn={this.deleteColumn} group={this.state.group} key={allColumns.column_id}/>)}
                   </div>
                   <div className="new-column">
                     <p>Add New Column</p>

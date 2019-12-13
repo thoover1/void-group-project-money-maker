@@ -6,7 +6,8 @@ export default class TaskComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      tasks: this.props.tasks
+      tasks: this.props.tasks,
+      taskEdit: []
     };
 
     this.addTask = this.addTask.bind(this);
@@ -17,35 +18,29 @@ export default class TaskComponent extends Component {
     this.searching = this.searching.bind(this);
   }
 
-  addTask(task_name, column_id) {
-    axios
-      .post(`/api/add_task/`, { task_name, column_id })
-      .then(res => {
-        this.setState({
-          tasks: res.data
-        });
-      })
-      .catch(err => console.log(err));
+  addTask(task_name, column_id, group_id) {
+    axios.post(`/api/add_task/${task_name}/${group_id}`, { task_name, column_id, group_id }).then(res => {
+      this.setState({
+        tasks: res.data
+      });
+    }).catch(err => console.log(err))
   }
-  updateTask(task_id, task_name) {
-    axios
-      .put(`/api/update_task/${task_id}`, { task_name })
-      .then(res => {
-        this.setState({
-          tasks: res.data
-        });
-      })
-      .catch(err => console.log(err));
+
+  updateTask(task_id) {
+    axios.put(`/api/update_task/${task_id}`, { task_name: this.state.taskEdit, group_id:this.props.group_id }).then(res => {
+      this.setState({
+        tasks: res.data
+      });
+      this.displayTasks();
+    }).catch(err => console.log(err))
   }
   deleteTask(task_id) {
-    axios
-      .delete(`/api/delete_task/${task_id}`)
-      .then(res => {
-        this.setState({
-          tasks: res.data
-        });
-      })
-      .catch(err => console.log(err));
+    let { group_id } = this.props.group
+    axios.delete(`/api/delete_task/${task_id}/${group_id}`).then(res => {
+      this.setState({
+        tasks: res.data
+      });
+    }).catch(err => console.log(err))
   }
   handleChange(e) {
     this.setState({
@@ -59,9 +54,16 @@ export default class TaskComponent extends Component {
   searching = e => {
     this.setState({ filterer: e.target.value.substr(0, 20) });
   };
+
+  toggle(prop, val) {
+    this.setState({
+      [prop]: val
+    })
+  };
   render() {
     let mappedTasks;
     let task = [];
+    let { editTask, taskEdit } = this.state;
     for (var i = 0; i < this.props.tasks.length; i++) {
       if (
         this.props.tasks[i]["column_id"] === this.props.allColumns.column_id
@@ -85,13 +87,21 @@ export default class TaskComponent extends Component {
                 >
                   <h1 className="task-name">{allTasks.task_name}</h1>
                   <div className="task-buttons">
-                    <i
-                      class="far fa-edit"
-                      onClick={() => this.updateTask()}
-                    ></i>
+                  {editTask 
+                  ? <div className='task-editor'>
+                    <input onChange={(e) => {this.toggle('taskEdit', e.target.value)}} placeholder='Edit Task' />
+                    <span>
+                      <button onClick={() => this.toggle(editTask, false)}>Cancel</button>
+                      <button onClick={() => {taskEdit ? this.updateTask(allTasks.task_id) : this.toggle('editTask', false);}}>Save</button>
+                    </span>
+                    </div>
+                   : <div className='task-holder'>
+                      <button onClick={() => this.toggle('editTask', true)}>Edit</button>
+                    </div>
+                }
                     <i
                       class="far fa-trash-alt"
-                      onClick={() => this.deleteTask()}
+                      onClick={() => this.deleteTask(allTasks.task_id)}
                     ></i>
                   </div>
                 </div>

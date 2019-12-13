@@ -1,0 +1,86 @@
+.sidebar-container .sidebar-background {
+  width: 8%;
+  height: 100vh;
+  background-color: #333;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: absolute;
+  top: 0;
+}
+
+.sidebar-container .sidebar-background .inner {
+  height: 95vh;
+  width: 100px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.sidebar-container .sidebar-background .inner .ham-menu {
+  color: white;
+  width: 45px;
+  height: 45px;
+}
+
+.sidebar-container .sidebar-background .inner .ham-menu:hover {
+  color: lightgray;
+  cursor: pointer;
+}
+
+.sidebar-container .sidebar-background .inner .user-around {
+  width: 100px;
+  height: 80vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-top: 30px;
+}
+
+.sidebar-container .sidebar-background .inner .user-around .user-avi {
+  width: 60px;
+  height: 60px;
+  background: url("https://icon-library.net/images/631929649c.svg.svg");
+  background-size: cover;
+  border-radius: 50px;
+  margin-bottom: 20px;
+}
+
+.sidebar-container .sidebar-background .inner .user-around .user-avi:hover {
+  cursor: pointer;
+}
+
+.sidebar-container .sidebar-background .inner .three-dots {
+  color: white;
+  width: 50px;
+  height: 50px;
+}
+
+.sidebar-container .sidebar-background .inner .three-dots:hover {
+  color: lightgray;
+  cursor: pointer;
+}
+/*# sourceMappingURL=Sidebar.css.map */

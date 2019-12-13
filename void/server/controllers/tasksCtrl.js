@@ -24,5 +24,13 @@ module.exports = {
     const db = req.app.get("db");
     const getTasks = await db.delete_task([task_id, group_id]);
     return res.status(200).send(getTasks);
+  },
+  switchColumn: async (req, res) => {
+    const { task_id } = req.params;
+    const { column_id, group_id } = req.body;
+    console.log(111, column_id, group_id);
+    const db = req.app.get("db");
+    const getColumns = await db.switch_column([task_id, column_id, group_id]);
+    return res.status(200).send(getColumns);
   }
 };

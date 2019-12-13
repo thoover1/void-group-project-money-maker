@@ -1,0 +1,58 @@
+@font-face {
+  font-family: 'lemonmilk_lightregular';
+  src: url("./fonts/lemonmilklight-webfont.woff2") format("woff2"), url("./fonts/lemonmilklight-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+.App {
+  font-family: 'lemonmilk_lightregular', Arial, sans-serif;
+  font-weight: normal;
+  font-style: normal;
+  height: 100vh;
+  width: 100%;
+  background-color: #24528f;
+  text-align: center;
+}
+
+.groups-holder {
+  height: 77%;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.groups-holder .group-search {
+  position: absolute;
+  top: 150px;
+}
+
+.groups-holder .groups {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  padding: 10px;
+}
+
+.groups-holder .groups .group {
+  border-radius: 100px;
+  margin: 10px;
+}
+
+.groups-holder .groups .group .group-button {
+  border: none;
+  border-radius: 100px;
+  height: 100px;
+  width: 100px;
+}
+/*# sourceMappingURL=Groups.css.map */

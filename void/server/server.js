@@ -118,7 +118,7 @@ app.get("/api/group_members", gc.groupMembers);
 // app.post("/api/add_user", gc.addUser);
 // app.delete("/api/remove_user/", gc.removeUser);
 app.get("/api/get_groups", gc.getGroups);
-app.get('/api/get_group/:group_id', gc.getGroup);
+app.get("/api/get_group/:group_id", gc.getGroup);
 // app.get("/api/display_board/:group_id", gc.displayBoard);
 
 // endpoints for sidebar users
@@ -144,6 +144,9 @@ app.get("/api/display_tasks/:group_id", tc.displayTasks);
 app.post("/api/add_task", tc.addTask);
 app.put("/api/update_task/:task_id", tc.updateTask);
 app.delete("/api/delete_task/:task_id/", tc.deleteTask);
+
+// endpoints for switching tasks around
+app.put("/api/switch_columns/:task_id", tc.switchColumn);
 
 // only allows users with profile to use app
 // app.use((req, res, next) => {

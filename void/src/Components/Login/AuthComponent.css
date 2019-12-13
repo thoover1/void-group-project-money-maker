@@ -1,0 +1,126 @@
+.auth-container form .submit, .auth-container .switcher {
+  color: #2460ad;
+  border: 2px solid #2460ad;
+  background-color: #f0f0f0;
+  border-radius: 4px;
+  text-transform: uppercase;
+  height: 30px;
+  outline: none;
+}
+
+.auth-container form .submit:hover, .auth-container .switcher:hover {
+  color: #f0f0f0;
+  border: 2px solid #2460ad;
+  background-color: #2460ad;
+  border-radius: 4px;
+  text-transform: uppercase;
+  height: 30px;
+  outline: none;
+}
+
+@font-face {
+  font-family: 'lemonmilk_lightregular';
+  src: url("./fonts/lemonmilklight-webfont.woff2") format("woff2"), url("./fonts/lemonmilklight-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+.App {
+  font-family: 'lemonmilk_lightregular', Arial, sans-serif;
+  font-weight: normal;
+  font-style: normal;
+  height: 100vh;
+  width: 100%;
+  background-color: #24528f;
+  text-align: center;
+}
+
+.auth-container {
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  font-family: 'lemonmilk_lightregular', Arial, sans-serif;
+  font-weight: normal;
+  font-style: normal;
+}
+
+.auth-container form {
+  background-color: #96d4d7;
+  -webkit-box-shadow: 5px 5px #61a0c8, 10px 10px #327cb9, 15px 15px #2460ad;
+          box-shadow: 5px 5px #61a0c8, 10px 10px #327cb9, 15px 15px #2460ad;
+  height: 300px;
+  width: 300px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+}
+
+.auth-container form .error {
+  height: 20px;
+}
+
+.auth-container form .inputs {
+  height: 200px;
+  width: 200px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.auth-container form .inputs .username-i {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.auth-container form .inputs .email-i {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.auth-container form .inputs .password-i {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+/*# sourceMappingURL=AuthComponent.css.map */

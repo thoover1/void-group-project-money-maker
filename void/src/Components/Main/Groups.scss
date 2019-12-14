@@ -18,11 +18,22 @@
             border-radius: 100px;
             margin: 10px;
             .group-button {
+                outline: none;
                 border: none;
                 border-radius: 100px;
                 height: 100px;
                 width: 100px;
             }
+        }
+    }
+}
+
+@media (max-width: 650px) {
+    .groups-holder {
+        .groups {
+            overflow-y: scroll;
+            width: 70%;
+            justify-content: center;
         }
     }
 }

@@ -14,6 +14,7 @@ module.exports = {
   updateTask: async (req, res) => {
     const { task_id } = req.params;
     const { task_name, group_id } = req.body;
+    console.log(task_name, group_id)
     const db = req.app.get("db");
     const getTasks = await db.edit_task([task_name, task_id, group_id]);
     return res.status(200).send(getTasks);

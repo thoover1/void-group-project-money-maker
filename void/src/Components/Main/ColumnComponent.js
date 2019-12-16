@@ -7,41 +7,43 @@ export default class TaskComponent extends Component {
     super(props);
     this.state = {
       tasks: this.props.tasks,
-      taskEdit: []
+      taskEdit: '',
+      editTask: false
     };
 
-    this.addTask = this.addTask.bind(this);
-    this.updateTask = this.updateTask.bind(this);
-    this.deleteTask = this.deleteTask.bind(this);
+    // this.addTask = this.addTask.bind(this);
+    // this.updateTask = this.updateTask.bind(this);
+    // this.deleteTask = this.deleteTask.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.searching = this.searching.bind(this);
   }
 
-  addTask(task_name, column_id, group_id) {
-    axios.post(`/api/add_task/${task_name}/${group_id}`, { task_name, column_id, group_id }).then(res => {
-      this.setState({
-        tasks: res.data
-      });
-    }).catch(err => console.log(err))
-  }
+  // addTask(task_name, column_id, group_id) {
+  //   axios.post(`/api/add_task/${task_name}/${group_id}`, { task_name, column_id, group_id }).then(res => {
+  //     this.setState({
+  //       tasks: res.data
+  //     });
+  //   }).catch(err => console.log(err))
+  // }
 
-  updateTask(task_id) {
-    axios.put(`/api/update_task/${task_id}`, { task_name: this.state.taskEdit, group_id:this.props.group_id }).then(res => {
-      this.setState({
-        tasks: res.data
-      });
-      this.displayTasks();
-    }).catch(err => console.log(err))
-  }
-  deleteTask(task_id) {
-    let { group_id } = this.props.group
-    axios.delete(`/api/delete_task/${task_id}/${group_id}`).then(res => {
-      this.setState({
-        tasks: res.data
-      });
-    }).catch(err => console.log(err))
-  }
+  // updateTask(task_id) {
+  //   axios.put(`/api/update_task/${task_id}`, { task_name: this.state.taskEdit, group_id:this.props.group_id }).then(res => {
+  //     this.setState({
+  //       tasks: res.data
+  //     });
+  //     this.displayTasks();
+  //   }).catch(err => console.log(err))
+  // }
+  // deleteTask(task_id) {
+  //   let { group_id } = this.props.group
+  //   axios.delete(`/api/delete_task/${task_id}/${group_id}`).then(res => {
+  //     this.setState({
+  //       tasks: res.data
+  //     });
+  //     console.log(333, 'hello')
+  //   }).catch(err => console.log(err))
+  // }
   handleChange(e) {
     this.setState({
       [e.target.name]: e.target.value
@@ -49,7 +51,7 @@ export default class TaskComponent extends Component {
   }
   handleSubmit(e) {
     e.preventDefault();
-    this.updateTask(this.props.tasks.task_name, this.props.tasks.task_id);
+    this.props.updateTask(this.props.tasks.task_name, this.props.tasks.task_id, this.props.group);
   }
   searching = e => {
     this.setState({ filterer: e.target.value.substr(0, 20) });
@@ -92,7 +94,7 @@ export default class TaskComponent extends Component {
                     <input onChange={(e) => {this.toggle('taskEdit', e.target.value)}} placeholder='Edit Task' />
                     <span>
                       <button onClick={() => this.toggle(editTask, false)}>Cancel</button>
-                      <button onClick={() => {taskEdit ? this.updateTask(allTasks.task_id) : this.toggle('editTask', false);}}>Save</button>
+                      <button onClick={() => {taskEdit ? this.props.updateTask(allTasks.task_id, this.state.taskEdit) : this.toggle('editTask', false);}}>Save</button>
                     </span>
                     </div>
                    : <div className='task-holder'>
@@ -100,8 +102,8 @@ export default class TaskComponent extends Component {
                     </div>
                 }
                     <i
-                      class="far fa-trash-alt"
-                      onClick={() => this.deleteTask(allTasks.task_id)}
+                      className="far fa-trash-alt"
+                      onClick={() => this.props.deleteTask(allTasks.task_id)} 
                     ></i>
                   </div>
                 </div>
@@ -115,8 +117,8 @@ export default class TaskComponent extends Component {
       <div className="column-container">
         <div className="column-header">
           <h3>{this.props.allColumns.column_name}</h3>
-          <i onClick={() => this.addTask()} className="fas fa-plus">
-            Task
+          <i onClick={() => this.props.addTask()} className="fas fa-plus">
+            Add Task
           </i>
         </div>
         <Droppable droppableId={this.props.allColumns.column_id.toString()}>

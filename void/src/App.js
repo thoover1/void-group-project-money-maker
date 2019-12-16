@@ -8,6 +8,8 @@ import Landing from "./Components/Landing/Landing";
 import AuthComponent from "./Components/Login/AuthComponent";
 import Main from "./Components/Main/Main";
 import Profile from "./Components/Profile/Profile";
+import Join from "./Components/Join/Join";
+import Chat from "./Components/Chat/Chat";
 
 class App extends React.Component {
   constructor(props) {
@@ -48,6 +50,12 @@ class App extends React.Component {
             render={props => <Main changeTitle={this.changeTitle} {...props} />}
             />
           )}
+          <Route path="/join" render={props => (
+            <Join changeTitle={this.changeTitle} {...props}/>
+          )} />
+          <Route path="/chat" render={props => (
+            <Chat changeTitle={this.changeTitle} {...props} />
+          )} />
           {this.props.user && (
             <Route
               path="/profile"

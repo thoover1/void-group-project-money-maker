@@ -1,5 +1,4 @@
 require("dotenv").config();
-// const socket = require("socket.io");
 
 const gc = require("./controllers/groupCtrl");
 const uc = require("./controllers/userCtrl");
@@ -9,11 +8,23 @@ const sbc = require("./controllers/sidebarCtrl");
 
 const { SERVER_PORT, SESSION_SECRET, CONNECTION_STRING } = process.env;
 const express = require("express");
-const app = express();
-app.use(express.json());
+
 const massive = require("massive");
 const session = require("express-session");
-// const socket = require("socket.io");
+const cors = require("cors");
+const socketio = require("socket.io");
+const http = require("http");
+
+const app = express();
+const server = http.createServer(app);
+const io = socketio(server);
+
+app.use(cors());
+
+app.use(express.json());
+
+
+const { addUser, removeUser, getUser, getUsersInRoom } = require("./controllers/chatCtrl");
 
 // for static server
 // app.use(express.static(__dirname + `../build`));
@@ -37,64 +48,6 @@ massive(CONNECTION_STRING)
   .then(db => {
     console.log("Database connected!");
     app.set("db", db);
-
-    // allows sockets to listen to server, I think...
-    // const io = socket(
-    //   app.listen(SERVER_PORT, () => {
-    //     console.log(`Server running on port ${SERVER_PORT}`);
-    //   })
-    // );
-    // // connects front end to sockets/server, I think...
-    // io.on("connection", client => {
-    //   client.leave(client.id);
-    //   // console.log(client.id);
-
-    //   // used for chat/messaging
-    //   // client.on("SEND_MESSAGE", function(data) {
-    //   //   console.log("message sent");
-    //   //   io.emit("RECEIVE_MESSAGE", data);
-    //   // });
-
-    //   // creating group boards
-    //   client.on("createGroupBoard", data => {
-    //     let { groupBoard } = data;
-    //     client.join(groupBoard);
-    //     console.log("created board");
-    //     io.emit("gotGroupBoard", io.sockets.adapter.groupBoards);
-    //   });
-
-    //   // sends group boards to others
-    //   client.on("sendBoardToOthers", data => {
-    //     let { groupBoard, board1 } = data;
-    //     client.in(groupBoard).emit("boardSentToOthers", board1);
-    //   });
-
-    //   // joining group boards YOU created
-    //   client.on("joinMyGroupBoard", data => {
-    //     let { groupBoard } = data;
-    //     client.join(groupBoard);
-    //     console.log("joined MY board");
-    //   });
-
-    //   // joining group boards other user created - may have to add more boards (e.g. board3, board4, etc.) depending on how many user there are? (up to 10?)
-    //   client.on("joinCreatedGroupBoard", data => {
-    //     let { board2, groupBoard } = data;
-    //     io.in(groupBoard).emit("groupBoardJoined", { board2 });
-    //     (user1 = ""), io.emit("gotGroupBoard", io.sockets.adapter.groupBoards);
-    //   });
-
-    //   // moving cards around into other columns
-    //   client.on("moveCard", payload => {
-    //     client.emit("cardMoved", payload);
-    //   });
-
-    //   // exiting boards
-    //   client.on("leaveGroupBoard", groupBoard => {
-    //     client.leave(groupBoard);
-    //     console.log("left board");
-    //     io.emit("gotGroupBoard", io.sockets.adapter.groupBoards);
-    //   });
-    // });
   })
   .catch(err => console.log(err));
 
@@ -157,5 +110,43 @@ app.put("/api/switch_columns/:task_id", tc.switchColumn);
 //   else res.sendStatus(401);
 // });
 
+
+//sockets
+io.on('connect', (socket) => {
+  socket.on('join', ({ name, room }, callback) => {
+    const { error, user } = addUser({ id: socket.id, name, room });
+
+    if(error) return callback(error);
+
+    socket.join(user.room);
+
+    socket.emit('message', { user: 'admin', text: `${user.name}, welcome to room ${user.room}.`});
+    socket.broadcast.to(user.room).emit('message', { user: 'admin', text: `${user.name} has joined!` });
+
+    io.to(user.room).emit('roomData', { room: user.room, users: getUsersInRoom(user.room) });
+
+    callback();
+  });
+
+  socket.on('sendMessage', (message, callback) => {
+    const user = getUser(socket.id);
+
+    io.to(user.room).emit('message', { user: user.name, text: message });
+
+    callback();
+  });
+
+  socket.on('disconnect', () => {
+    const user = removeUser(socket.id);
+
+    if(user) {
+      io.to(user.room).emit('message', { user: 'admin', text: `${user.name} has left.` });
+      io.to(user.room).emit('roomData', { room: user.room, users: getUsersInRoom(user.room)});
+    }
+  })
+})
+
+
+
 let port = SERVER_PORT || 4000;
-app.listen(port, () => console.log(`Listening on port ${port}.`));
+server.listen(port, () => console.log(`Listening on port ${port}.`));

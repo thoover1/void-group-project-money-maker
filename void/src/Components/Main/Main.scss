@@ -1,6 +1,7 @@
 @import "../../App.scss";
 
 .board-container {
+  background-color: $dark-blue;
   width: 100%;
   height: 100%;
   display: flex;
@@ -179,6 +180,21 @@
         width: 80%;
         .mapped-columns {
           flex-direction: column;
+        }
+      }
+    }
+  }
+}
+
+@media (max-height: 800px) {
+  .board-container {
+    .groups-columns {
+      .displayed-group {
+        .main-h1 {
+          top: 110px;
+          height: 20px;
+          font-size: 22px;
+          line-height: 25px;
         }
       }
     }

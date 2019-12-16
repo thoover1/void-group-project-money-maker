@@ -31,12 +31,12 @@
       display: flex;
       margin: 10px;
       cursor: move;
-    }
-    .task-name {
-      width: 75%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      .task-name {
+        width: 75%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
     }
     .task-buttons {
       width: 25%;
@@ -72,13 +72,75 @@
         }
       }
       .far {
-        display: none;
         opacity: 0.2;
       }
       .far:hover {
         opacity: 1;
         color: $background-blue;
         cursor: pointer;
+      }
+    }
+  }
+}
+
+@media (max-width: 850px) {
+  .column-container {
+    height: 30%;
+    width: 90%;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    .column-header {
+      height: 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 5px;
+    }
+    .mapped-tasks {
+      border-radius: 15px;
+      height: 90%;
+      width: 100%;
+      padding: 0px;
+      .task {
+        height: 40px;
+        display: flex;
+        margin: 10px;
+      }
+      .task-name {
+        width: 75%;
+      }
+      .task-buttons {
+        width: 25%;
+        flex-direction: row;
+        .task-editor {
+          width: 100%;
+          input {
+            width: 80px;
+          }
+          // span {
+          //   button {
+          //     @extend %button-setting;
+          //     height: 20px;
+          //     padding: 2px;
+          //   }
+          //   button:hover {
+          //     @extend %button-hover;
+          //     height: 20px;
+          //   }
+          // }
+        }
+        // .task-holder {
+        //   button {
+        //     @extend %button-setting;
+        //     height: 20px;
+        //   }
+        //   button:hover {
+        //     @extend %button-hover;
+        //     height: 20px;
+        //   }
+        // }
       }
     }
   }

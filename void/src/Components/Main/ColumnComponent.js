@@ -69,7 +69,7 @@ class ColumnComponent extends Component {
   render() {
     let mappedTasks;
     let task = [];
-    let { editTask, taskEdit } = this.state;
+    // let { editTask, taskEdit } = this.state;
     for (var i = 0; i < this.props.tasks.length; i++) {
       if (
         this.props.tasks[i]["column_id"] === this.props.allColumns.column_id

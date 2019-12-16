@@ -1,9 +1,3 @@
--- SELECT group_id, group_name, users.user_id, username
--- FROM groups
---     JOIN users
---     ON groups.user_id = users.user_id
--- WHERE users.user_id = $1;
-
 SELECT * FROM groups
 WHERE 
 user1 = $1 OR 

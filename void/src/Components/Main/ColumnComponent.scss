@@ -16,6 +16,23 @@
     justify-content: space-between;
     align-items: center;
     padding: 5px;
+    .add-task {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      button {
+        @extend %button-setting;
+        height: 20px;
+      }
+      button:hover {
+        @extend %button-hover;
+        height: 20px;
+        cursor: pointer;
+      }
+    }
+    .fa-plus:hover {
+      cursor: pointer
+    }
   }
   .mapped-tasks {
     border-radius: 15px;
@@ -29,13 +46,17 @@
       border-radius: 5px;
       height: 10%;
       display: flex;
-      margin: 10px;
+      align-items: center;
+      margin: 12px;
       cursor: move;
-      .task-name {
+      .task-name-holder {
+        max-height: 80%;
         width: 75%;
         display: flex;
+        flex-direction: column;
         align-items: center;
-        justify-content: center;
+        justify-content: flex-start;
+        overflow-y: auto;
       }
     }
     .task-buttons {
@@ -65,10 +86,14 @@
         button {
           @extend %button-setting;
           height: 20px;
+          margin: 5px;
+          opacity: .3;
         }
         button:hover {
           @extend %button-hover;
           height: 20px;
+          opacity: 1;
+          cursor: pointer;
         }
       }
       .far {

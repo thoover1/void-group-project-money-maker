@@ -7,8 +7,9 @@ module.exports = {
   },
   createGroup: (req, res, next) => {
     const db = req.app.get("db");
-    const { user_id } = req.session;
-    db.create_group(user_id).then(group => {
+    const { group_name } = req.body;
+    const { user_id } = req.session.user;
+    db.create_group(group_name, user_id).then(group => {
       res.status(200).send(group);
     });
   },

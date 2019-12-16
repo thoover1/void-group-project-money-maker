@@ -1,7 +1,7 @@
 @import '../../../App.scss';
 
     .sidebar-background {
-        width: 8%;
+        // width: 8%;
         height: 100vh;
         background-color: #333;
         display: flex;
@@ -293,6 +293,51 @@
                     height: 44px;
                     width: 44px;
                 }
+            }
+        }
+    }
+}
+
+@media (max-width: 450px) {
+    .sidebar-background {
+        .inner {
+            .group-selector {
+                width: 200px;
+                height: 200px;
+                .mapped-groups {
+                    width: 190px;
+                    height: 170px;
+                    .group {
+                        width: 180px;
+                        .group-button {
+                            width: 160px;
+                        }
+                    }
+                }
+            }
+            .search-box {
+                width: 200px;
+                height: 200px;
+                .search-input {
+                    width: 180px;
+                }
+                .map-users {
+                    width: 190px;
+                    height: 160px;
+                }
+            }
+        }
+    }
+}
+
+@media (max-height: 570px) {
+    .sidebar-background {
+        .inner {
+            .group-selector {
+                left: 100px;
+            }
+            .search-box {
+                left: 100px;
             }
         }
     }

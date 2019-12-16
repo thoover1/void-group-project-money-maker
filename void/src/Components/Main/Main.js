@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Columns from "./ColumnComponent";
+import Sidebar from "../Main/Sidebar/Sidebar";
 import "./Main.scss";
 import axios from "axios";
 
@@ -89,6 +90,8 @@ export default class Main extends Component {
     const mappedColumns = this.state.columns;
     return (
       <div className="board-container">
+        <Sidebar />
+        {/* <Message /> */}
         <h1>{this.state.board.group_name}</h1>
         <div className="mapped-columns">
           {mappedColumns.map(allColumns => {

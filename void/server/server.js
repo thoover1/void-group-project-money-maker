@@ -1,5 +1,5 @@
 require("dotenv").config();
-const socket = require("socket.io");
+// const socket = require("socket.io");
 
 const gc = require("./controllers/groupCtrl");
 const uc = require("./controllers/userCtrl");

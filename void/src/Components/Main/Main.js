@@ -40,11 +40,9 @@ class Main extends Component {
     this.groupMembers = this.groupMembers.bind(this);
     // this.handleChange = this.handleChange.bind(this);
     // this.handleSubmit = this.handleSubmit.bind(this);
-    this.swtichColumns = this.swtichColumns.bind(this);
-    this.addTask = this.addTask.bind(this);
-    this.updateTask = this.updateTask.bind(this);
-    this.deleteTask = this.deleteTask.bind(this); 
+    this.switchColumns = this.switchColumns.bind(this);
   }
+
   componentDidMount() {
     this.props.changeTitle("Login");
   }
@@ -94,36 +92,6 @@ class Main extends Component {
         columns: res.data
       });
     });
-  }
-
-  addTask(task_name, column_id, group_id) {
-    axios.post(`/api/add_task/${task_name}/${group_id}`, { task_name, column_id, group_id }).then(res => {
-      this.setState({
-        tasks: res.data
-      });
-    }).catch(err => console.log(err))
-  }
-
-  updateTask(task_id, task_name) {
-    console.log(333, task_id)
-    console.log(this.state.tasks.task_name)
-    axios.put(`/api/update_task/${task_id}`, { task_name: task_name, group_id: this.props.group }).then(res => {
-      this.setState({
-        tasks: res.data
-      })
-      this.displayTasks(this.props.group_id);
-    }).catch(err => console.log(err))
-  }
-  deleteTask(task_id) {
-    let { group_id } = this.state.group
-    console.log(group_id)
-    console.log(task_id)
-    axios.delete(`/api/delete_task/${task_id}/${group_id}`).then(res => {
-      this.setState({
-        tasks: res.data
-      });
-      console.log(333, 'hello')
-    }).catch(err => console.log(err))
   }
 
   toggleSidebar(){
@@ -180,9 +148,9 @@ class Main extends Component {
 
     let IDofTask = draggableId;
     let newColumn = destination.droppableId;
-    this.swtichColumns(newColumn, IDofTask);
+    this.switchColumns(newColumn, IDofTask);
   };
-  swtichColumns(newColumn, IDofTask) {
+  switchColumns(newColumn, IDofTask) {
     axios
       .put(`/api/switch_columns/${IDofTask}`, {
         column_id: newColumn,
@@ -248,17 +216,15 @@ class Main extends Component {
                   <div className="mapped-columns">
                     {mappedColumns.map((allColumns, index) => 
                     <Columns 
-                    key={index} 
-                    displayColumns={this.displayColumns} 
-                    allColumns={allColumns} 
-                    editColumn={this.editColumn} 
-                    deleteColumn={this.deleteColumn} 
-                    group={this.state.group} 
-                    tasks={this.state.tasks} 
-                    deleteTask={this.deleteTask} 
-                    addTask={this.addTask} 
-                    updateTask={this.updateTask} 
-                    /*taskEdit={this.state.taskEdit}*//>)}
+                      key={index} 
+                      displayTasks={this.displayTasks}
+                      displayColumns={this.displayColumns} 
+                      allColumns={allColumns} 
+                      editColumn={this.editColumn} 
+                      deleteColumn={this.deleteColumn} 
+                      group={this.state.group} 
+                      tasks={this.state.tasks}
+                    />)}
                   </div>
               </DragDropContext>
               <div className="new-column">

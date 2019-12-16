@@ -2,66 +2,70 @@ import React, { Component } from "react";
 import { Droppable, Draggable } from "react-beautiful-dnd";
 import axios from "axios";
 import "./ColumnComponent.scss";
-export default class TaskComponent extends Component {
+import TaskComponent from './TaskComponent';
+import { connect } from "react-redux";
+
+class ColumnComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
       tasks: this.props.tasks,
       taskEdit: '',
-      editTask: false
+      editTask: false,
+      addTask: false,
+      taskField: ''
     };
 
-    // this.addTask = this.addTask.bind(this);
-    // this.updateTask = this.updateTask.bind(this);
-    // this.deleteTask = this.deleteTask.bind(this);
+    this.addTask = this.addTask.bind(this);
+    this.updateTask = this.updateTask.bind(this);
+    this.deleteTask = this.deleteTask.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.searching = this.searching.bind(this);
   }
 
-  // addTask(task_name, column_id, group_id) {
-  //   axios.post(`/api/add_task/${task_name}/${group_id}`, { task_name, column_id, group_id }).then(res => {
-  //     this.setState({
-  //       tasks: res.data
-  //     });
-  //   }).catch(err => console.log(err))
-  // }
+  addTask(task_name, column_id, group_id) {
+    axios.post(`/api/add_task`, { task_name: task_name, column_id: column_id, group_id: group_id }).then(res => {
+      this.setState({
+        tasks: res.data
+      });
+      this.props.displayTasks(this.props.group);
+    }).catch(err => console.log(err))
+  }
 
-  // updateTask(task_id) {
-  //   axios.put(`/api/update_task/${task_id}`, { task_name: this.state.taskEdit, group_id:this.props.group_id }).then(res => {
-  //     this.setState({
-  //       tasks: res.data
-  //     });
-  //     this.displayTasks();
-  //   }).catch(err => console.log(err))
-  // }
-  // deleteTask(task_id) {
-  //   let { group_id } = this.props.group
-  //   axios.delete(`/api/delete_task/${task_id}/${group_id}`).then(res => {
-  //     this.setState({
-  //       tasks: res.data
-  //     });
-  //     console.log(333, 'hello')
-  //   }).catch(err => console.log(err))
-  // }
-  handleChange(e) {
+  updateTask(task_id, task_name) {
+    axios.put(`/api/update_task/${task_id}`, { task_name: task_name, group_id: this.props.group }).then(res => {
+      this.setState({
+        tasks: res.data
+      })
+      this.props.displayTasks(this.props.group);
+    }).catch(err => console.log(err))
+  }
+
+  deleteTask(task_id) {
+    axios.delete(`/api/delete_task/${task_id}/${this.props.group}`).then(res => {
+      this.setState({
+        tasks: res.data
+      });
+      this.props.displayTasks(this.props.group);
+    }).catch(err => console.log(err))
+  }
+
+  handleChange(prop, val) {
     this.setState({
-      [e.target.name]: e.target.value
+      [prop]: val
     });
   }
+
   handleSubmit(e) {
     e.preventDefault();
     this.props.updateTask(this.props.tasks.task_name, this.props.tasks.task_id, this.props.group);
   }
+
   searching = e => {
     this.setState({ filterer: e.target.value.substr(0, 20) });
   };
 
-  toggle(prop, val) {
-    this.setState({
-      [prop]: val
-    })
-  };
   render() {
     let mappedTasks;
     let task = [];
@@ -79,34 +83,7 @@ export default class TaskComponent extends Component {
               index={index}
             >
               {provided => (
-                <div
-                  className="task"
-                  key={allTasks.task_id}
-                  // index={index}
-                  {...provided.draggableProps}
-                  {...provided.dragHandleProps}
-                  ref={provided.innerRef}
-                >
-                  <h1 className="task-name">{allTasks.task_name}</h1>
-                  <div className="task-buttons">
-                  {editTask 
-                  ? <div className='task-editor'>
-                    <input onChange={(e) => {this.toggle('taskEdit', e.target.value)}} placeholder='Edit Task' />
-                    <span>
-                      <button onClick={() => this.toggle(editTask, false)}>Cancel</button>
-                      <button onClick={() => {taskEdit ? this.props.updateTask(allTasks.task_id, this.state.taskEdit) : this.toggle('editTask', false);}}>Save</button>
-                    </span>
-                    </div>
-                   : <div className='task-holder'>
-                      <button onClick={() => this.toggle('editTask', true)}>Edit</button>
-                    </div>
-                }
-                    <i
-                      className="far fa-trash-alt"
-                      onClick={() => this.props.deleteTask(allTasks.task_id)} 
-                    ></i>
-                  </div>
-                </div>
+                <TaskComponent provided={provided} task_id={allTasks.task_id} task_name={allTasks.task_name} deleteTask={this.deleteTask} updateTask={this.updateTask}  />
               )}
             </Draggable>
           );
@@ -117,9 +94,14 @@ export default class TaskComponent extends Component {
       <div className="column-container">
         <div className="column-header">
           <h3>{this.props.allColumns.column_name}</h3>
-          <i onClick={() => this.props.addTask()} className="fas fa-plus">
-            Add Task
-          </i>
+          {this.state.addTask && 
+            <span className='add-task'>
+              <input onChange={(e) => this.handleChange('taskField', e.target.value)} placeholder='New task' />
+              <button onClick={() => {this.addTask(this.state.taskField, this.props.allColumns.column_id, this.props.group); this.setState({addTask: false})}} >Add</button>
+              <button onClick={() => {this.setState({addTask: false})}} >Cancel</button>
+            </span>
+          }
+          <i onClick={() => this.setState({addTask: true})} className="fas fa-plus"></i>
         </div>
         <Droppable droppableId={this.props.allColumns.column_id.toString()}>
           {provided => (
@@ -137,3 +119,10 @@ export default class TaskComponent extends Component {
     );
   }
 }
+
+function mapReduxStateToProps(reduxState) {
+  return reduxState;
+};
+const invokedConnect = connect(mapReduxStateToProps);
+
+export default invokedConnect(ColumnComponent);

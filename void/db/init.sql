@@ -1,7 +1,7 @@
-DROP TABLE IF EXISTS users;
-DROP TABLE IF EXISTS groups;
-DROP TABLE IF EXISTS columns;
 DROP TABLE IF EXISTS tasks;
+DROP TABLE IF EXISTS columns;
+DROP TABLE IF EXISTS groups;
+DROP TABLE IF EXISTS users;
 
 --  two users tables in here - this one is default when pulled up in SQL tabs
 CREATE TABLE users
@@ -34,8 +34,7 @@ CREATE TABLE groups
     user7 INTEGER,
     user8 INTEGER,
     user9 INTEGER,
-    user10 INTEGER,
-    user_id INTEGER REFERENCES users(user_id)
+    user10 INTEGER
 );
 
 INSERT INTO groups

@@ -21,6 +21,9 @@
     -webkit-transform: rotate(-45deg);
     transition: .3s;
   }
+  .footer-toggle:hover {
+    cursor: pointer;
+  }
   .move-right {
     background-color: transparent;
     border: solid black;

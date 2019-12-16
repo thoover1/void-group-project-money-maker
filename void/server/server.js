@@ -146,7 +146,7 @@ app.delete("/api/delete_column/:column_id/", cc.deleteColumn);
 app.get("/api/display_tasks/:group_id", tc.displayTasks);
 app.post("/api/add_task/:task_id/:group_id", tc.addTask);
 app.put("/api/update_task/:task_id", tc.updateTask);
-app.delete("/api/delete_task/:task_name/:group_id", tc.deleteTask);
+app.delete("/api/delete_task/:task_id/:group_id", tc.deleteTask);
 
 // endpoints for switching tasks around
 app.put("/api/switch_columns/:task_id", tc.switchColumn);

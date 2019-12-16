@@ -21,6 +21,10 @@ function Header(props) {
         </NavLink>
         <span className='navbar'>
           {props.user ? <button className='toggler' onClick={toggler} ><img className='toggle-img' src={props.user.image} alt={`${props.user.username}'s profile pic`} /></button> : <NavLink className='nav' to='/login-register' >{props.title}</NavLink>}
+          {/* {props.user && <NavLink className='nav' to='/join' >Chat</NavLink>} */}
+          {/* {!props.user && <NavLink className='nav' to='/login-register' >{props.title}</NavLink>}
+
+          {props.user && <button className='toggler' onClick={toggler} ><img className='toggle-img' src={props.user.image} alt={`${props.user.username}'s profile pic`} /></button>} */}
           
           {props.user && 
             <div className={show ? 'show' : ''}>

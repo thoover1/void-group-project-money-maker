@@ -10,9 +10,28 @@
         position: absolute;
         top: 150px;
     }
+    .create-group-container {
+        height: 50px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .create-group {
+            width: 200px;
+            margin: 5px;
+        }
+        .create-group-button {
+            @extend %button-setting;
+            height: 20px;
+        }
+        .create-group-button:hover {
+            @extend %button-hover;
+        }
+    }
     .groups {
         display: flex;
         flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
         padding: 10px;
         .group {
             border-radius: 100px;
@@ -23,6 +42,40 @@
                 border-radius: 100px;
                 height: 100px;
                 width: 100px;
+            }
+        }
+        .plus-button {
+            border: none;
+            font-size: 16px;
+            height: 100px;
+            width: 100px;
+            border-radius: 50px;
+            position: relative;
+            outline: none;
+            margin: 10px;
+            &:after,
+            &:before {
+                content: "";
+                display: block;
+                background-color: black;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+            
+            &:before {
+                height: 1em;
+                width: 0.2em;
+            }
+        
+            &:after {
+                height: 0.2em;
+                width: 1em;
+            }
+
+            &:hover {
+                cursor: pointer;
             }
         }
     }

@@ -76,10 +76,11 @@ module.exports = {
       res.status(200).send(users)
     })
   },
-  // displayBoard: async (req, res) => {
-  //   const { group_id } = req.params;
-  //   const db = req.app.get("db");
-  //   const getBoard = await db.get_board([group_id]);
-  //   res.status(200).send(getBoard);
-  // }
+  updateName: (req,res,next) => {
+    const db = req.app.get("db");
+    const {group_name, group_id} = req.body;
+    db.update_group_name(group_name, group_id).then(group => {
+      res.status(200).send(group)
+    }).catch(err => console.log(err))
+  }
 };

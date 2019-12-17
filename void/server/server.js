@@ -70,12 +70,10 @@ app.post("/api/create_group", gc.createGroup);
 app.get("/api/group_members/:group_id", gc.groupMembers);
 app.get('/api/group_member/:user_id', gc.getGroupMember);
 app.post("/api/update_user/:user", gc.updateUser);
-// app.put("/api/remove_user/:user", gc.removeUser);
-// app.delete("/api/remove_user/", gc.removeUser);
 app.get("/api/get_groups", gc.getGroups);
 app.get("/api/get_group/:group_id", gc.getGroup);
-// app.get("/api/display_board/:group_id", gc.displayBoard);
 app.get('/api/get_all_users', gc.getAllUsers);
+app.put('/api/update_group_name', gc.updateName);
 
 // endpoints for sidebar users
 app.post("/api/add_user1", sbc.addUser1);

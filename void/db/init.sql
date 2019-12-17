@@ -3,7 +3,6 @@ DROP TABLE IF EXISTS columns;
 DROP TABLE IF EXISTS groups;
 DROP TABLE IF EXISTS users;
 
---  two users tables in here - this one is default when pulled up in SQL tabs
 CREATE TABLE users
 (
     user_id SERIAL PRIMARY KEY,
@@ -60,13 +59,16 @@ CREATE TABLE tasks
 (
     task_id SERIAL PRIMARY KEY,
     task_name TEXT NOT NULL,
-    column_id INTEGER REFERENCES columns(column_id)
+    column_id INTEGER REFERENCES columns(column_id),
+    group_id INTEGER REFERENCES groups(group_id)
 );
 
 INSERT INTO tasks
-    (task_name, column_id)
+    (task_name, column_id, group_id)
 VALUES
-    ('Finish VOID', 1);
-    
-
-
+    ('finish void', 2, 1),
+    ('add change group name', 1, 1),
+    ('fix group name box', 2, 1),
+    ('trigger re-render upon group creation', 3, 1),
+    ('fix sidebar menus', 2, 1),
+    ('add us to landing', 2, 1);

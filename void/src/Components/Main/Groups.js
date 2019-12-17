@@ -9,14 +9,20 @@ export default class Groups extends React.Component {
       groups: [],
       groupNames: [],
       input: '',
-      createField: ''
+      createField: '',
+      createGroup: false
     }
     this.universalInput = this.universalInput.bind(this);
+    this.getGroups = this.getGroups.bind(this);
     this.createGroup = this.createGroup.bind(this);
-    this.handleChange = this.handleChange.bind(this);
+    this.toggleGroup = this.toggleGroup.bind(this);
   }
 
   componentDidMount(){
+    this.getGroups();
+  }
+
+  getGroups(){
     axios.get("/api/get_groups").then(response => {
       let array = [];
       let names = [];
@@ -31,24 +37,31 @@ export default class Groups extends React.Component {
     })
   }
 
+  createGroup(group_name) {
+    // this.setState({
+    //   groups: [],
+    //   groupNames: []
+    // });
+    axios.post(`/api/create_group`, { group_name: group_name }).then(res => {
+      this.setState({
+        tasks: res.data
+      });
+      this.getGroups();
+    }).catch(err => console.log(err))
+  }
+
   universalInput(prop, val) {
     this.setState({
       [prop]: val
     });
   }
 
-  createGroup(group_name) {
-    axios.post(`/api/create_group`, { group_name: group_name }).then(res => {
-      this.setState({
-        tasks: res.data
-      });
-    }).catch(err => console.log(err))
-  }
-
-  handleChange(prop, val) {
-    this.setState({
-      [prop]: val
-    });
+  toggleGroup(){
+    this.setState((prevState) => {
+      return {
+        createGroup: !prevState.createGroup
+      }
+    })
   }
 
   render(){
@@ -78,12 +91,16 @@ export default class Groups extends React.Component {
     return (
       <div className='groups-holder'>
         <input className='group-search' type="text" placeholder="Group Search" onChange={(e) => this.universalInput('input', e.target.value)} />
-        <div className='create-group-container'>
-        <input className='create-group' type='text' placeholder='Create Group' onChange={(e) => this.handleChange('createField', e.target.value)} />
-        <button className='create-group-button' onClick={() => {this.createGroup(this.state.createField); this.setState({createGroup: false})}}>Create</button>
-        </div>
+        {this.state.createGroup 
+          ? <div className='create-group-container'>
+              <input className='create-group' type='text' placeholder='Create Group' onChange={(e) => this.universalInput('createField', e.target.value)} />
+              <button className='create-group-button' onClick={() => {this.createGroup(this.state.createField); this.universalInput('createGroup', false)}}>Create</button>
+            </div>
+          : <div className='create-group-container'></div>
+        }
         <div className='groups'>
           {mappedGroups}
+          <button className='plus-button' onClick={this.toggleGroup} />
         </div>
       </div>
     );

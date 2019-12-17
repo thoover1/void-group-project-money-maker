@@ -27,7 +27,43 @@ export default class Landing extends React.Component {
             <div className='chat-icon-text'>Chat Live with Everyone In Your Group</div>
           </div>
         </div>
-        {/* <div className='light-color-block'>Text</div> */}
+        <div className='about-us'> 
+          <h1 className='about-us-title'>Meet The Team</h1>
+          <div className='team-members'>
+            <div className='team-child-1'>
+              <div className='social-icons'>
+                <a href='https://github.com/ginaperez'><img className='github-icon' src='https://image.flaticon.com/icons/png/512/25/25231.png'></img></a>
+                <a href='https://www.linkedin.com/in/gina-perez-81234772/'><img className='linkedin-icon' src='https://icon-library.net/images/linkedin-black-icon/linkedin-black-icon-15.jpg'></img></a>
+              </div>
+              <div className='name-1'>Gina Perez</div>
+              <img className='image-1' src='https://media.licdn.com/dms/image/C4E03AQH0WWaKW9gMhQ/profile-displayphoto-shrink_200_200/0?e=1582156800&v=beta&t=oP3Eyz0rXa1DkIx-5_Ox_PjbA8iPttPWsmazqWK52qE'></img>
+            </div>
+            <div className='team-child-2'>
+              <div className='social-icons'>
+                <a href='https://github.com/jorovernier'><img className='github-icon' src='https://image.flaticon.com/icons/png/512/25/25231.png'></img></a>
+                <a href='https://www.linkedin.com/in/joely-vernier/'><img className='linkedin-icon' src='https://icon-library.net/images/linkedin-black-icon/linkedin-black-icon-15.jpg'></img></a>
+              </div>
+              <div className='name-2'>Joely Vernier</div>
+              <img className='image-2' src='https://media.licdn.com/dms/image/C5603AQFnjXu66Xpeqw/profile-displayphoto-shrink_800_800/0?e=1582156800&v=beta&t=zZVYNVZlFtKQ25EP6y938bp9UGZhr79Tw4c-q5IPWE4'></img>
+            </div>
+            <div className='team-child-3'>
+              <div className='social-icons'>
+                <a href='https://github.com/thoover1'><img className='github-icon' src='https://image.flaticon.com/icons/png/512/25/25231.png'></img></a>
+                <a href='https://www.linkedin.com/in/thomas-hoover-781540195/'><img className='linkedin-icon' src='https://icon-library.net/images/linkedin-black-icon/linkedin-black-icon-15.jpg'></img></a>
+              </div>
+              <div className='name-3'>Thomas Hoover</div>
+              <img className='image-3' src='https://media.licdn.com/dms/image/C5603AQHw6ySUVOcgTA/profile-displayphoto-shrink_800_800/0?e=1582156800&v=beta&t=Yj8QI-W6nTTdnUxj4G9qaIUhQNFpV0X9-0Mpjww17iY'></img>
+            </div>
+            <div className='team-child-4'>
+              <div className='social-icons'>
+                <a href='https://github.com/isaachansen'><img className='github-icon' src='https://image.flaticon.com/icons/png/512/25/25231.png'></img></a>
+                <a href='https://www.linkedin.com/in/isaac-hansen-dev/'><img className='linkedin-icon' src='https://icon-library.net/images/linkedin-black-icon/linkedin-black-icon-15.jpg'></img></a>
+              </div>
+              <div className='name-4'>Isaac Hansen</div>
+              <img className='image-4' src='https://media.licdn.com/dms/image/C5603AQGACH3GQ9lhKw/profile-displayphoto-shrink_800_800/0?e=1582156800&v=beta&t=vo_WDoEAPj9IIOPwb6iz8jcNtglfK4x7YS1z-n7nAdc'></img>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

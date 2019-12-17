@@ -104,6 +104,71 @@
         padding: 6px;
         z-index: 1;
       }
+      .add-column {
+        background-color: $light-blue;
+        border-radius: 100px;
+        padding: 5px;
+        position: absolute;
+        top: 110px;
+        right: 10px;
+      }
+      .edit-fields {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 10px;
+        // width: auto;
+        border-radius: 6px;
+        margin-right: 40px;
+        color: black;
+        background-color: $light-blue;
+        position: absolute;
+        top: 111px;
+        right: 10px;
+        z-index: 9999;
+        .renamer {
+          input {
+            width: 300px;
+          }
+          button {
+            @extend %button-setting;
+            height: 20px;
+            margin: 2px;
+          }
+          button:hover {
+            @extend %button-hover;
+            height: 20px;
+            margin: 2px;
+          }
+        }
+        .adder {
+          input {
+            width: 300px;
+          }
+          button {
+            @extend %button-setting;
+            height: 20px;
+            margin: 2px;
+          }
+          button:hover {
+            @extend %button-hover;
+            height: 20px;
+            margin: 2px;
+          }
+        }
+      }
+      .edit-fields:after {
+        content: "";
+        position: absolute;
+        margin-top:-12px;
+        margin-left:-5px;
+        border-right: 12px solid transparent;
+        border-bottom: 12px solid $light-blue;
+        transform:rotate(-135deg);
+        right: -5px; 
+        top: 18px;
+    }
       .mapped-columns {
         height: 80%;
         width: 100%;

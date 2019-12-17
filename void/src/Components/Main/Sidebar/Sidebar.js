@@ -168,7 +168,7 @@ class Sidebar extends Component {
     const mappedGroups = this.state.groups.map(group => {
       return (
         <div key={group[0]} className='group'>
-          <button className='group-button' onClick={() => {this.props.handleSelectionClick(group[0]); this.toggleGroup(); this.props.toggleSidebar();}}>
+          <button className='group-button' onClick={() => {this.props.handleSelectionClick(group[0], group[1]); this.toggleGroup(); this.props.toggleSidebar();}}>
             <h2>{group[1]}</h2>
           </button>
         </div>

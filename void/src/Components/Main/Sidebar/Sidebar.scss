@@ -203,17 +203,17 @@
                         }
                     }
                 }
-            }
-            .more-screen:after {
-                content: "";
-                position: absolute;
-                margin-top:-6px;
-                margin-left:-5px;
-                border-left: 12px solid transparent;
-                border-bottom: 12px solid $light-blue;
-                transform:rotate(135deg);
-                left: 0px; 
-                top: 18px;
+                .more-screen:after {
+                    content: "";
+                    position: absolute;
+                    margin-top:-6px;
+                    margin-left:-5px;
+                    border-left: 12px solid transparent;
+                    border-bottom: 12px solid $light-blue;
+                    transform:rotate(135deg);
+                    left: 0px; 
+                    top: 18px;
+                }
             }
 
             .search-box {

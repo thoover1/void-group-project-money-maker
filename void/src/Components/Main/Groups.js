@@ -66,27 +66,16 @@ export default class Groups extends React.Component {
 
   render(){
     const filteredGroups = this.state.groups.filter(group => group[1].toLowerCase().startsWith(this.state.input.toLowerCase()));
-    let mappedGroups;
-    {this.state.input ?
-      mappedGroups = filteredGroups.map(group => {
+    const toMap = (this.state.input ? filteredGroups : this.state.groups);
+    let mappedGroups = toMap.map(group => {
         return (
           <div key={group[0]} className='group'>
-            <button className='group-button' onClick={() => {this.props.handleSelectionClick(group[0])}}>
+            <button className='group-button' onClick={() => {this.props.handleSelectionClick(group[0], group[1])}}>
               <h2>{group[1]}</h2>
             </button>
           </div>
         )
       })
-      :
-      mappedGroups = this.state.groups.map(group => {
-      return (
-        <div key={group[0]} className='group'>
-          <button className='group-button' onClick={() => {this.props.handleSelectionClick(group[0])}}>
-            <h2>{group[1]}</h2>
-          </button>
-        </div>
-      )
-    })}
   
     return (
       <div className='groups-holder'>

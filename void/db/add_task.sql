@@ -3,7 +3,7 @@ INSERT INTO tasks
 VALUES
     ($1, $2, $3);
 
-SELECT task_id, task_name, tasks.group_id columns.column_id
+SELECT task_id, task_name, tasks.group_id, columns.column_id
 FROM tasks
     JOIN columns
     ON columns.column_id = tasks.column_id

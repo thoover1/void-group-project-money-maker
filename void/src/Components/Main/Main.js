@@ -17,6 +17,11 @@ class Main extends Component {
       columns: [],
       tasks: [],
       sidebar: false,
+      addNChange: false,
+      addColumn: false,
+      newColumn: '',
+      changeName: false,
+      newName: '',
       user1: "",
       user2: "",
       user3: "",
@@ -42,6 +47,7 @@ class Main extends Component {
     // this.handleSubmit = this.handleSubmit.bind(this);
     this.switchColumns = this.switchColumns.bind(this);
     this.toggleGroupSelected = this.toggleGroupSelected.bind(this);
+    this.changeGroupName = this.changeGroupName.bind(this);
   }
 
   componentDidMount() {
@@ -172,6 +178,14 @@ class Main extends Component {
       });
     });
   }
+  changeGroupName(){
+    axios.put('/api/update_group_name', {group_name: this.state.newName, group_id: this.props.group}).then(() => {
+      this.handleSelectionClick(this.props.group);
+    })
+  }
+  // addColumn(){
+  //   axios.post('/api/add_column', {column_name: , group_id: })
+  // }
   render() {
     // console.log(this.state.group)
     const mappedColumns = this.state.columns;
@@ -218,7 +232,32 @@ class Main extends Component {
               ) 
             : (
                 <div className="displayed-group">
-                  <h1 className='main-h1'>{this.state.group.group_name}</h1>
+                    <h1 className='main-h1'>{this.state.group.group_name}</h1>
+                    <i onClick={() => this.setState({addNChange: !this.state.addNChange, changeName: false, addColumn: false})} className="fas fa-plus add-column"></i>
+                  {this.state.addNChange &&
+                    <div className='edit-fields'>
+                      {this.state.changeName 
+                        ? <div className='renamer'>
+                            <input onChange={(e) => this.setState({newName: e.target.value})} placeholder='New group name'/>
+                            <button onClick={() => {this.changeGroupName(); this.setState({addNChange: false})}}>Change</button>
+                            <button onClick={() => this.setState({changeName: !this.state.changeName})}>Cancel</button>
+                          </div>
+                        : <div className='renamer'>
+                            <button onClick={() => this.setState({changeName: !this.state.changeName, addColumn: false})}>Change Group Name</button>
+                          </div>
+                      }
+                      {this.state.addColumn
+                        ? <div className='adder'>
+                            <input onChange={(e) => this.setState({newColumn: e.target.value})}/>
+                            <button onClick={() => {this.setState({addNChange: false})}}>Add</button>
+                            <button onClick={() => this.setState({addColumn: !this.state.addColumn})}>Cancel</button>
+                          </div>
+                        : <div className='adder'>
+                            <button onClick={() => this.setState({addColumn: !this.state.addColumn, changeName: false})}>Add Column</button>
+                          </div>
+                      }
+                    </div>
+                  }
                   <DragDropContext onDragEnd={this.onDragEnd}>
                   <div className="mapped-columns">
                     {mappedColumns.map((allColumns, index) => 
@@ -234,10 +273,6 @@ class Main extends Component {
                     />)}
                   </div>
               </DragDropContext>
-              <div className="new-column">
-                <p>New Column</p>
-                <i onClick={this.addColumn} className="fas fa-plus"></i>
-              </div>
             </div>
           )}
         </div>

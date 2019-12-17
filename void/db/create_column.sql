@@ -1,5 +1,5 @@
 INSERT INTO columns
-    (column_name, group_id )
+    (column_name, group_id)
 VALUES
     ($1, $2);
 

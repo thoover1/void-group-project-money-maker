@@ -162,9 +162,9 @@
       .displayed-group {
         .main-h1 {
           top: 110px;
-          height: 20px;
+          height: 30px;
           font-size: 22px;
-          line-height: 25px;
+          line-height: 20px;
         }
       }
     }
@@ -173,19 +173,6 @@
 
 @media (max-width: 850px) {
   .board-container {
-    // .show {
-    //   background-color: #333;
-    //   width: 120px;
-    //   transition: .3s;
-    //   overflow: visible;
-    //   .sidebar-holder {
-    //     background-color: #333;
-    //     display: flex;
-    //     align-items: center;
-    //     justify-content: space-around;
-    //     transition: .3s;
-    //   }
-    // }  
     .groups-columns {
       .select-group {
         .main-h1 {
@@ -198,8 +185,6 @@
         width: 80%;
         .main-h1 {
           top: 105px;
-          height: 15px;
-          line-height: 17px;
         }
         .mapped-columns {
           flex-direction: column;

@@ -41,6 +41,7 @@ class Main extends Component {
     // this.handleChange = this.handleChange.bind(this);
     // this.handleSubmit = this.handleSubmit.bind(this);
     this.switchColumns = this.switchColumns.bind(this);
+    this.toggleGroupSelected = this.toggleGroupSelected.bind(this);
   }
 
   componentDidMount() {
@@ -101,6 +102,11 @@ class Main extends Component {
       }
     })
     this.props.setSidebar(!this.props.sidebar);
+  }
+  toggleGroupSelected(val){
+    this.setState({
+      groupSelected: val
+    })
   }
 
   groupMembers(group) {
@@ -186,6 +192,7 @@ class Main extends Component {
                 handleSelectionClick={this.handleSelectionClick}
                 toggleSidebar={this.toggleSidebar}
                 groupMembers={this.groupMembers}
+                toggleGroupSelected={this.toggleGroupSelected}
                 user1={this.state.user1} 
                 user2={this.state.user2} 
                 user3={this.state.user3} 

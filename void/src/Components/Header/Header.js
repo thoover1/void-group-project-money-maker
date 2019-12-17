@@ -28,7 +28,7 @@ function Header(props) {
           
           {props.user && 
             <div className={show ? 'show' : ''}>
-              <NavLink className='nav' onClick={() => {toggler(); props.setSidebar(false)}} to='/dashboard' >Dashboard</NavLink>
+              <NavLink className='nav' onClick={() => toggler()} to='/dashboard' >Dashboard</NavLink>
               <NavLink className='nav' onClick={() => {toggler(); props.setSidebar(false)}} to='/profile' >My Account</NavLink>
               <button 
                 className='logout'

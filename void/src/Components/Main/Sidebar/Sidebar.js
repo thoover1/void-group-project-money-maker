@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { FaBars } from "react-icons/fa";
 import { MdMoreHoriz } from "react-icons/md";
 import { connect } from "react-redux";
+import { setSidebar, setGroup } from "../../../reducer";
 import "./Sidebar.scss";
 import axios from "axios";
 
@@ -193,6 +194,7 @@ class Sidebar extends Component {
                   <h1 className='switch-groups'>Switch Groups</h1>
                   <div className='mapped-groups'>
                     {mappedGroups}
+                    <button className='go-back' onClick={() => {this.props.setGroup(null); this.props.toggleGroupSelected(false); this.props.toggleSidebar();}}>Back to selector</button>
                   </div>
                 </div>
               : <></>
@@ -264,6 +266,10 @@ class Sidebar extends Component {
 function mapReduxStateToProps(reduxState) {
   return reduxState;
 };
-const invokedConnect = connect(mapReduxStateToProps);
+const mapDispatchToProps = {
+  setSidebar,
+  setGroup
+};
+const invokedConnect = connect(mapReduxStateToProps, mapDispatchToProps);
 
 export default invokedConnect(Sidebar);

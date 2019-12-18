@@ -12,7 +12,7 @@ export default class Task extends React.PureComponent {
     super(props);
     this.state = {
       editTask: false,
-      input: `${this.props.task_name}`
+      input: ''
     };
     this.toggle = this.toggle.bind(this);
   }

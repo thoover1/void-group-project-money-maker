@@ -43,6 +43,7 @@ class Sidebar extends Component {
       img9: '',
       img10: ''
     };
+    this.redirect = this.redirect.bind(this);
     this.getMember = this.getMember.bind(this);
     this.addUser = this.addUser.bind(this);
     this.removeUser = this.removeUser.bind(this);
@@ -56,6 +57,8 @@ class Sidebar extends Component {
   }
 
   componentDidMount(){
+    this.getAllUsers();
+    this.redirect();
     this.getMember('img1', this.state.user1);
     this.getMember('img2', this.state.user2);
     this.getMember('img3', this.state.user3);
@@ -66,7 +69,12 @@ class Sidebar extends Component {
     this.getMember('img8', this.state.user8);
     this.getMember('img9', this.state.user9);
     this.getMember('img10', this.state.user10);
-    this.getAllUsers();
+  }
+
+  redirect(user, user_id){
+    if(user_id !== user ){
+      this.props.toggleGroupSelected(false)
+    }
   }
 
   getMember(prop, param){
@@ -101,6 +109,7 @@ class Sidebar extends Component {
       // this.getMember(this.state.img, user_id);
       this.props.groupMembers(this.props.group);
       this.props.toggleSidebar();
+      this.redirect(user, user_id);
     });
   }
 
@@ -163,6 +172,7 @@ class Sidebar extends Component {
   }
 
   render(){
+    console.log(this.props.user.user_id)
     const {users, input, search, spot, groupChange, more, remove, user1, user2, user3, user4, user5, user6, user7, user8, user9, user10, img1, img2, img3, img4, img5, img6, img7, img8, img9, img10} = this.state;
     
     const mappedGroups = this.state.groups.map(group => {

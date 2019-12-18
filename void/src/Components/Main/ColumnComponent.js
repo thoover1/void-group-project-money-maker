@@ -22,7 +22,10 @@ class ColumnComponent extends PureComponent {
       taskEdit: "",
       editTask: false,
       addTask: false,
-      taskField: ""
+      taskField: "",
+      dots: false,
+      nameChange: false,
+      newName: ''
     };
 
     this.addTask = this.addTask.bind(this);
@@ -130,14 +133,20 @@ class ColumnComponent extends PureComponent {
     return (
       <div className="column-container">
         <div className="column-header">
-          <h3>{this.props.allColumns.column_name}</h3>
-          {/* {this.state.addTask && 
-            <span className='add-task'>
-              <input onChange={(e) => this.handleChange('taskField', e.target.value)} placeholder='New task' />
-              <button onClick={() => {this.addTask(this.state.taskField, this.props.allColumns.column_id, this.props.group); this.setState({addTask: false})}} >Add</button>
-              <button onClick={() => {this.setState({addTask: false})}} >Cancel</button>
-            </span>
-          } */}
+          {this.state.nameChange 
+            ? <div className='name-edit'>
+                <input onChange={e => {this.handleChange("newName", e.target.value)}} placeholder={`${this.props.allColumns.column_name}`}/>
+                <button onClick={() => {this.props.editColumn(this.props.allColumns.column_id, this.state.newName)}}>Save</button>
+              </div>
+            : <h3>{this.props.allColumns.column_name}</h3>
+          }
+          {this.state.dots && 
+            <div className='column-dots'>
+              <button onClick={() => {this.props.deleteColumn(this.props.allColumns.column_id); this.setState({dots: false})}}>Delete Column</button>
+              <button onClick={() => this.setState({nameChange: !this.state.nameChange})}>{this.state.nameChange ? 'Cancel' : 'Change Name'}</button>
+            </div>
+          }
+          <i onClick={() => this.setState({dots: !this.state.dots})} className="fas fa-ellipsis-h"></i>
           <i
             onClick={() => this.setState({ addTask: true })}
             className="fas fa-plus"

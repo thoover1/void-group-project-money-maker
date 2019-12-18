@@ -34,7 +34,6 @@ class Main extends Component {
       user8: "",
       user9: "",
       user10: ""
-      // taskEdit: ""
     };
     this.displayTasks = this.displayTasks.bind(this);
     this.handleSelectionClick = this.handleSelectionClick.bind(this);
@@ -91,7 +90,7 @@ class Main extends Component {
       });
   }
   editColumn(column_id, column_name) {
-    axios.put(`/api/update_column/${column_id}`, { column_name }).then(() => {
+    axios.put(`/api/update_column/${column_id}`, { column_name: column_name, group_id: this.props.group }).then(() => {
       this.displayColumns(this.props.group);
     });
   }
@@ -110,8 +109,6 @@ class Main extends Component {
       };
     });
     this.props.setSidebar(!this.props.sidebar);
-
-    console.log(this.props.group);
   }
   toggleGroupSelected(val) {
     this.setState({

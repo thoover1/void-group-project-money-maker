@@ -17,6 +17,14 @@
     justify-content: space-between;
     align-items: center;
     padding: 5px;
+    .column-dots {
+      background-color: aquamarine;
+      position: relative;
+      top: -50px;
+      left: -30px;
+      height: 50px;
+      width: 200px;
+    }
     .fa-plus:hover {
       cursor: pointer;
     }

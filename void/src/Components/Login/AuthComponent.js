@@ -56,7 +56,7 @@ class AuthComponent extends React.Component {
     }
 
     return this.props.user ?
-            (<Redirect to='/profile' />)
+            (<Redirect to='/dashboard' />)
             : (<div className='auth-container'>
                 <form onSubmit={(e) => {
                     e.preventDefault();

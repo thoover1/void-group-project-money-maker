@@ -1,127 +1,130 @@
-@import '../../App.scss';
+@import "../../App.scss";
 
 .header-main {
-    font-weight: normal;
-    font-style: normal;
-    background-color: white;
+  font-weight: normal;
+  font-style: normal;
+  background-color: white;
+  width: 100%;
+  position: fixed;
+  top: 0px;
+  z-index: 9999;
+  .header-contents {
+    height: 100px;
     width: 100%;
-    position: fixed;
-    top: 0px;
-    z-index: 9999;
-    .header-contents {
-        height: 100px;
-        width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .logo {
+      position: fixed;
+      left: 20px;
+      top: 15px;
+      max-height: 70px;
+      transition: 0.3s;
+    }
+    .moved {
+      position: fixed;
+      left: 140px;
+      top: 15px;
+      max-height: 70px;
+      transition: 0.3s;
+    }
+    .navbar {
+      height: 90px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 5px;
+      .nav {
+        color: black;
+        font-size: 26px;
+        text-decoration: none;
+        margin: 0px 20px;
+      }
+      .toggler {
+        border: none;
+        border-radius: 100px;
+        height: 70px;
+        width: 70px;
+        margin: 5px;
+        padding: 0px;
         display: flex;
         align-items: center;
-        justify-content: space-between;
-        .logo {
-            position: fixed;
-            left: 20px;
-            top: 15px;
-            max-height: 70px;
-            transition: .3s;
+        justify-content: center;
+        margin: 0px 15px;
+        outline: none;
+        .toggle-img {
+          border-radius: 100px;
+          max-height: 70px;
+          max-width: 70px;
+          min-height: 70px;
+          min-width: 70px;
         }
-        .moved {
-            position: fixed;
-            left: 140px;
-            top: 15px;
-            max-height: 70px;
-            transition: .3s;
+      }
+      .toggler:hover {
+        cursor: pointer;
+      }
+      div {
+        background: white;
+        position: fixed;
+        top: 100px;
+        right: 0;
+        width: 100px;
+        min-width: 10%;
+        overflow: hidden;
+        height: 0px;
+        transition: 0.3s;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .nav {
+          font-size: 16px;
+          margin: 10px 0px;
         }
-        .navbar {
-            height: 90px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin: 5px;
-            .nav {
-                color: black;
-                font-size: 26px;
-                text-decoration: none;
-                margin: 0px 20px;
-            }
-            .toggler {
-                border: none;
-                border-radius: 100px;
-                height: 70px;
-                width: 70px;
-                margin: 5px;
-                padding: 0px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                margin: 0px 15px;
-                outline: none;
-                .toggle-img {
-                    border-radius: 100px;
-                    max-height: 70px;
-                    max-width: 70px;
-                    min-height: 70px;
-                    min-width: 70px;
-                }
-            }
-            div {
-                background: white;
-                position: fixed;
-                top: 100px;
-                right: 0;
-                width: 100px;
-                min-width: 10%;
-                overflow: hidden;
-                height: 0px;
-                transition: .3s;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                .nav {
-                    font-size: 16px;
-                    margin: 10px 0px;
-                }
-                .logout {
-                    @extend %button-setting;
-                    margin: 10px 0px;
-                }
-                .logout:hover {
-                    @extend %button-hover;
-                    margin: 10px 0px;
-                }
-            }
-            .show {
-                background: white;
-                height: 120px;
-                .nav {
-                    margin: 10px 0px;
-                }
-                .logout {
-                    @extend %button-setting;
-                    margin: 10px 0px;
-                }
-                .logout:hover {
-                    @extend %button-hover;
-                    margin: 10px 0px;
-                }
-            }
+        .logout {
+          @extend %button-setting;
+          margin: 10px 0px;
         }
+        .logout:hover {
+          @extend %button-hover;
+          margin: 10px 0px;
+        }
+      }
+      .show {
+        background: white;
+        height: 120px;
+        .nav {
+          margin: 10px 0px;
+        }
+        .logout {
+          @extend %button-setting;
+          margin: 10px 0px;
+        }
+        .logout:hover {
+          @extend %button-hover;
+          margin: 10px 0px;
+        }
+      }
     }
+  }
 }
 
 @media (max-width: 550px) {
-    .header-main {
-        .header-contents {
-            .moved {
-                display: none;
-            }
-        }
+  .header-main {
+    .header-contents {
+      .moved {
+        display: none;
+      }
     }
+  }
 }
 
 @media (max-width: 350px) {
-    .header-main {
-        .header-contents {
-            .logo {
-                max-height: 50px;
-                margin-top: 10px;
-            }
-        }
+  .header-main {
+    .header-contents {
+      .logo {
+        max-height: 50px;
+        margin-top: 10px;
+      }
     }
+  }
 }

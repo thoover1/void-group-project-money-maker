@@ -19,7 +19,7 @@
     margin: auto;
     transform: rotate(-45deg);
     -webkit-transform: rotate(-45deg);
-    transition: .3s;
+    transition: 0.3s;
   }
   .footer-toggle:hover {
     cursor: pointer;
@@ -35,7 +35,10 @@
     margin: auto;
     transform: rotate(135deg);
     -webkit-transform: rotate(135deg);
-    transition: .3s;
+    transition: 0.3s;
+  }
+  .move-right:hover {
+    cursor: pointer;
   }
   footer {
     background-color: #333;
@@ -44,17 +47,17 @@
     width: 0;
     overflow: hidden;
     height: 100%;
-    transition: .3s;
+    transition: 0.3s;
     z-index: 9999;
     .sidebar-holder {
       display: none;
-      transition: .3s;
+      transition: 0.3s;
     }
   }
   .show {
     background-color: #333;
     width: 120px;
-    transition: .3s;
+    transition: 0.3s;
     overflow: visible;
     z-index: 9999;
     .sidebar-holder {
@@ -62,15 +65,15 @@
       display: flex;
       align-items: center;
       justify-content: space-around;
-      transition: .3s;
+      transition: 0.3s;
     }
-  }  
+  }
   .groups-columns {
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: .3s;
+    transition: 0.3s;
     .select-group {
       background-color: $light-blue;
       height: 100%;
@@ -112,6 +115,9 @@
         top: 110px;
         right: 10px;
       }
+      .add-column:hover {
+        cursor: pointer;
+      }
       .edit-fields {
         display: flex;
         flex-direction: column;
@@ -140,6 +146,7 @@
             @extend %button-hover;
             height: 20px;
             margin: 2px;
+            cursor: pointer;
           }
         }
         .adder {
@@ -155,18 +162,19 @@
             @extend %button-hover;
             height: 20px;
             margin: 2px;
+            cursor: pointer;
           }
         }
       }
       .edit-fields:after {
         content: "";
         position: absolute;
-        margin-top:-12px;
-        margin-left:-5px;
+        margin-top: -12px;
+        margin-left: -5px;
         border-right: 12px solid transparent;
         border-bottom: 12px solid $light-blue;
-        transform:rotate(-135deg);
-        right: -5px; 
+        transform: rotate(-135deg);
+        right: -5px;
         top: 18px;
       }
       .mapped-columns {

@@ -1,16 +1,22 @@
 .message-icon {
-    height: 60px;
-    width: 60px;
+    height: 50px;
+    width: 50px;
     z-index: 1;
     color: #333;
+}
+
+.message-area { 
+    position: absolute;
+    right: 0;
+    bottom: 0;
 }
 
 .message-circle {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 70px;
-    height: 70px;
+    width: 60px;
+    height: 60px;
     background-color: white;
     border-radius: 50px;
     border: 4px solid #333;

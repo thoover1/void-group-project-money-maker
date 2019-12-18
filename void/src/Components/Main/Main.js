@@ -2,10 +2,12 @@ import React, { Component } from "react";
 import Sidebar from "./Sidebar/Sidebar";
 import Columns from "./ColumnComponent";
 import Groups from "./Groups";
+import Message from "./Message/Message";
 import { DragDropContext } from "react-beautiful-dnd";
 import "./Main.scss";
 import { connect } from "react-redux";
-import { setSidebar, setGroup } from "../../reducer";
+import { setSidebar, setGroup, getGroup } from "../../reducer";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
 class Main extends Component {
@@ -52,12 +54,13 @@ class Main extends Component {
     this.props.changeTitle("Login");
     this.props.setSidebar(false);
   }
-  handleSelectionClick(group) {
+  handleSelectionClick(group, group_name) {
     this.setState({
       groupSelected: true
     });
     this.getGroup(group);
     this.props.setGroup(group);
+    this.props.getGroup(group_name);
   }
   getGroup(group) {
     axios.get(`/api/get_group/${group}`).then(group => {
@@ -107,6 +110,8 @@ class Main extends Component {
       };
     });
     this.props.setSidebar(!this.props.sidebar);
+
+    console.log(this.props.group);
   }
   toggleGroupSelected(val) {
     this.setState({
@@ -334,6 +339,16 @@ class Main extends Component {
                   ))}
                 </div>
               </DragDropContext>
+        
+              <div>
+                <Link
+                  to={`/chat?name=${
+                    this.props.user.username
+                  }&room=${this.props.group_name.toLowerCase()}`}
+                >
+                  <Message type="submit"/>
+                </Link>
+              </div>
             </div>
           )}
         </div>
@@ -346,7 +361,8 @@ function mapReduxStateToProps(reduxState) {
 }
 const mapDispatchToProps = {
   setSidebar,
-  setGroup
+  setGroup,
+  getGroup
 };
 const invokedConnect = connect(mapReduxStateToProps, mapDispatchToProps);
 

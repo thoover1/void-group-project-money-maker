@@ -1,7 +1,7 @@
 import React from "react";
 import { Switch, Route, withRouter, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import { setUser } from "./reducer";
+import { setUser, setSidebar } from "./reducer";
 import "./App.scss";
 import Header from "./Components/Header/Header";
 import Landing from "./Components/Landing/Landing";
@@ -35,7 +35,7 @@ class App extends React.Component {
             exact
             path="/"
             render={props => (
-              <Landing changeTitle={this.changeTitle} {...props} />
+              <Landing changeTitle={this.changeTitle} setSidebar={this.props.setSidebar} {...props} />
             )}
           />
           <Route
@@ -80,7 +80,8 @@ function mapReduxStateToProps(reduxState) {
   return reduxState;
 }
 const mapDispatchToProps = {
-  setUser
+  setUser,
+  setSidebar
 };
 const invokedConnect = connect(mapReduxStateToProps, mapDispatchToProps);
 

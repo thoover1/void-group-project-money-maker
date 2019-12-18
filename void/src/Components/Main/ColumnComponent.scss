@@ -24,6 +24,7 @@
   .map-task-holder {
     height: 90%;
     width: 100%;
+    overflow-y: auto;
     .add-task {
       background-color: #e4e3e3;
       box-shadow: 4px 4px #d8d8d8;
@@ -48,7 +49,6 @@
       min-height: 99%;
       max-height: 100%;
       padding: 0px;
-      overflow-y: auto;
       .task {
         border-radius: 5px;
         height: 10%;
@@ -64,6 +64,17 @@
           align-items: center;
           justify-content: flex-start;
           overflow-y: auto;
+          .task-editor {
+            button {
+              @extend %button-setting;
+              height: 20px;
+            }
+            button:hover {
+              @extend %button-hover;
+              height: 20px;
+              cursor: pointer;
+            }
+          }
         }
       }
       .task-buttons {
@@ -94,20 +105,14 @@
             @extend %button-setting;
             height: 20px;
             margin: 5px;
-            opacity: 0.3;
           }
           button:hover {
             @extend %button-hover;
             height: 20px;
-            opacity: 1;
             cursor: pointer;
           }
         }
-        .far {
-          opacity: 0.2;
-        }
         .far:hover {
-          opacity: 1;
           color: $background-blue;
           cursor: pointer;
         }

@@ -50,6 +50,7 @@ class Main extends Component {
 
   componentDidMount() {
     this.props.changeTitle("Login");
+    this.props.setSidebar(false);
   }
   handleSelectionClick(group) {
     this.setState({

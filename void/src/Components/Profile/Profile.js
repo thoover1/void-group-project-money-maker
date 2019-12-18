@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
 import axios from 'axios';
-import { setUser } from '../../reducer';
+import { setUser, setSidebar } from '../../reducer';
 import './Profile.scss';
 
 class Profile extends Component {
@@ -34,6 +34,7 @@ class Profile extends Component {
       loggedInUser: true
     })
     this.props.changeTitle('Login')
+    this.props.setSidebar(false);
   }
 
  updateUsername() {
@@ -151,7 +152,8 @@ function mapReduxStateToProps(reduxState) {
 }
 
 const mapDispatchStateToProps = {
-  setUser
+  setUser,
+  setSidebar
 };
 
 const invokedConnect = connect(mapReduxStateToProps, mapDispatchStateToProps);

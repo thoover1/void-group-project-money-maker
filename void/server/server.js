@@ -91,7 +91,7 @@ app.post("/api/add_user10", sbc.addUser10);
 app.get("/api/display_columns/:group_id", cc.displayColumns);
 app.post("/api/add_column", cc.addColumn);
 app.put("/api/update_column/:column_id", cc.updateColumn);
-app.delete("/api/delete_column/:column_id/", cc.deleteColumn);
+app.delete("/api/delete_column/:column_id", cc.deleteColumn);
 
 // endpoints for tasks
 app.get("/api/display_tasks/:group_id", tc.displayTasks);

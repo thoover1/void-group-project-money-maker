@@ -4,8 +4,8 @@ export default class Task extends React.Component {
     constructor(props){
         super(props)
         this.state = {
-            editTask: false,
-            input: ''
+          editTask: false,
+          input: `${this.props.task_name}`
         }
         this.toggle = this.toggle.bind(this);
     }
@@ -27,16 +27,18 @@ export default class Task extends React.Component {
                   ref={this.props.provided.innerRef}
                 >
                   <div className='task-name-holder'>
-                    <h1 className="task-name">{this.props.task_name}</h1>
+                    {editTask 
+                      ? <div className='task-editor'>
+                          <input onChange={(e) => {this.toggle('input', e.target.value)}} placeholder={`${this.props.task_name}`} />
+                          <button onClick={() => {this.props.updateTask(this.props.task_id, this.state.input); this.toggle('editTask', !editTask)}}>Save</button>
+                        </div>
+                      : <h1 className="task-name">{this.props.task_name}</h1>
+                    }
                   </div>
                   <div className="task-buttons">
                   {editTask 
-                  ? <div className='task-editor'>
-                    <input onChange={(e) => {this.toggle('input', e.target.value)}} placeholder='Edit Task' />
-                    <span>
+                  ? <div className='task-holder'>
                       <button onClick={() => this.toggle('editTask', !editTask)}>Cancel</button>
-                      {input && <button onClick={() => {this.props.updateTask(this.props.task_id, this.state.input); this.toggle('editTask', !editTask)}}>Save</button>}
-                    </span>
                     </div>
                    : <div className='task-holder'>
                       <button onClick={() => this.toggle('editTask', true)}>Edit</button>

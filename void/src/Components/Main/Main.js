@@ -43,8 +43,6 @@ class Main extends Component {
     this.deleteColumn = this.deleteColumn.bind(this);
     this.toggleSidebar = this.toggleSidebar.bind(this);
     this.groupMembers = this.groupMembers.bind(this);
-    // this.handleChange = this.handleChange.bind(this);
-    // this.handleSubmit = this.handleSubmit.bind(this);
     this.switchColumns = this.switchColumns.bind(this);
     this.toggleGroupSelected = this.toggleGroupSelected.bind(this);
     this.changeGroupName = this.changeGroupName.bind(this);
@@ -78,26 +76,19 @@ class Main extends Component {
     });
   }
 
-  addColumn(column_name, group_id) {
-    axios.post(`/api/add_column`, { column_name, group_id }).then(res => {
-      this.setState({
-        columns: res.data
-      });
-    });
+  addColumn(){
+    axios.post('/api/add_column', {column_name: this.state.newColumn, group_id: this.props.group}).then(() => {
+      this.displayColumns(this.props.group);
+    })
   }
-
   editColumn(column_id, column_name) {
-    axios.put(`/api/update_column/${column_id}`, { column_name }).then(res => {
-      this.setState({
-        columns: res.data
-      });
+    axios.put(`/api/update_column/${column_id}`, { column_name }).then(() => {
+      this.displayColumns(this.props.group);
     });
   }
   deleteColumn(column_id) {
-    axios.delete(`/api/delete_column/${column_id}`).then(res => {
-      this.setState({
-        columns: res.data
-      });
+    axios.delete(`/api/delete_column/${column_id}`, {group_id: this.props.group}).then(() => {
+      this.displayColumns(this.props.group);
     });
   }
 
@@ -132,18 +123,6 @@ class Main extends Component {
     });
   }
 
-  // handleChange(e) {
-  //   this.setState({
-  //     [e.target.name]: e.target.value
-  //   });
-  // }
-  // handleSubmit(e) {
-  //   e.preventDefault();
-  //   this.updateColumn(
-  //     this.state.columns.column_name,
-  //     this.state.columns.column_id
-  //   );
-  // }
   onDragEnd = result => {
     const { destination, source, draggableId } = result;
     // not a valid destination to drop -- returns to baseline
@@ -183,9 +162,6 @@ class Main extends Component {
       this.handleSelectionClick(this.props.group);
     })
   }
-  // addColumn(){
-  //   axios.post('/api/add_column', {column_name: , group_id: })
-  // }
   render() {
     // console.log(this.state.group)
     const mappedColumns = this.state.columns;
@@ -249,7 +225,7 @@ class Main extends Component {
                       {this.state.addColumn
                         ? <div className='adder'>
                             <input onChange={(e) => this.setState({newColumn: e.target.value})}/>
-                            <button onClick={() => {this.setState({addNChange: false})}}>Add</button>
+                            <button onClick={() => {this.addColumn(); this.setState({addNChange: false})}}>Add</button>
                             <button onClick={() => this.setState({addColumn: !this.state.addColumn})}>Cancel</button>
                           </div>
                         : <div className='adder'>

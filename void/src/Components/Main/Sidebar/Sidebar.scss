@@ -59,22 +59,24 @@
                     align-items: center;
                     overflow-y: scroll;
                     .group {
+                        width: 85%;
                         margin: 5px;
                         .group-button {
                             @extend %button-setting;
-                            width: 200px;
+                            width: 100%;
                         }
                         .group-button:hover {
                             @extend %button-hover;
+                            width: 100%;
                         }
                     }
                     .go-back {
                         @extend %button-setting;
-                            width: 200px;
+                        width: 85%;
                     }
                     .go-back:hover {
                         @extend %button-hover;
-                            width: 200px;
+                        width: 85%;
                     }
                 }
             }

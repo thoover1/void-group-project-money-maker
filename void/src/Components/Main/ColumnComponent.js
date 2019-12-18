@@ -94,6 +94,16 @@ class ColumnComponent extends Component {
       <div className="column-container">
         <div className="column-header">
           <h3>{this.props.allColumns.column_name}</h3>
+          {/* {this.state.addTask && 
+            <span className='add-task'>
+              <input onChange={(e) => this.handleChange('taskField', e.target.value)} placeholder='New task' />
+              <button onClick={() => {this.addTask(this.state.taskField, this.props.allColumns.column_id, this.props.group); this.setState({addTask: false})}} >Add</button>
+              <button onClick={() => {this.setState({addTask: false})}} >Cancel</button>
+            </span>
+          } */}
+          <i onClick={() => this.setState({addTask: true})} className="fas fa-plus"></i>
+        </div>
+        <div className='map-task-holder'>
           {this.state.addTask && 
             <span className='add-task'>
               <input onChange={(e) => this.handleChange('taskField', e.target.value)} placeholder='New task' />
@@ -101,20 +111,19 @@ class ColumnComponent extends Component {
               <button onClick={() => {this.setState({addTask: false})}} >Cancel</button>
             </span>
           }
-          <i onClick={() => this.setState({addTask: true})} className="fas fa-plus"></i>
+          <Droppable droppableId={this.props.allColumns.column_id.toString()}>
+            {provided => (
+              <div
+                className="mapped-tasks"
+                ref={provided.innerRef}
+                {...provided.droppableProps}
+              >
+                {mappedTasks}
+                {provided.placeholder}
+              </div>
+            )}
+          </Droppable>
         </div>
-        <Droppable droppableId={this.props.allColumns.column_id.toString()}>
-          {provided => (
-            <div
-              className="mapped-tasks"
-              ref={provided.innerRef}
-              {...provided.droppableProps}
-            >
-              {mappedTasks}
-              {provided.placeholder}
-            </div>
-          )}
-        </Droppable>
       </div>
     );
   }

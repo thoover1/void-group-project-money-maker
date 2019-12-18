@@ -1,19 +1,28 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import { Droppable, Draggable } from "react-beautiful-dnd";
+import styled from "styled-components";
 import axios from "axios";
 import "./ColumnComponent.scss";
-import TaskComponent from './TaskComponent';
+import TaskComponent from "./TaskComponent";
 import { connect } from "react-redux";
 
-class ColumnComponent extends Component {
+const Tasker = styled.div`
+  background-color: ${props =>
+    props.isDraggingOver
+      ? // "#2460ad"
+        "white"
+      : "white"};
+`;
+
+class ColumnComponent extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
       tasks: this.props.tasks,
-      taskEdit: '',
+      taskEdit: "",
       editTask: false,
       addTask: false,
-      taskField: ''
+      taskField: ""
     };
 
     this.addTask = this.addTask.bind(this);
@@ -25,30 +34,46 @@ class ColumnComponent extends Component {
   }
 
   addTask(task_name, column_id, group_id) {
-    axios.post(`/api/add_task`, { task_name: task_name, column_id: column_id, group_id: group_id }).then(res => {
-      this.setState({
-        tasks: res.data
-      });
-      this.props.displayTasks(this.props.group);
-    }).catch(err => console.log(err))
+    axios
+      .post(`/api/add_task`, {
+        task_name: task_name,
+        column_id: column_id,
+        group_id: group_id
+      })
+      .then(res => {
+        this.setState({
+          tasks: res.data
+        });
+        this.props.displayTasks(this.props.group);
+      })
+      .catch(err => console.log(err));
   }
 
   updateTask(task_id, task_name) {
-    axios.put(`/api/update_task/${task_id}`, { task_name: task_name, group_id: this.props.group }).then(res => {
-      this.setState({
-        tasks: res.data
+    axios
+      .put(`/api/update_task/${task_id}`, {
+        task_name: task_name,
+        group_id: this.props.group
       })
-      this.props.displayTasks(this.props.group);
-    }).catch(err => console.log(err))
+      .then(res => {
+        this.setState({
+          tasks: res.data
+        });
+        this.props.displayTasks(this.props.group);
+      })
+      .catch(err => console.log(err));
   }
 
   deleteTask(task_id) {
-    axios.delete(`/api/delete_task/${task_id}/${this.props.group}`).then(res => {
-      this.setState({
-        tasks: res.data
-      });
-      this.props.displayTasks(this.props.group);
-    }).catch(err => console.log(err))
+    axios
+      .delete(`/api/delete_task/${task_id}/${this.props.group}`)
+      .then(res => {
+        this.setState({
+          tasks: res.data
+        });
+        this.props.displayTasks(this.props.group);
+      })
+      .catch(err => console.log(err));
   }
 
   handleChange(prop, val) {
@@ -59,7 +84,11 @@ class ColumnComponent extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.updateTask(this.props.tasks.task_name, this.props.tasks.task_id, this.props.group);
+    this.props.updateTask(
+      this.props.tasks.task_name,
+      this.props.tasks.task_id,
+      this.props.group
+    );
   }
 
   searching = e => {
@@ -82,8 +111,16 @@ class ColumnComponent extends Component {
               key={allTasks.task_id}
               index={index}
             >
-              {provided => (
-                <TaskComponent provided={provided} task_id={allTasks.task_id} task_name={allTasks.task_name} deleteTask={this.deleteTask} updateTask={this.updateTask}  />
+              {(provided, snapshot) => (
+                <TaskComponent
+                  provided={provided}
+                  snapshot={snapshot}
+                  // isDragging={snapshot.isDragging}
+                  task_id={allTasks.task_id}
+                  task_name={allTasks.task_name}
+                  deleteTask={this.deleteTask}
+                  updateTask={this.updateTask}
+                />
               )}
             </Draggable>
           );
@@ -94,25 +131,49 @@ class ColumnComponent extends Component {
       <div className="column-container">
         <div className="column-header">
           <h3>{this.props.allColumns.column_name}</h3>
-          {this.state.addTask && 
-            <span className='add-task'>
-              <input onChange={(e) => this.handleChange('taskField', e.target.value)} placeholder='New task' />
-              <button onClick={() => {this.addTask(this.state.taskField, this.props.allColumns.column_id, this.props.group); this.setState({addTask: false})}} >Add</button>
-              <button onClick={() => {this.setState({addTask: false})}} >Cancel</button>
+          {this.state.addTask && (
+            <span className="add-task">
+              <input
+                onChange={e => this.handleChange("taskField", e.target.value)}
+                placeholder="New task"
+              />
+              <button
+                onClick={() => {
+                  this.addTask(
+                    this.state.taskField,
+                    this.props.allColumns.column_id,
+                    this.props.group
+                  );
+                  this.setState({ addTask: false });
+                }}
+              >
+                Add
+              </button>
+              <button
+                onClick={() => {
+                  this.setState({ addTask: false });
+                }}
+              >
+                Cancel
+              </button>
             </span>
-          }
-          <i onClick={() => this.setState({addTask: true})} className="fas fa-plus"></i>
+          )}
+          <i
+            onClick={() => this.setState({ addTask: true })}
+            className="fas fa-plus"
+          ></i>
         </div>
         <Droppable droppableId={this.props.allColumns.column_id.toString()}>
-          {provided => (
-            <div
+          {(provided, snapshot) => (
+            <Tasker
               className="mapped-tasks"
               ref={provided.innerRef}
               {...provided.droppableProps}
+              isDraggingOver={snapshot.isDraggingOver}
             >
               {mappedTasks}
               {provided.placeholder}
-            </div>
+            </Tasker>
           )}
         </Droppable>
       </div>
@@ -122,7 +183,7 @@ class ColumnComponent extends Component {
 
 function mapReduxStateToProps(reduxState) {
   return reduxState;
-};
+}
 const invokedConnect = connect(mapReduxStateToProps);
 
 export default invokedConnect(ColumnComponent);

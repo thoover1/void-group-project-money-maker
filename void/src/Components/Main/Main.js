@@ -26,7 +26,7 @@ class Main extends Component {
       user7: "",
       user8: "",
       user9: "",
-      user10: "",
+      user10: ""
       // taskEdit: ""
     };
     this.displayTasks = this.displayTasks.bind(this);
@@ -94,28 +94,28 @@ class Main extends Component {
     });
   }
 
-  toggleSidebar(){
-    this.setState((prevState) => {
+  toggleSidebar() {
+    this.setState(prevState => {
       return {
         sidebar: !prevState.sidebar
-      }
-    })
+      };
+    });
     this.props.setSidebar(!this.props.sidebar);
   }
 
   groupMembers(group) {
     axios.get(`/api/group_members/${group}`).then(response => {
       this.setState({
-        user1: response.data[0]['user1'],
-        user2: response.data[0]['user2'],
-        user3: response.data[0]['user3'],
-        user4: response.data[0]['user4'],
-        user5: response.data[0]['user5'],
-        user6: response.data[0]['user6'],
-        user7: response.data[0]['user7'],
-        user8: response.data[0]['user8'],
-        user9: response.data[0]['user9'],
-        user10: response.data[0]['user10']
+        user1: response.data[0]["user1"],
+        user2: response.data[0]["user2"],
+        user3: response.data[0]["user3"],
+        user4: response.data[0]["user4"],
+        user5: response.data[0]["user5"],
+        user6: response.data[0]["user6"],
+        user7: response.data[0]["user7"],
+        user8: response.data[0]["user8"],
+        user9: response.data[0]["user9"],
+        user10: response.data[0]["user10"]
       });
     });
   }
@@ -170,62 +170,70 @@ class Main extends Component {
     // console.log(this.state.group)
     const mappedColumns = this.state.columns;
     let width;
-    if(this.props.sidebar){
-      width = '92%'
+    if (this.props.sidebar) {
+      width = "92%";
     } else {
       width = "100%";
     }
     return (
       <div className="board-container">
-        {this.state.groupSelected ? <button className={this.state.sidebar ? 'move-right' : 'footer-toggle'} onClick={this.toggleSidebar}></button> : <></>}
+        {this.state.groupSelected ? (
+          <button
+            className={this.state.sidebar ? "move-right" : "footer-toggle"}
+            onClick={this.toggleSidebar}
+          ></button>
+        ) : (
+          <></>
+        )}
 
-        <footer className={this.state.sidebar ? 'show' : ''}>
-          {this.state.sidebar && 
-            <div className='sidebar-holder'>
-              <Sidebar 
+        <footer className={this.state.sidebar ? "show" : ""}>
+          {this.state.sidebar && (
+            <div className="sidebar-holder">
+              <Sidebar
                 handleSelectionClick={this.handleSelectionClick}
                 toggleSidebar={this.toggleSidebar}
                 groupMembers={this.groupMembers}
-                user1={this.state.user1} 
-                user2={this.state.user2} 
-                user3={this.state.user3} 
-                user4={this.state.user4} 
-                user5={this.state.user5} 
-                user6={this.state.user6} 
-                user7={this.state.user7} 
-                user8={this.state.user8} 
-                user9={this.state.user9} 
-                user10={this.state.user10} 
+                user1={this.state.user1}
+                user2={this.state.user2}
+                user3={this.state.user3}
+                user4={this.state.user4}
+                user5={this.state.user5}
+                user6={this.state.user6}
+                user7={this.state.user7}
+                user8={this.state.user8}
+                user9={this.state.user9}
+                user10={this.state.user10}
               />
             </div>
-          }
+          )}
         </footer>
 
-        <div className='groups-columns' style={{width: width}}>
-          {!this.state.groupSelected 
-            ? (
-                <div className="select-group">
-                  <h1 className='main-h1'>Please select your group to get started!</h1>
-                  <Groups handleSelectionClick={this.handleSelectionClick} />
-                </div>
-              ) 
-            : (
-                <div className="displayed-group">
-                  <h1 className='main-h1'>{this.state.group.group_name}</h1>
-                  <DragDropContext onDragEnd={this.onDragEnd}>
-                  <div className="mapped-columns">
-                    {mappedColumns.map((allColumns, index) => 
-                    <Columns 
-                      key={index} 
+        <div className="groups-columns" style={{ width: width }}>
+          {!this.state.groupSelected ? (
+            <div className="select-group">
+              <h1 className="main-h1">
+                Please select your group to get started!
+              </h1>
+              <Groups handleSelectionClick={this.handleSelectionClick} />
+            </div>
+          ) : (
+            <div className="displayed-group">
+              <h1 className="main-h1">{this.state.group.group_name}</h1>
+              <DragDropContext onDragEnd={this.onDragEnd}>
+                <div className="mapped-columns">
+                  {mappedColumns.map((allColumns, index) => (
+                    <Columns
+                      key={index}
                       displayTasks={this.displayTasks}
-                      displayColumns={this.displayColumns} 
-                      allColumns={allColumns} 
-                      editColumn={this.editColumn} 
-                      deleteColumn={this.deleteColumn} 
-                      group={this.state.group} 
+                      displayColumns={this.displayColumns}
+                      allColumns={allColumns}
+                      editColumn={this.editColumn}
+                      deleteColumn={this.deleteColumn}
+                      group={this.state.group}
                       tasks={this.state.tasks}
-                    />)}
-                  </div>
+                    />
+                  ))}
+                </div>
               </DragDropContext>
               <div className="new-column">
                 <p>New Column</p>
@@ -240,7 +248,7 @@ class Main extends Component {
 }
 function mapReduxStateToProps(reduxState) {
   return reduxState;
-};
+}
 const mapDispatchToProps = {
   setSidebar,
   setGroup

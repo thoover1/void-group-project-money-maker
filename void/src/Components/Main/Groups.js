@@ -58,7 +58,7 @@ export default class Groups extends React.Component {
       mappedGroups = filteredGroups.map(group => {
         return (
           <div key={group[0]} className='group'>
-            <button className='group-button' onClick={() => {this.props.handleSelectionClick(group[0])}}>
+            <button className='group-button' onClick={() => {this.props.handleSelectionClick(group[0], group[1])}}>
               <h2>{group[1]}</h2>
             </button>
           </div>
@@ -68,7 +68,7 @@ export default class Groups extends React.Component {
       mappedGroups = this.state.groups.map(group => {
       return (
         <div key={group[0]} className='group'>
-          <button className='group-button' onClick={() => {this.props.handleSelectionClick(group[0])}}>
+          <button className='group-button' onClick={() => {this.props.handleSelectionClick(group[0], group[1])}}>
             <h2>{group[1]}</h2>
           </button>
         </div>

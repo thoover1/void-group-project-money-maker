@@ -2,10 +2,12 @@ import React, { Component } from "react";
 import Sidebar from "./Sidebar/Sidebar";
 import Columns from "./ColumnComponent";
 import Groups from "./Groups";
+import Message from "./Message/Message";
 import { DragDropContext } from "react-beautiful-dnd";
 import "./Main.scss";
 import { connect } from "react-redux";
-import { setSidebar, setGroup } from "../../reducer";
+import { setSidebar, setGroup, getGroup } from "../../reducer";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
 class Main extends Component {
@@ -26,7 +28,7 @@ class Main extends Component {
       user7: "",
       user8: "",
       user9: "",
-      user10: "",
+      user10: ""
       // taskEdit: ""
     };
     this.displayTasks = this.displayTasks.bind(this);
@@ -46,12 +48,13 @@ class Main extends Component {
   componentDidMount() {
     this.props.changeTitle("Login");
   }
-  handleSelectionClick(group) {
+  handleSelectionClick(group, group_name) {
     this.setState({
       groupSelected: true
     });
     this.getGroup(group);
     this.props.setGroup(group);
+    this.props.getGroup(group_name);
   }
   getGroup(group) {
     axios.get(`/api/get_group/${group}`).then(group => {
@@ -94,28 +97,30 @@ class Main extends Component {
     });
   }
 
-  toggleSidebar(){
-    this.setState((prevState) => {
+  toggleSidebar() {
+    this.setState(prevState => {
       return {
         sidebar: !prevState.sidebar
-      }
-    })
+      };
+    });
     this.props.setSidebar(!this.props.sidebar);
+
+    console.log(this.props.group);
   }
 
   groupMembers(group) {
     axios.get(`/api/group_members/${group}`).then(response => {
       this.setState({
-        user1: response.data[0]['user1'],
-        user2: response.data[0]['user2'],
-        user3: response.data[0]['user3'],
-        user4: response.data[0]['user4'],
-        user5: response.data[0]['user5'],
-        user6: response.data[0]['user6'],
-        user7: response.data[0]['user7'],
-        user8: response.data[0]['user8'],
-        user9: response.data[0]['user9'],
-        user10: response.data[0]['user10']
+        user1: response.data[0]["user1"],
+        user2: response.data[0]["user2"],
+        user3: response.data[0]["user3"],
+        user4: response.data[0]["user4"],
+        user5: response.data[0]["user5"],
+        user6: response.data[0]["user6"],
+        user7: response.data[0]["user7"],
+        user8: response.data[0]["user8"],
+        user9: response.data[0]["user9"],
+        user10: response.data[0]["user10"]
       });
     });
   }
@@ -170,66 +175,83 @@ class Main extends Component {
     // console.log(this.state.group)
     const mappedColumns = this.state.columns;
     let width;
-    if(this.props.sidebar){
-      width = '92%'
+    if (this.props.sidebar) {
+      width = "92%";
     } else {
       width = "100%";
     }
     return (
       <div className="board-container">
-        {this.state.groupSelected ? <button className={this.state.sidebar ? 'move-right' : 'footer-toggle'} onClick={this.toggleSidebar}></button> : <></>}
+        {this.state.groupSelected ? (
+          <button
+            className={this.state.sidebar ? "move-right" : "footer-toggle"}
+            onClick={this.toggleSidebar}
+          ></button>
+        ) : (
+          <></>
+        )}
 
-        <footer className={this.state.sidebar ? 'show' : ''}>
-          {this.state.sidebar && 
-            <div className='sidebar-holder'>
-              <Sidebar 
+        <footer className={this.state.sidebar ? "show" : ""}>
+          {this.state.sidebar && (
+            <div className="sidebar-holder">
+              <Sidebar
                 handleSelectionClick={this.handleSelectionClick}
                 toggleSidebar={this.toggleSidebar}
                 groupMembers={this.groupMembers}
-                user1={this.state.user1} 
-                user2={this.state.user2} 
-                user3={this.state.user3} 
-                user4={this.state.user4} 
-                user5={this.state.user5} 
-                user6={this.state.user6} 
-                user7={this.state.user7} 
-                user8={this.state.user8} 
-                user9={this.state.user9} 
-                user10={this.state.user10} 
+                user1={this.state.user1}
+                user2={this.state.user2}
+                user3={this.state.user3}
+                user4={this.state.user4}
+                user5={this.state.user5}
+                user6={this.state.user6}
+                user7={this.state.user7}
+                user8={this.state.user8}
+                user9={this.state.user9}
+                user10={this.state.user10}
               />
             </div>
-          }
+          )}
         </footer>
 
-        <div className='groups-columns' style={{width: width}}>
-          {!this.state.groupSelected 
-            ? (
-                <div className="select-group">
-                  <h1 className='main-h1'>Please select your group to get started!</h1>
-                  <Groups handleSelectionClick={this.handleSelectionClick} />
-                </div>
-              ) 
-            : (
-                <div className="displayed-group">
-                  <h1 className='main-h1'>{this.state.group.group_name}</h1>
-                  <DragDropContext onDragEnd={this.onDragEnd}>
-                  <div className="mapped-columns">
-                    {mappedColumns.map((allColumns, index) => 
-                    <Columns 
-                      key={index} 
+        <div className="groups-columns" style={{ width: width }}>
+          {!this.state.groupSelected ? (
+            <div className="select-group">
+              <h1 className="main-h1">
+                Please select your group to get started!
+              </h1>
+              <Groups handleSelectionClick={this.handleSelectionClick} />
+            </div>
+          ) : (
+            <div className="displayed-group">
+              <h1 className="main-h1">{this.state.group.group_name}</h1>
+              <DragDropContext onDragEnd={this.onDragEnd}>
+                <div className="mapped-columns">
+                  {mappedColumns.map((allColumns, index) => (
+                    <Columns
+                      key={index}
                       displayTasks={this.displayTasks}
-                      displayColumns={this.displayColumns} 
-                      allColumns={allColumns} 
-                      editColumn={this.editColumn} 
-                      deleteColumn={this.deleteColumn} 
-                      group={this.state.group} 
+                      displayColumns={this.displayColumns}
+                      allColumns={allColumns}
+                      editColumn={this.editColumn}
+                      deleteColumn={this.deleteColumn}
+                      group={this.state.group}
                       tasks={this.state.tasks}
-                    />)}
-                  </div>
+                    />
+                  ))}
+                </div>
               </DragDropContext>
               <div className="new-column">
                 <p>New Column</p>
                 <i onClick={this.addColumn} className="fas fa-plus"></i>
+              </div>
+              <div>
+                <Link
+                  to={`/chat?name=${
+                    this.props.user.username
+                  }&room=${this.props.group_name.toLowerCase()}`}
+                >
+                  <Message type="submit"/>
+                </Link>
               </div>
             </div>
           )}
@@ -240,10 +262,11 @@ class Main extends Component {
 }
 function mapReduxStateToProps(reduxState) {
   return reduxState;
-};
+}
 const mapDispatchToProps = {
   setSidebar,
-  setGroup
+  setGroup,
+  getGroup
 };
 const invokedConnect = connect(mapReduxStateToProps, mapDispatchToProps);
 

@@ -1,12 +1,15 @@
 const initialState = {
   user: null,
   sidebar: false,
-  group: null
+  group: null,
+  group_name: null
 };
 
 export const SET_USER = "SET_USER";
 export const SET_SIDEBAR = "SET_SIDEBAR";
 export const SET_GROUP = "SET_GROUP";
+export const GET_GROUP = "GET_GROUP";
+
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
@@ -16,6 +19,8 @@ export default function reducer(state = initialState, action) {
       return { ...state, sidebar: action.payload };
     case SET_GROUP:
       return { ...state, group: action.payload };
+      case GET_GROUP:
+        return { ...state, group_name: action.payload };
     default:
       return state;
   }
@@ -40,6 +45,13 @@ export function setGroup(group) {
     type: SET_GROUP,
     payload: group
   };
+}
+
+export function getGroup(group_name) {
+  return { 
+    type: GET_GROUP,
+    payload: group_name
+  }
 }
 
 // export function enterPassword(password) {

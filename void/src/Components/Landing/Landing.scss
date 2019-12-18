@@ -2,8 +2,10 @@
 
 .home-main {
     background-color: $background-grey;
-    height: 100%;
     font-family: 'lemon_milk', sans-serif;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
     .picture-element {
         background-image: url('https://epics.ieee.org/wp-content/uploads/2016/08/bigstock-Diverse-Architect-People-Group-98046365.jpg');
         background-position: center;
@@ -46,9 +48,10 @@
         display: flex;
         flex-direction: row;
         justify-content: space-around;
-        height: 100px;
+        height: 350px;
         padding-top: 40px;
         padding-bottom: 40px;
+        background-color: whitesmoke;
         .dashboard-icon-container {
             display: flex;
             align-items: center;
@@ -82,6 +85,129 @@
             }
         }
     }
+    .about-us {
+        background-color: $mid-blue;
+        font-family: 'lemon_milk', sans-serif;
+        display: flex;
+        flex-direction: column;
+        height: 450px;
+        align-items: center;
+        justify-content: space-evenly;
+        .about-us-title {
+            font-size: 35px;
+            padding-bottom: 30px;
+        }
+        .team-members {
+            display: flex;
+            width: 70vw;
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: center;
+            align-content: space-around;
+            font-size: 20px;
+            .team-child-1 {
+                display: flex;
+                flex-direction: column-reverse;
+                align-content: space-around;
+                .social-icons {
+                    display: flex;
+                    flex-direction: row;
+                    align-content: space-around;
+                    justify-content: center;
+                    .linkedin-icon {
+                        height: 35px;
+                    }
+                    .github-icon {
+                        height: 31px;
+                    }
+                }
+                .name-1 {
+                    padding-top: 15px;
+                    padding-bottom: 10px;
+                }
+                .image-1 {
+                    height: 200px;
+                    border-radius: 100px;
+                    border: solid 8px $mid-dark-blue;
+                }
+            }
+            .team-child-2 {
+                display: flex;
+                flex-direction: column-reverse;
+                .social-icons {
+                    display: flex;
+                    flex-direction: row;
+                    align-content: space-around;
+                    justify-content: center;
+                    .linkedin-icon {
+                        height: 35px;
+                    }
+                    .github-icon {
+                        height: 32px;
+                    }
+                }
+                .name-2 {
+                    padding-top: 15px;
+                    padding-bottom: 10px;
+                }
+                .image-2 {
+                    height: 200px;
+                    border-radius: 100px;
+                    border: solid 8px $mid-dark-blue;
+                }
+            }
+            .team-child-3 {
+                display: flex;
+                flex-direction: column-reverse;
+                .social-icons {
+                    display: flex;
+                    flex-direction: row;
+                    align-content: space-around;
+                    justify-content: center;
+                    .linkedin-icon {
+                        height: 35px;
+                    }
+                    .github-icon {
+                        height: 32px;
+                    }
+                }
+                .name-3 {
+                    padding-top: 15px;
+                    padding-bottom: 10px;
+                }
+                .image-3 {
+                    height: 200px;
+                    border-radius: 100px;
+                    border: solid 8px $mid-dark-blue;
+                }
+            }
+            .team-child-4 {
+                display: flex;
+                flex-direction: column-reverse;
+                .social-icons {
+                    display: flex;
+                    flex-direction: row;
+                    align-content: space-around;
+                    justify-content: center;
+                    .linkedin-icon {
+                        height: 35px;
+                    }
+                    .github-icon {
+                        height: 32px;
+                    }
+                }
+                .name-4 {
+                    padding-top: 15px;
+                    padding-bottom: 10px;
+                }
+                .image-4 {
+                    height: 200px;
+                    border-radius: 100px;
+                    border: solid 8px $mid-dark-blue;
+                }
+            }
+        }
+    }
 }
 
 @media (max-width: 1000px) {
@@ -90,6 +216,10 @@
             width: 100vw;
             height: 90vh;
         }
+        .about-us {
+            display: flex;
+            width: 100vw;
+        }
     }
 }
 
@@ -97,9 +227,9 @@
     .home-main {
         .picture-element {
             .headers-container {
-                width: 250px;
-                height: 150px;
-                padding-top: 30px;
+                width: 400px;
+                height: 300px;
+                padding-top: 50px;
                 padding-bottom: 60px;
             }
             h2 {
@@ -127,6 +257,27 @@
                 }
             }
         }
+        .about-us {
+            display: flex;
+            width: 100vw;
+            flex-direction: column;
+            height: 800px;
+            .about-us-title {
+                display: flex;
+                font-size: 20px;
+            }
+            .team-members {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                font-size: 18px;
+                .team-child-1 {
+                    .image-1 {
+                        color: black;
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -136,14 +287,18 @@
         .picture-element {
             width: 100%;
             .headers-container {
-                width: 100px;
-                height: 80px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                width: 150px;
+                height: 170px;
             }
             h2 {
-                font-size: 15px;
+                font-size: 10px;
             }
             h1 {
-                font-size: 40px;
+                font-size: 30px;
                 text-shadow: 5px 5px $mid-blue;
             }
         }
@@ -154,6 +309,7 @@
         .icon-block {
             .dashboard-icon-container {
                 font-size: 11px;
+                width: 50vw;
                 .dashboard-icon {
                     min-height: 90px;
                 }
@@ -163,7 +319,7 @@
             }
             .chat-icon-container {
                 font-size: 11px;
-                max-width: 375;
+                width: 50vw;
                 background-color: green;
                 .chat-icon {
                     min-height: 90px;
@@ -171,6 +327,22 @@
                 .chat-icon-text {
                     width: 90px;
                 }
+            }
+        }
+        .about-us {
+            display: flex;
+            width: 100vw;
+            flex-direction: column;
+            height: 1300px;
+            .about-us-title {
+                display: flex;
+                font-size: 20px;
+            }
+            .team-members {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                font-size: 18px;
             }
         }
     }

@@ -27,6 +27,7 @@ const Chat = ({ location }) => {
     setRoom(room);
     setName(name);
 
+
     socket.emit("join", { name, room }, error => {
       if (error) {
         alert(error);
@@ -49,6 +50,9 @@ const Chat = ({ location }) => {
     };
   }, [messages]);
 
+
+
+
   const sendMessage = event => {
     event.preventDefault();
 
@@ -57,11 +61,12 @@ const Chat = ({ location }) => {
     }
   };
 
+
   return (
-    <div className="outerContainer">
+    <div className="outerContainer" >
       <div className="container">
         <InfoBar room={room} />
-          <Messages messages={messages} name={name} />
+        <Messages messages={messages} name={name} />
         <Input
           message={message}
           setMessage={setMessage}
@@ -75,9 +80,7 @@ const Chat = ({ location }) => {
 
 function mapReduxStateToProps(reduxState) {
   return reduxState;
-};
+}
 const invokedConnect = connect(mapReduxStateToProps);
 
 export default invokedConnect(Chat);
-
-

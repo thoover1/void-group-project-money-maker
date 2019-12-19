@@ -24,4 +24,7 @@
     display: inline-block;
     border: none;
     width: 20%;
+      &:hover {
+        cursor: pointer;
+      }
   }

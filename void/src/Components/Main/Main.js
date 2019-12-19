@@ -90,9 +90,14 @@ class Main extends Component {
       });
   }
   editColumn(column_id, column_name) {
-    axios.put(`/api/update_column/${column_id}`, { column_name: column_name, group_id: this.props.group }).then(() => {
-      this.displayColumns(this.props.group);
-    });
+    axios
+      .put(`/api/update_column/${column_id}`, {
+        column_name: column_name,
+        group_id: this.props.group
+      })
+      .then(() => {
+        this.displayColumns(this.props.group);
+      });
   }
   deleteColumn(column_id) {
     axios
@@ -179,7 +184,10 @@ class Main extends Component {
       });
   }
   render() {
-    const mappedColumns = this.state.columns;
+    console.log(this.state.columns);
+    const mappedColumns = this.state.columns.sort(function(a, b) {
+      return a.column_id - b.column_id;
+    });
     let width;
     if (this.props.sidebar) {
       width = "92%";

@@ -14,7 +14,7 @@ module.exports = {
     });
   },
   deleteGroup: async (req, res) => {
-    const { group_id } = req.body;
+    const { group_id } = req.params;
     const db = req.app.get("db");
     const viewGroups = await db.delete_group([group_id]);
     res.status(200).send(viewGroups);
@@ -27,60 +27,66 @@ module.exports = {
   },
   getGroup: (req, res) => {
     const db = req.app.get("db");
-    const {group_id} = req.params;
+    const { group_id } = req.params;
     db.get_group(group_id).then(group => {
       res.status(200).send(group);
-    })
+    });
   },
-  getGroupMember: (req,res,next) => {
+  getGroupMember: (req, res, next) => {
     const db = req.app.get("db");
-    const {user_id} = req.params;
-    db.find_user_by_id(user_id).then(user => {
-      res.status(200).send(user)
-    }).catch(err => console.log(err))
+    const { user_id } = req.params;
+    db.find_user_by_id(user_id)
+      .then(user => {
+        res.status(200).send(user);
+      })
+      .catch(err => console.log(err));
   },
   updateUser: (req, res, next) => {
     const db = req.app.get("db");
-    const {user} = req.params;
-    const {user_id, group_id} = req.body;
+    const { user } = req.params;
+    const { user_id, group_id } = req.body;
     let name;
-    if(user === 'user1'){
-      name = db.update_group_user1
-    } else if(user === 'user2'){
-      name = db.update_group_user2
-    } else if(user === 'user3'){
-      name = db.update_group_user3
-    } else if(user === 'user4'){
-      name = db.update_group_user4
-    } else if(user === 'user5'){
-      name = db.update_group_user5
-    } else if(user === 'user6'){
-      name = db.update_group_user6
-    } else if(user === 'user7'){
-      name = db.update_group_user7
-    } else if(user === 'user8'){
-      name = db.update_group_user8
-    } else if(user === 'user9'){
-      name = db.update_group_user9
-    } else if(user === 'user10'){
-      name = db.update_group_user10
+    if (user === "user1") {
+      name = db.update_group_user1;
+    } else if (user === "user2") {
+      name = db.update_group_user2;
+    } else if (user === "user3") {
+      name = db.update_group_user3;
+    } else if (user === "user4") {
+      name = db.update_group_user4;
+    } else if (user === "user5") {
+      name = db.update_group_user5;
+    } else if (user === "user6") {
+      name = db.update_group_user6;
+    } else if (user === "user7") {
+      name = db.update_group_user7;
+    } else if (user === "user8") {
+      name = db.update_group_user8;
+    } else if (user === "user9") {
+      name = db.update_group_user9;
+    } else if (user === "user10") {
+      name = db.update_group_user10;
     }
-    name(user_id, group_id).then(user => {
-      res.status(200).send(user)
-    }).catch(err => console.log(err))
+    name(user_id, group_id)
+      .then(user => {
+        res.status(200).send(user);
+      })
+      .catch(err => console.log(err));
   },
-  getAllUsers: (req,res,next) => {
+  getAllUsers: (req, res, next) => {
     const db = req.app.get("db");
-    const {user_id} = req.session.user;
+    const { user_id } = req.session.user;
     db.get_all_users(user_id).then(users => {
-      res.status(200).send(users)
-    })
+      res.status(200).send(users);
+    });
   },
-  updateName: (req,res,next) => {
+  updateName: (req, res, next) => {
     const db = req.app.get("db");
-    const {group_name, group_id} = req.body;
-    db.update_group_name(group_name, group_id).then(group => {
-      res.status(200).send(group)
-    }).catch(err => console.log(err))
+    const { group_name, group_id } = req.body;
+    db.update_group_name(group_name, group_id)
+      .then(group => {
+        res.status(200).send(group);
+      })
+      .catch(err => console.log(err));
   }
 };

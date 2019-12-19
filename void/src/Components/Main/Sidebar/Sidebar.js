@@ -58,7 +58,6 @@ class Sidebar extends Component {
 
   componentDidMount() {
     this.getAllUsers();
-    this.redirect();
     this.getMember("img1", this.state.user1);
     this.getMember("img2", this.state.user2);
     this.getMember("img3", this.state.user3);
@@ -71,8 +70,8 @@ class Sidebar extends Component {
     this.getMember("img10", this.state.user10);
   }
 
-  redirect(user, user_id) {
-    if (user_id != user && user != null) {
+  redirect(user_id) {
+    if(user_id === this.props.user.user_id){
       this.props.toggleGroupSelected(false);
     }
   }
@@ -127,16 +126,16 @@ class Sidebar extends Component {
     }
   }
 
-  removeUser(user, user_id) {
+  removeUser(user, user_id, img) {
     axios.post(`/api/update_user/${user}`, {
-      user_id: user_id,
-      group_id: this.props.group
+      user_id: null,
+      group_id: this.props.group,
+      [img]: ''
     });
     this.props.groupMembers(this.props.group);
     this.props.toggleSidebar();
     this.getAllUsers();
-    console.log(user, user_id, this.state.user1, this.props.user);
-    // this.redirect(user, user_id);
+    this.redirect(user_id);
   }
 
   getAllUsers() {
@@ -307,15 +306,15 @@ class Sidebar extends Component {
           )}
           <span className="user-around">
             {user1 ? (
-              remove ? (
-                <button
-                  onClick={() => {
-                    this.removeUser("user1", null);
-                  }}
-                  className="minus-button"
-                ></button>
-              ) : (
-                <img className="user-avi" src={img1} alt="user profile pic" />
+              remove ? ( 
+                <button 
+                  onClick={() => { 
+                    this.removeUser("user1", user1, "img1"); 
+                  }} 
+                  className="minus-button" 
+                ></button> 
+              ) : ( 
+                <img className="user-avi" src={img1} alt="user profile pic" /> 
               )
             ) : (
               <button
@@ -337,7 +336,7 @@ class Sidebar extends Component {
               remove ? (
                 <button
                   onClick={() => {
-                    this.removeUser("user2", null);
+                    this.removeUser("user2", user2, "img2");
                   }}
                   className="minus-button"
                 ></button>
@@ -364,7 +363,7 @@ class Sidebar extends Component {
               remove ? (
                 <button
                   onClick={() => {
-                    this.removeUser("user3", null);
+                    this.removeUser("user3", user3, "img3");
                   }}
                   className="minus-button"
                 ></button>
@@ -391,7 +390,7 @@ class Sidebar extends Component {
               remove ? (
                 <button
                   onClick={() => {
-                    this.removeUser("user4", null);
+                    this.removeUser("user4", user4, "img4");
                   }}
                   className="minus-button"
                 ></button>
@@ -418,7 +417,7 @@ class Sidebar extends Component {
               remove ? (
                 <button
                   onClick={() => {
-                    this.removeUser("user5", null);
+                    this.removeUser("user5", user5, "img5");
                   }}
                   className="minus-button"
                 ></button>
@@ -445,7 +444,7 @@ class Sidebar extends Component {
               remove ? (
                 <button
                   onClick={() => {
-                    this.removeUser("user6", null);
+                    this.removeUser("user6", user6, "img6");
                   }}
                   className="minus-button"
                 ></button>
@@ -472,7 +471,7 @@ class Sidebar extends Component {
               remove ? (
                 <button
                   onClick={() => {
-                    this.removeUser("user7", null);
+                    this.removeUser("user7", user7, "img7");
                   }}
                   className="minus-button"
                 ></button>
@@ -499,7 +498,7 @@ class Sidebar extends Component {
               remove ? (
                 <button
                   onClick={() => {
-                    this.removeUser("user8", null);
+                    this.removeUser("user8", user8, "img8");
                   }}
                   className="minus-button"
                 ></button>
@@ -526,7 +525,7 @@ class Sidebar extends Component {
               remove ? (
                 <button
                   onClick={() => {
-                    this.removeUser("user9", null);
+                    this.removeUser("user9", user9, "img9");
                   }}
                   className="minus-button"
                 ></button>
@@ -553,7 +552,7 @@ class Sidebar extends Component {
               remove ? (
                 <button
                   onClick={() => {
-                    this.removeUser("user10", null);
+                    this.removeUser("user10", user10, "img10");
                   }}
                   className="minus-button"
                 ></button>

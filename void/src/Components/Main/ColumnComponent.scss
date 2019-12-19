@@ -11,6 +11,7 @@
   flex-direction: column;
   justify-content: space-evenly;
   margin: 20px;
+  
   .column-header {
     height: 5%;
     display: flex;
@@ -250,5 +251,11 @@
         }
       }
     }
+  }
+}
+
+@media (max-width: 320px) {
+  .column-container {
+    min-height: 200px;
   }
 }

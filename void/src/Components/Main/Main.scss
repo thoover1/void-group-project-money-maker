@@ -184,6 +184,7 @@
         width: 100%;
         display: flex;
         align-items: center;
+        padding-left: 105px;
         // justify-content: space-between;
       }
     }
@@ -265,6 +266,19 @@
     }
     .show {
       width: 100px;
+    }
+  }
+}
+
+@media (max-width: 320px) {
+  .board-container {
+    .groups-columns {
+      .displayed-group {
+      .mapped-columns {
+        padding-left: 0px;
+        padding-top: 30px;
+        }
+      }
     }
   }
 }

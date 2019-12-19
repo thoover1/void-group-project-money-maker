@@ -17,16 +17,57 @@
     justify-content: space-between;
     align-items: center;
     padding: 5px;
-    .column-dots {
-      background-color: aquamarine;
-      position: relative;
-      top: -50px;
-      left: -30px;
-      height: 50px;
-      width: 200px;
+    .name {
+      min-width: 120px;
     }
-    .fa-plus:hover {
-      cursor: pointer;
+    .column-dots {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      border-radius: 6px;
+      color: black;
+      background-color: $light-blue;
+      z-index: 9999;
+      position: relative;
+      top: -35px;
+      left: 37px;
+      height: 40px;
+      width: 180px;
+      button {
+        @extend %button-setting;
+        height: 30px;
+        margin: 2px;
+        font-size: 10px;
+      }
+      button:hover {
+        @extend %button-hover;
+      }
+    }
+    .column-dots:after {
+      content: "";
+      position: absolute;
+      margin-top: -12px;
+      margin-left: -5px;
+      border-left: 12px solid transparent;
+      border-bottom: 12px solid $light-blue;
+      transform: rotate(45deg);
+      right: 16px;
+      bottom: -6px;
+    }
+    .dots-plus {
+      display: flex;
+      .fa-ellipsis-h {
+        margin: 3px;
+      }
+      .fa-ellipsis-h:hover {
+        cursor: pointer;
+      }
+      .fa-plus {
+        margin: 3px;
+      }
+      .fa-plus:hover {
+        cursor: pointer;
+      }
     }
   }
   .map-task-holder {
@@ -54,7 +95,7 @@
       }
     }
     .mapped-tasks {
-      min-height: 99%;
+      min-height: 95%;
       max-height: 100%;
       padding: 0px;
       .task {
@@ -144,10 +185,27 @@
       justify-content: space-between;
       align-items: center;
       padding: 5px;
+      .column-dots {
+        top: -10px;
+      }
+      .column-dots:after {
+        margin-top: -12px;
+        margin-left: -5px;
+        border-left: 12px solid transparent;
+        border-bottom: 12px solid $light-blue;
+        transform: rotate(-45deg);
+        right: -5px;
+        bottom: 5px;
+      }
     }
     .map-task-holder {
       height: 90%;
       width: 100%;
+      .add-task {
+        height: 40px;
+        display: flex;
+        margin: 10px;
+      }
       .mapped-tasks {
         border-radius: 15px;
         padding: 0px;

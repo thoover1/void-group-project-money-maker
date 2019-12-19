@@ -73,11 +73,22 @@ export default class Groups extends React.Component {
   render() {
     const filteredGroups = this.state.groups.filter(group =>
       group[1].toLowerCase().startsWith(this.state.input.toLowerCase())
-    );
-    const toMap = this.state.input ? filteredGroups : this.state.groups;
-    let mappedGroups = toMap.map(group => {
+    ).sort((a, b) => a - b);
+    const sorted = this.state.groups.sort(function(a, b) {
+      var nameA = a[1].toLowerCase();
+      var nameB = b[1].toLowerCase();
+      if(nameA < nameB) {
+        return -1;
+      } else if(nameA > nameB){
+        return 1;
+      } else {
+        return 0
+      }
+    });
+    const toMap = this.state.input ? filteredGroups : sorted;
+    let mappedGroups = toMap.map((group, index) => {
       return (
-        <div key={group[0]} className="group">
+        <div key={index} className="group">
           <button
             className="group-button"
             onClick={() => {

@@ -1,7 +1,7 @@
-DELETE FROM columns 
+DELETE FROM tasks
 WHERE column_id = $1;
 
-DELETE FROM tasks
+DELETE FROM columns 
 WHERE column_id = $1;
 
 SELECT column_id, column_name, groups.group_id

@@ -89,15 +89,37 @@ class Sidebar extends Component {
   }
 
   addUser (user, user_id) {
-    axios.post(`/api/update_user/${user}`, {user_id: user_id, group_id: this.props.group}).then(res => {
-      this.setState({
-        user: user_id,
-        search: false
-      })
-      this.getMember(this.state.img, user_id);
-      this.props.groupMembers(this.props.group);
-      this.props.toggleSidebar();
-    });
+    if(user_id === this.state.user1){
+      window.alert('User is already in group!')
+    } else if(user_id === this.state.user2){
+      window.alert('User is already in group!')
+    } else if(user_id === this.state.user3){
+      window.alert('User is already in group!')
+    } else if(user_id === this.state.user4){
+      window.alert('User is already in group!')
+    } else if(user_id === this.state.user5){
+      window.alert('User is already in group!')
+    } else if(user_id === this.state.user6){
+      window.alert('User is already in group!')
+    } else if(user_id === this.state.user7){
+      window.alert('User is already in group!')
+    } else if(user_id === this.state.user8){
+      window.alert('User is already in group!')
+    } else if(user_id === this.state.user9){
+      window.alert('User is already in group!')
+    } else if(user_id === this.state.user10){
+      window.alert('User is already in group!')
+    } else {
+      axios.post(`/api/update_user/${user}`, {user_id: user_id, group_id: this.props.group}).then(res => {
+        this.setState({
+          user: user_id,
+          search: false
+        })
+        this.getMember(this.state.img, user_id);
+        this.props.groupMembers(this.props.group);
+        this.props.toggleSidebar();
+      });
+    }
   }
 
   removeUser (user, user_id) {
@@ -106,7 +128,6 @@ class Sidebar extends Component {
         user: user_id,
         search: false
       })
-      // this.getMember(this.state.img, user_id);
       this.props.groupMembers(this.props.group);
       this.props.toggleSidebar();
       this.redirect(user, user_id);
@@ -172,7 +193,6 @@ class Sidebar extends Component {
   }
 
   render(){
-    console.log(this.props.user.user_id)
     const {users, input, search, spot, groupChange, more, remove, user1, user2, user3, user4, user5, user6, user7, user8, user9, user10, img1, img2, img3, img4, img5, img6, img7, img8, img9, img10} = this.state;
     
     const mappedGroups = this.state.groups.map(group => {

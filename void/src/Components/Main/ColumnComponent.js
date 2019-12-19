@@ -134,23 +134,22 @@ class ColumnComponent extends PureComponent {
       <div className="column-container">
         <div className="column-header">
           {this.state.nameChange 
-            ? <div className='name-edit'>
-                <input onChange={e => {this.handleChange("newName", e.target.value)}} placeholder={`${this.props.allColumns.column_name}`}/>
-                <button onClick={() => {this.props.editColumn(this.props.allColumns.column_id, this.state.newName)}}>Save</button>
-              </div>
-            : <h3>{this.props.allColumns.column_name}</h3>
+            ? <input className='name' onChange={e => {this.handleChange("newName", e.target.value)}} placeholder={`${this.props.allColumns.column_name}`}/>
+            : <h3 className='name'>{this.props.allColumns.column_name}</h3>
           }
           {this.state.dots && 
             <div className='column-dots'>
-              <button onClick={() => {this.props.deleteColumn(this.props.allColumns.column_id); this.setState({dots: false})}}>Delete Column</button>
+              {this.state.nameChange
+                ? <button onClick={() => {this.props.editColumn(this.props.allColumns.column_id, this.state.newName)}}>Save</button>
+                : <button onClick={() => {this.props.deleteColumn(this.props.allColumns.column_id); this.setState({dots: false})}}>Delete Column</button>
+              }
               <button onClick={() => this.setState({nameChange: !this.state.nameChange})}>{this.state.nameChange ? 'Cancel' : 'Change Name'}</button>
             </div>
           }
-          <i onClick={() => this.setState({dots: !this.state.dots})} className="fas fa-ellipsis-h"></i>
-          <i
-            onClick={() => this.setState({ addTask: true })}
-            className="fas fa-plus"
-          ></i>
+          <span className='dots-plus'>
+            <i onClick={() => this.setState({dots: !this.state.dots})} className="fas fa-ellipsis-h"></i>
+            <i onClick={() => this.setState({ addTask: true })} className="fas fa-plus"></i>
+          </span>
         </div>
         <div className="map-task-holder">
           {this.state.addTask && (

@@ -269,3 +269,16 @@
     }
   }
 }
+
+@media (max-width: 320px) {
+  .board-container {
+    .groups-columns {
+      .displayed-group {
+      .mapped-columns {
+        padding-left: 0px;
+        padding-top: 30px;
+        }
+      }
+    }
+  }
+}

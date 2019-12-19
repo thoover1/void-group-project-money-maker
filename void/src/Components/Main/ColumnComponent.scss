@@ -187,3 +187,9 @@
     }
   }
 }
+
+@media (max-width: 320px) {
+  .column-container {
+    min-height: 200px;
+  }
+}

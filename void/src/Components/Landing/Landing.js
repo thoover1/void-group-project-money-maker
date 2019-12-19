@@ -24,6 +24,7 @@ export default class Landing extends React.Component {
             <img
               className="dashboard-icon"
               src="https://image.flaticon.com/icons/svg/348/348186.svg"
+              alt='Dashboard'
             />
             <div className="dashboard-icon-text">
               View All of Your Group's Tasks in Your Dashboard
@@ -33,6 +34,7 @@ export default class Landing extends React.Component {
             <img
               className="chat-icon"
               src="https://image.flaticon.com/icons/svg/2025/2025049.svg"
+              alt='Live Chat'
             />
             <div className="chat-icon-text">
               Chat Live with Everyone In Your Group
@@ -52,6 +54,7 @@ export default class Landing extends React.Component {
                   <img
                     className="github-icon"
                     src="https://image.flaticon.com/icons/png/512/25/25231.png"
+                    alt='Github Icon'
                   ></img>
                 </a>
                 <a
@@ -62,6 +65,7 @@ export default class Landing extends React.Component {
                   <img
                     className="linkedin-icon"
                     src="https://icon-library.net/images/linkedin-black-icon/linkedin-black-icon-15.jpg"
+                    alt='LinkedIn Icon'
                   ></img>
                 </a>
               </div>
@@ -69,6 +73,7 @@ export default class Landing extends React.Component {
               <img
                 className="image-1"
                 src="https://media.licdn.com/dms/image/C4E03AQH0WWaKW9gMhQ/profile-displayphoto-shrink_200_200/0?e=1582156800&v=beta&t=oP3Eyz0rXa1DkIx-5_Ox_PjbA8iPttPWsmazqWK52qE"
+                alt='Gina Perez'
               ></img>
             </div>
             <div className="team-child-2">
@@ -81,6 +86,7 @@ export default class Landing extends React.Component {
                   <img
                     className="github-icon"
                     src="https://image.flaticon.com/icons/png/512/25/25231.png"
+                    alt='Github Icon'
                   ></img>
                 </a>
                 <a
@@ -91,6 +97,7 @@ export default class Landing extends React.Component {
                   <img
                     className="linkedin-icon"
                     src="https://icon-library.net/images/linkedin-black-icon/linkedin-black-icon-15.jpg"
+                    alt='LinkedIn Icon'
                   ></img>
                 </a>
               </div>
@@ -98,6 +105,7 @@ export default class Landing extends React.Component {
               <img
                 className="image-2"
                 src="https://media.licdn.com/dms/image/C5603AQFnjXu66Xpeqw/profile-displayphoto-shrink_800_800/0?e=1582156800&v=beta&t=zZVYNVZlFtKQ25EP6y938bp9UGZhr79Tw4c-q5IPWE4"
+                alt='Joely Vernier'
               ></img>
             </div>
             <div className="team-child-3">
@@ -110,6 +118,7 @@ export default class Landing extends React.Component {
                   <img
                     className="github-icon"
                     src="https://image.flaticon.com/icons/png/512/25/25231.png"
+                    alt='Github Icon'
                   ></img>
                 </a>
                 <a
@@ -120,6 +129,7 @@ export default class Landing extends React.Component {
                   <img
                     className="linkedin-icon"
                     src="https://icon-library.net/images/linkedin-black-icon/linkedin-black-icon-15.jpg"
+                    alt='LinkedIn Icon'
                   ></img>
                 </a>
               </div>
@@ -127,6 +137,7 @@ export default class Landing extends React.Component {
               <img
                 className="image-3"
                 src="https://media.licdn.com/dms/image/C5603AQHw6ySUVOcgTA/profile-displayphoto-shrink_800_800/0?e=1582156800&v=beta&t=Yj8QI-W6nTTdnUxj4G9qaIUhQNFpV0X9-0Mpjww17iY"
+                alt='Thomas Hoover'
               ></img>
             </div>
             <div className="team-child-4">
@@ -139,6 +150,7 @@ export default class Landing extends React.Component {
                   <img
                     className="github-icon"
                     src="https://image.flaticon.com/icons/png/512/25/25231.png"
+                    alt='Github Icon'
                   ></img>
                 </a>
                 <a
@@ -149,6 +161,7 @@ export default class Landing extends React.Component {
                   <img
                     className="linkedin-icon"
                     src="https://icon-library.net/images/linkedin-black-icon/linkedin-black-icon-15.jpg"
+                    alt='LinkedIn Icon'
                   ></img>
                 </a>
               </div>
@@ -156,6 +169,7 @@ export default class Landing extends React.Component {
               <img
                 className="image-4"
                 src="https://media.licdn.com/dms/image/C5603AQGACH3GQ9lhKw/profile-displayphoto-shrink_800_800/0?e=1582156800&v=beta&t=vo_WDoEAPj9IIOPwb6iz8jcNtglfK4x7YS1z-n7nAdc"
+                alt='Isaac Hansen'
               ></img>
             </div>
           </div>

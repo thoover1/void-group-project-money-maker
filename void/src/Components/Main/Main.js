@@ -154,6 +154,7 @@ class Main extends Component {
     let newColumn = destination.droppableId;
     this.switchColumns(newColumn, IDofTask);
   };
+
   switchColumns(newColumn, IDofTask) {
     axios
       .put(`/api/switch_columns/${IDofTask}`, {
@@ -181,7 +182,6 @@ class Main extends Component {
       });
   }
   render() {
-    // console.log(this.state.group)
     const mappedColumns = this.state.columns;
     let width;
     if (this.props.sidebar) {
@@ -339,14 +339,14 @@ class Main extends Component {
                   ))}
                 </div>
               </DragDropContext>
-        
+
               <div>
                 <Link
                   to={`/chat?name=${
                     this.props.user.username
                   }&room=${this.props.group_name.toLowerCase()}`}
                 >
-                  <Message type="submit"/>
+                  <Message type="submit" />
                 </Link>
               </div>
             </div>

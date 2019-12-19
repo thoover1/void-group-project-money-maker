@@ -206,6 +206,18 @@
             cursor: pointer;
           }
         }
+        .delete-group {
+          font-family: "lemonmilk_lightregular", Arial, sans-serif;
+          font-weight: normal;
+          font-style: normal;
+          background-color: $light-blue;
+          border: none;
+          outline: none;
+          &:hover {
+            color: white;
+            cursor: pointer;
+          }
+        }
       }
       .more-screen:after {
         content: "";

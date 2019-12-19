@@ -105,6 +105,7 @@ class ColumnComponent extends PureComponent {
       ) {
         task.push(this.props.tasks[i]);
         mappedTasks = task.map((allTasks, index) => {
+          console.log(mappedTasks);
           return (
             <Draggable
               draggableId={allTasks.task_id.toString()}

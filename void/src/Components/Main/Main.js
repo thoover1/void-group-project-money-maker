@@ -178,8 +178,10 @@ class Main extends Component {
       });
   }
   render() {
-    // console.log(this.state.group)
-    const mappedColumns = this.state.columns;
+    console.log(this.state.columns)
+    const mappedColumns = this.state.columns.sort(function(a,b) {
+      return a.column_id - b.column_id;
+    });
     let width;
     if (this.props.sidebar) {
       width = "92%";

@@ -348,7 +348,7 @@ class Main extends Component {
                 <Link
                   to={`/chat?name=${
                     this.props.user.username
-                  }&room=${this.props.group_name.toLowerCase()}`}
+                  }&room=${this.props.group_name}`}
                 >
                   <Message type="submit" />
                 </Link>

@@ -23,8 +23,12 @@ app.use(cors());
 
 app.use(express.json());
 
-
-const { addUser, removeUser, getUser, getUsersInRoom } = require("./controllers/chatCtrl");
+const {
+  addUser,
+  removeUser,
+  getUser,
+  getUsersInRoom
+} = require("./controllers/chatCtrl");
 
 // for static server
 // app.use(express.static(__dirname + `../build`));
@@ -68,14 +72,13 @@ app.delete("/api/delete_account", uc.deleteAccount);
 // endpoints for groups
 app.post("/api/create_group", gc.createGroup);
 app.get("/api/group_members/:group_id", gc.groupMembers);
-app.get('/api/group_member/:user_id', gc.getGroupMember);
+app.get("/api/group_member/:user_id", gc.getGroupMember);
 app.post("/api/update_user/:user", gc.updateUser);
-// app.put("/api/remove_user/:user", gc.removeUser);
-// app.delete("/api/remove_user/", gc.removeUser);
 app.get("/api/get_groups", gc.getGroups);
 app.get("/api/get_group/:group_id", gc.getGroup);
-// app.get("/api/display_board/:group_id", gc.displayBoard);
-app.get('/api/get_all_users', gc.getAllUsers);
+app.get("/api/get_all_users", gc.getAllUsers);
+app.put("/api/update_group_name", gc.updateName);
+app.delete("/api/delete_group/:group_id", gc.deleteGroup);
 
 // endpoints for sidebar users
 app.post("/api/add_user1", sbc.addUser1);
@@ -93,7 +96,7 @@ app.post("/api/add_user10", sbc.addUser10);
 app.get("/api/display_columns/:group_id", cc.displayColumns);
 app.post("/api/add_column", cc.addColumn);
 app.put("/api/update_column/:column_id", cc.updateColumn);
-app.delete("/api/delete_column/:column_id/", cc.deleteColumn);
+app.delete("/api/delete_column/:column_id", cc.deleteColumn);
 
 // endpoints for tasks
 app.get("/api/display_tasks/:group_id", tc.displayTasks);
@@ -110,43 +113,54 @@ app.put("/api/switch_columns/:task_id", tc.switchColumn);
 //   else res.sendStatus(401);
 // });
 
-
 //sockets
-io.on('connect', (socket) => {
-  socket.on('join', ({ name, room }, callback) => {
+io.on("connect", socket => {
+  socket.on("join", ({ name, room }, callback) => {
     const { error, user } = addUser({ id: socket.id, name, room });
 
-    if(error) return callback(error);
+    if (error) return callback(error);
 
     socket.join(user.room);
 
-    socket.emit('message', { user: 'admin', text: `${user.name}, welcome to room ${user.room}.`});
-    socket.broadcast.to(user.room).emit('message', { user: 'admin', text: `${user.name} has joined!` });
+    socket.emit("message", {
+      user: "admin",
+      text: `${user.name}, welcome to ${user.room}'s chatroom.`
+    });
+    socket.broadcast
+      .to(user.room)
+      .emit("message", { user: "admin", text: `${user.name} has joined!` });
 
-    io.to(user.room).emit('roomData', { room: user.room, users: getUsersInRoom(user.room) });
+    io.to(user.room).emit("roomData", {
+      room: user.room,
+      users: getUsersInRoom(user.room)
+    });
 
     callback();
   });
 
-  socket.on('sendMessage', (message, callback) => {
+  socket.on("sendMessage", (message, callback) => {
     const user = getUser(socket.id);
 
-    io.to(user.room).emit('message', { user: user.name, text: message });
+    io.to(user.room).emit("message", { user: user.name, text: message });
 
     callback();
   });
 
-  socket.on('disconnect', () => {
+  socket.on("disconnect", () => {
     const user = removeUser(socket.id);
 
-    if(user) {
-      io.to(user.room).emit('message', { user: 'admin', text: `${user.name} has left.` });
-      io.to(user.room).emit('roomData', { room: user.room, users: getUsersInRoom(user.room)});
+    if (user) {
+      io.to(user.room).emit("message", {
+        user: "admin",
+        text: `${user.name} has left.`
+      });
+      io.to(user.room).emit("roomData", {
+        room: user.room,
+        users: getUsersInRoom(user.room)
+      });
     }
-  })
-})
-
-
+  });
+});
 
 let port = SERVER_PORT || 4000;
 server.listen(port, () => console.log(`Listening on port ${port}.`));

@@ -1,3 +1,6 @@
+DELETE FROM tasks
+WHERE column_id = $1;
+
 DELETE FROM columns 
 WHERE column_id = $1;
 

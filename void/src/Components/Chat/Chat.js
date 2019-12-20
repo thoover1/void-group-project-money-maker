@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import queryString from "query-string";
 import io from "socket.io-client";
-
+import { connect } from "react-redux";
 import TextContainer from "../TextContainer/TextContainer";
 import Messages from "../Messages/Messages";
 import InfoBar from "../InfoBar/InfoBar";
@@ -45,7 +45,6 @@ const Chat = ({ location }) => {
 
     return () => {
       socket.emit("disconnect");
-
       socket.off();
     };
   }, [messages]);
@@ -62,7 +61,7 @@ const Chat = ({ location }) => {
     <div className="outerContainer">
       <div className="container">
         <InfoBar room={room} />
-          <Messages messages={messages} name={name} />
+        <Messages messages={messages} name={name} />
         <Input
           message={message}
           setMessage={setMessage}
@@ -74,4 +73,9 @@ const Chat = ({ location }) => {
   );
 };
 
-export default Chat;
+function mapReduxStateToProps(reduxState) {
+  return reduxState;
+}
+const invokedConnect = connect(mapReduxStateToProps);
+
+export default invokedConnect(Chat);

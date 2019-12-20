@@ -16,22 +16,58 @@ function Header(props) {
   return (
     <div className="header-main">
       <div className="header-contents">
-        <NavLink to="/" onClick={() => {props.setSidebar(false)}}>
-          <img className={props.sidebar ? "moved" : "logo"} src={logo} alt="logo"/>
+        <NavLink
+          to="/"
+          onClick={() => {
+            props.setSidebar(false);
+          }}
+        >
+          <img
+            className={props.sidebar ? "moved" : "logo"}
+            src={logo}
+            alt="logo"
+          />
         </NavLink>
-        <span className='navbar'>
-          {props.user ? <button className='toggler' onClick={toggler} ><img className='toggle-img' src={props.user.image} alt={`${props.user.username}'s profile pic`} /></button> : <NavLink className='nav' to='/login-register' >{props.title}</NavLink>}
+        <span className="navbar">
+          {props.user ? (
+            <button className="toggler" onClick={toggler}>
+              <img
+                className="toggle-img"
+                src={props.user.image}
+                alt={`${props.user.username}'s profile pic`}
+              />
+            </button>
+          ) : (
+            <NavLink className="nav" to="/login-register">
+              {props.title}
+            </NavLink>
+          )}
           {/* {props.user && <NavLink className='nav' to='/join' >Chat</NavLink>} */}
           {/* {!props.user && <NavLink className='nav' to='/login-register' >{props.title}</NavLink>}
 
           {props.user && <button className='toggler' onClick={toggler} ><img className='toggle-img' src={props.user.image} alt={`${props.user.username}'s profile pic`} /></button>} */}
-          
-          {props.user && 
-            <div className={show ? 'show' : ''}>
-              <NavLink className='nav' onClick={() => {toggler(); props.setSidebar(false)}} to='/dashboard' >Dashboard</NavLink>
-              <NavLink className='nav' onClick={() => {toggler(); props.setSidebar(false)}} to='/profile' >My Account</NavLink>
-              <button 
-                className='logout'
+
+          {props.user && (
+            <div className={show ? "show" : ""}>
+              <NavLink
+                className="nav"
+                onClick={() => toggler()}
+                to="/dashboard"
+              >
+                Dashboard
+              </NavLink>
+              <NavLink
+                className="nav"
+                onClick={() => {
+                  toggler();
+                  props.setSidebar(false);
+                }}
+                to="/profile"
+              >
+                My Account
+              </NavLink>
+              <button
+                className="logout"
                 onClick={() => {
                   axios.delete("/auth/logout").then(() => {
                     props.setUser(null);
@@ -43,7 +79,7 @@ function Header(props) {
                 Logout
               </button>
             </div>
-          }
+          )}
         </span>
       </div>
     </div>

@@ -1,7 +1,7 @@
 import React from "react";
 import { Switch, Route, withRouter, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import { setUser } from "./reducer";
+import { setUser, setSidebar } from "./reducer";
 import "./App.scss";
 import Header from "./Components/Header/Header";
 import Landing from "./Components/Landing/Landing";
@@ -35,7 +35,11 @@ class App extends React.Component {
             exact
             path="/"
             render={props => (
-              <Landing changeTitle={this.changeTitle} {...props} />
+              <Landing
+                changeTitle={this.changeTitle}
+                setSidebar={this.props.setSidebar}
+                {...props}
+              />
             )}
           />
           <Route
@@ -46,16 +50,20 @@ class App extends React.Component {
           />
           {this.props.user && (
             <Route
-            path="/dashboard"
-            render={props => <Main changeTitle={this.changeTitle} {...props} />}
+              path="/dashboard"
+              render={props => (
+                <Main changeTitle={this.changeTitle} {...props} />
+              )}
             />
           )}
-          <Route path="/join" render={props => (
-            <Join changeTitle={this.changeTitle} {...props}/>
-          )} />
-          <Route path="/chat" render={props => (
-            <Chat changeTitle={this.changeTitle} {...props} />
-          )} />
+          <Route
+            path="/join"
+            render={props => <Join changeTitle={this.changeTitle} {...props} />}
+          />
+          <Route
+            path="/chat"
+            render={props => <Chat changeTitle={this.changeTitle} {...props} />}
+          />
           {this.props.user && (
             <Route
               path="/profile"
@@ -80,7 +88,8 @@ function mapReduxStateToProps(reduxState) {
   return reduxState;
 }
 const mapDispatchToProps = {
-  setUser
+  setUser,
+  setSidebar
 };
 const invokedConnect = connect(mapReduxStateToProps, mapDispatchToProps);
 

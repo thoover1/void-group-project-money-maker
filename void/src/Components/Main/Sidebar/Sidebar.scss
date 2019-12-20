@@ -1,344 +1,369 @@
-@import '../../../App.scss';
+@import "../../../App.scss";
 
-    .sidebar-background {
-        // width: 8%;
-        height: 100vh;
-        background-color: #333;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        .inner {
-            height: 95vh;
-            width: 100px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: space-between;
-            .ham-butt {
-                background-color: #333;
-                border: none;
-                height: 50px;
-                width: 60px;
-                outline: none;
-                .ham-menu {
-                    color: white;
-                    width: 45px;
-                    height: 45px;
-                
-                    &:hover {
-                        color: lightgray;
-                        cursor: pointer;
-                    }
-                }
-            }
-            .group-selector {
-                background-color: $mid-dark-blue;
-                border-radius: 0px 0px 15px 0px;
-                box-shadow: 5px 5px 3px 0px #282c3441;
-                height: 300px;
-                width: 300px;
-                position: absolute;
-                left: 120px;
-                top: 100px;
-                padding: 5px;
-                display: flex;
-                flex-direction: column;
-                justify-content: space-evenly;
-                align-items: center;
-                z-index: 9999;
-                .switch-groups {
-                    font-size: 24px;
-                }
-                .mapped-groups {
-                    background-color: $light-blue;
-                    border-radius: 15px;
-                    height: 270px;
-                    width: 300px;
-                    display: flex;
-                    flex-direction: column;
-                    overflow-y: scroll;
-                    .group {
-                        margin: 5px;
-                        .group-button {
-                            @extend %button-setting;
-                            width: 200px;
-                        }
-                        .group-button:hover {
-                            @extend %button-hover;
-                        }
-                    }
-                }
-            }
-            .user-around {
-                width: 100px;
-                height: 80vh;
-                display: flex;
-                flex-direction: column;
-                justify-content: space-around;
-                align-items: center;
-                margin: 10px 0px;
-                .user-avi {
-                    border: 2px solid black;
-                    border-radius: 50px;
-                    width: 60px;
-                    height: 60px;
-                }
-                .plus-button {
-                    border: 2px solid black;
-                    background-color: #515151;
-                    font-size: 16px;
-                    height: 64px;
-                    width: 64px;
-                    border-radius: 50px;
-                    position: relative;
-                    outline: none;
-                    &:after,
-                    &:before {
-                        content: "";
-                        display: block;
-                        background-color: black;
-                        position: absolute;
-                        top: 50%;
-                        left: 50%;
-                        transform: translate(-50%, -50%);
-                    }
-                    
-                    &:before {
-                        height: 1em;
-                        width: 0.2em;
-                    }
-                
-                    &:after {
-                        height: 0.2em;
-                        width: 1em;
-                    }
+.sidebar-background {
+  // width: 8%;
+  height: 100vh;
+  background-color: #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .inner {
+    height: 95vh;
+    width: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    .ham-butt {
+      background-color: #333;
+      border: none;
+      height: 50px;
+      width: 60px;
+      outline: none;
+      .ham-menu {
+        color: white;
+        width: 45px;
+        height: 45px;
 
-                    &:hover {
-                        cursor: pointer;
-                    }
-                }
-                .minus-button {
-                    border: 2px solid black;
-                    background-color: #515151;
-                    font-size: 16px;
-                    height: 64px;
-                    width: 64px;
-                    border-radius: 50px;
-                    position: relative;
-                    outline: none;
-                    &:after {
-                        content: "";
-                        display: block;
-                        background-color: black;
-                        position: absolute;
-                        top: 50%;
-                        left: 50%;
-                        transform: translate(-50%, -50%);
-                    }
-                    
-                    &:before {
-                        height: 1em;
-                        width: 0.2em;
-                    }
-                
-                    &:after {
-                        height: 0.2em;
-                        width: 1em;
-                    }
-
-                    &:hover {
-                        cursor: pointer;
-                    }
-                }
-            }
-            .something {
-                .more-button {
-                    background-color: #333;
-                    border: none;
-                    display: flex;
-                    outline: none;
-                    .three-dots {
-                        color: white;
-                        width: 50px;
-                        height: 50px;
-                        &:hover { 
-                            color: lightgray;
-                            cursor: pointer;
-                        }
-                    }
-                }
-                .more-screen {
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    padding: 10px;
-                    width: 90px;
-                    border-radius: 6px;
-                    margin-right: 40px;
-                    color: black;
-                    background-color: $light-blue;
-                    position: absolute;
-                    bottom: 3.2vh;
-                    left: 100px;
-                    z-index: 9999;
-                    .remove-user {
-                        font-family: 'lemonmilk_lightregular', Arial, sans-serif;
-                        font-weight: normal;
-                        font-style: normal;
-                        background-color: $light-blue;
-                        border: none;
-                        outline: none;
-                        &:hover {
-                            color: white;
-                            cursor: pointer;
-                        }
-                    }
-                }
-            }
-            .more-screen:after {
-                content: "";
-                position: absolute;
-                margin-top:-6px;
-                margin-left:-5px;
-                border-left: 12px solid transparent;
-                border-bottom: 12px solid $light-blue;
-                transform:rotate(135deg);
-                left: 0px; 
-                top: 18px;
-            }
-
-            .search-box {
-                background-color: $mid-dark-blue;
-                border-radius: 0px 15px 0px 0px;
-                box-shadow: 2px 2px 3px 5px #282c3441;
-                height: 300px;
-                width: 300px;
-                position: absolute;
-                left: 120px;
-                bottom: 0px;
-                padding: 5px;
-                display: flex;
-                flex-direction: column;
-                justify-content: space-evenly;
-                align-items: center;
-                z-index: 9999;
-                .search-input {
-                    width: 180px
-                }
-                .map-users {
-                    background-color: #ffffff;
-                    border-radius: 15px;
-                    height: 270px;
-                    width: 300px;
-                    display: flex;
-                    flex-direction: column;
-                    overflow-y: scroll;
-                    .user {
-                        // background-color: $light-blue;
-                        border-bottom: 2px solid $light-blue; 
-                        height: 30px;
-                        display: flex;
-                        justify-content: space-between;
-                        align-items: center;
-                        margin: 5px 0px;
-                        padding: 2px;
-                        .username {
-                            margin-left: 5px;
-                        }
-                        .add-button {
-                            margin-right: 5px;
-                        }
-                    }
-                }
-            }
+        &:hover {
+          color: lightgray;
+          cursor: pointer;
         }
+      }
     }
+    .group-selector {
+      background-color: $mid-dark-blue;
+      border-radius: 0px 0px 15px 0px;
+      box-shadow: 5px 5px 3px 0px #282c3441;
+      height: 300px;
+      width: 300px;
+      position: absolute;
+      left: 120px;
+      top: 100px;
+      padding: 5px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      align-items: center;
+      z-index: 9999;
+      .switch-groups {
+        font-size: 24px;
+      }
+      .mapped-groups {
+        background-color: $light-blue;
+        border-radius: 15px;
+        height: 270px;
+        width: 290px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        overflow-y: scroll;
+        .group {
+          width: 85%;
+          margin: 5px;
+          .group-button {
+            @extend %button-setting;
+            width: 100%;
+          }
+          .group-button:hover {
+            @extend %button-hover;
+            width: 100%;
+            cursor: pointer;
+          }
+        }
+        .go-back {
+          @extend %button-setting;
+          width: 85%;
+        }
+        .go-back:hover {
+          @extend %button-hover;
+          width: 85%;
+          cursor: pointer;
+        }
+      }
+    }
+    .user-around {
+      width: 100px;
+      height: 80vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      align-items: center;
+      margin: 10px 0px;
+      .user-avi {
+        border: 2px solid black;
+        border-radius: 50px;
+        width: 60px;
+        height: 60px;
+      }
+      .plus-button {
+        border: 2px solid black;
+        background-color: #515151;
+        font-size: 16px;
+        height: 64px;
+        width: 64px;
+        border-radius: 50px;
+        position: relative;
+        outline: none;
+        &:after,
+        &:before {
+          content: "";
+          display: block;
+          background-color: black;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+        }
+
+        &:before {
+          height: 1em;
+          width: 0.2em;
+        }
+
+        &:after {
+          height: 0.2em;
+          width: 1em;
+        }
+
+        &:hover {
+          cursor: pointer;
+        }
+      }
+      .minus-button {
+        border: 2px solid black;
+        background-color: #515151;
+        font-size: 16px;
+        height: 64px;
+        width: 64px;
+        border-radius: 50px;
+        position: relative;
+        outline: none;
+        &:after {
+          content: "";
+          display: block;
+          background-color: black;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+        }
+
+        &:before {
+          height: 1em;
+          width: 0.2em;
+        }
+
+        &:after {
+          height: 0.2em;
+          width: 1em;
+        }
+
+        &:hover {
+          cursor: pointer;
+        }
+      }
+    }
+    .something {
+      .more-button {
+        background-color: #333;
+        border: none;
+        display: flex;
+        outline: none;
+        .three-dots {
+          color: white;
+          width: 50px;
+          height: 50px;
+          &:hover {
+            color: lightgray;
+            cursor: pointer;
+          }
+        }
+      }
+      .more-screen {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px;
+        width: 150px;
+        border-radius: 6px;
+        margin-right: 40px;
+        color: black;
+        background-color: $light-blue;
+        position: absolute;
+        bottom: 3.2vh;
+        left: 100px;
+        z-index: 9999;
+        .remove-user {
+          font-family: "lemonmilk_lightregular", Arial, sans-serif;
+          font-weight: normal;
+          font-style: normal;
+          background-color: $light-blue;
+          border: none;
+          outline: none;
+          &:hover {
+            color: white;
+            cursor: pointer;
+          }
+        }
+        .delete-group {
+          font-family: "lemonmilk_lightregular", Arial, sans-serif;
+          font-weight: normal;
+          font-style: normal;
+          background-color: $light-blue;
+          border: none;
+          outline: none;
+          &:hover {
+            color: white;
+            cursor: pointer;
+          }
+        }
+      }
+      .more-screen:after {
+        content: "";
+        position: absolute;
+        margin-top: -6px;
+        margin-left: -5px;
+        border-left: 12px solid transparent;
+        border-bottom: 12px solid $light-blue;
+        transform: rotate(135deg);
+        left: 0px;
+        top: 18px;
+      }
+    }
+
+    .search-box {
+      background-color: $mid-dark-blue;
+      border-radius: 0px 15px 0px 0px;
+      box-shadow: 2px 2px 3px 5px #282c3441;
+      height: 300px;
+      width: 300px;
+      position: absolute;
+      left: 120px;
+      bottom: 0px;
+      padding: 5px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      align-items: center;
+      z-index: 9999;
+      .search-input {
+        width: 180px;
+      }
+      .map-users {
+        background-color: #ffffff;
+        border-radius: 15px;
+        height: 260px;
+        width: 290px;
+        display: flex;
+        flex-direction: column;
+        overflow-y: scroll;
+        .user {
+          // background-color: $light-blue;
+          border-bottom: 2px solid $light-blue;
+          height: 30px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin: 5px 0px;
+          padding: 2px;
+          .username {
+            margin-left: 5px;
+          }
+          .add-button {
+            margin-right: 5px;
+          }
+        }
+      }
+    }
+  }
+}
 
 @media (max-height: 800px) {
-    .sidebar-background {
-        .inner {
-            .user-around {
-                .user-avi {
-                    width: 50px;
-                    height: 50px;
-                }
-                .plus-button {
-                    height: 54px;
-                    width: 54px;
-                }
-                .minus-button {
-                    font-size: 16px;
-                    height: 54px;
-                    width: 54px;
-                }
-            }
+  .sidebar-background {
+    .inner {
+      .user-around {
+        .user-avi {
+          width: 50px;
+          height: 50px;
         }
+        .plus-button {
+          height: 54px;
+          width: 54px;
+        }
+        .minus-button {
+          font-size: 16px;
+          height: 54px;
+          width: 54px;
+        }
+      }
     }
+  }
 }
 
 @media (max-height: 700px) {
-    .sidebar-background {
-        .inner {
-            .user-around {
-                .user-avi {
-                    width: 40px;
-                    height: 40px;
-                }
-                .plus-button {
-                    height: 44px;
-                    width: 44px;
-                }
-                .minus-button {
-                    font-size: 16px;
-                    height: 44px;
-                    width: 44px;
-                }
-            }
+  .sidebar-background {
+    .inner {
+      .user-around {
+        .user-avi {
+          width: 40px;
+          height: 40px;
         }
+        .plus-button {
+          height: 44px;
+          width: 44px;
+        }
+        .minus-button {
+          font-size: 16px;
+          height: 44px;
+          width: 44px;
+        }
+      }
     }
+  }
 }
 
 @media (max-width: 450px) {
-    .sidebar-background {
-        .inner {
-            .group-selector {
-                width: 200px;
-                height: 200px;
-                .mapped-groups {
-                    width: 190px;
-                    height: 170px;
-                    .group {
-                        width: 180px;
-                        .group-button {
-                            width: 160px;
-                        }
-                    }
-                }
+  .sidebar-background {
+    .inner {
+      .group-selector {
+        width: 200px;
+        height: 200px;
+        .mapped-groups {
+          width: 190px;
+          height: 170px;
+          .group {
+            width: 180px;
+            .group-button {
+              width: 160px;
             }
-            .search-box {
-                width: 200px;
-                height: 200px;
-                .search-input {
-                    width: 180px;
-                }
-                .map-users {
-                    width: 190px;
-                    height: 160px;
-                }
-            }
+          }
         }
+      }
+      .search-box {
+        width: 200px;
+        height: 200px;
+        .search-input {
+          width: 180px;
+        }
+        .map-users {
+          width: 190px;
+          height: 160px;
+        }
+      }
     }
+  }
 }
 
 @media (max-height: 570px) {
-    .sidebar-background {
-        .inner {
-            .group-selector {
-                left: 100px;
-            }
-            .search-box {
-                left: 100px;
-            }
-        }
+  .sidebar-background {
+    .inner {
+      .group-selector {
+        left: 100px;
+      }
+      .search-box {
+        left: 100px;
+      }
     }
+  }
 }

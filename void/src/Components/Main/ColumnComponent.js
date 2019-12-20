@@ -107,7 +107,7 @@ class ColumnComponent extends PureComponent {
         this.props.tasks[i]["column_id"] === this.props.allColumns.column_id
       ) {
         task.push(this.props.tasks[i]);
-        let mappedTasks = task.map((allTasks, index) => {
+        mappedTasks = task.map((allTasks, index) => {
           console.log(mappedTasks);
           return (
             <Draggable

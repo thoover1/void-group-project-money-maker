@@ -180,12 +180,12 @@
       .mapped-columns {
         overflow-x: scroll;
         height: 80%;
-        // width: 100%;
         width: 100%;
         display: flex;
         align-items: center;
         padding-left: 105px;
-        // justify-content: space-between;
+        display: flex;
+        justify-self: flex-end;
       }
     }
   }

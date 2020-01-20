@@ -154,6 +154,7 @@ class ColumnComponent extends PureComponent {
                       this.props.allColumns.column_id,
                       this.state.newName
                     );
+                    this.setState({ nameChange: false })
                   }}
                 >
                   Save

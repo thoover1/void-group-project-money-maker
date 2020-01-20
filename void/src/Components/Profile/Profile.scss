@@ -79,6 +79,7 @@
                 button:hover {
                     @extend %button-hover;
                     margin: 5px;
+                    cursor: pointer;
                 }
             }
             .user-image {

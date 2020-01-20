@@ -72,7 +72,7 @@ function Header(props) {
                   axios.delete("/auth/logout").then(() => {
                     props.setUser(null);
                   });
-                  window.alert("See you later!");
+                  window.alert("See you later alligator!");
                   toggler();
                 }}
               >

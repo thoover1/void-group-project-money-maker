@@ -31,7 +31,7 @@ const {
 } = require("./controllers/chatCtrl");
 
 // for static server
-// app.use(express.static(__dirname + `../build`));
+app.use(express.static(__dirname + `../build`));
 
 app.use(
   session({

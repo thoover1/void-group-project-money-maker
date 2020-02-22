@@ -23,21 +23,24 @@ export default class Groups extends React.Component {
   }
 
   getGroups() {
-    axios.get("/api/get_groups").then(response => {
-      let array = [];
-      let names = [];
-      for (var i = 0; i < response.data.length; i++) {
-        array.push([
-          response.data[i]["group_id"],
-          response.data[i]["group_name"]
-        ]);
-        names.push(response.data[i]["group_name"]);
-      }
-      this.setState({
-        groups: array,
-        groupNames: names
-      });
-    });
+    axios
+      .get("/api/get_groups")
+      .then(response => {
+        let array = [];
+        let names = [];
+        for (var i = 0; i < response.data.length; i++) {
+          array.push([
+            response.data[i]["group_id"],
+            response.data[i]["group_name"]
+          ]);
+          names.push(response.data[i]["group_name"]);
+        }
+        this.setState({
+          groups: array,
+          groupNames: names
+        });
+      })
+      .catch(err => console.log(err));
   }
 
   createGroup(group_name) {

@@ -11,11 +11,11 @@ import Profile from "./Components/Profile/Profile";
 import Join from "./Components/Join/Join";
 import Chat from "./Components/Chat/Chat";
 
-function data() {
-  this.Name = "Tom";
-  this.Roll = 35;
-}
-console.log(data);
+// function data() {
+//   this.Name = "Tom";
+//   this.Roll = 35;
+// }
+// console.log(data);
 class App extends React.Component {
   constructor(props) {
     super(props);

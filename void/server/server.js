@@ -19,6 +19,10 @@ const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
 
+// for static server
+// app.use(express.static(__dirname + `../build`));
+// app.use(express.static(`${__dirname}/../build`));
+
 app.use(cors());
 
 app.use(express.json());
@@ -29,9 +33,6 @@ const {
   getUser,
   getUsersInRoom
 } = require("./controllers/chatCtrl");
-
-// for static server
-app.use(express.static(__dirname + `../build`));
 
 app.use(
   session({
@@ -161,6 +162,11 @@ io.on("connect", socket => {
     }
   });
 });
+
+// const path = require("path");
+// app.get("*", (req, res) => {
+//   res.sendFile(path.join(__dirname, "../build/index.html"));
+// });
 
 let port = SERVER_PORT || 4000;
 server.listen(port, () => console.log(`Listening on port ${port}.`));

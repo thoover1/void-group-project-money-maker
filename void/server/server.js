@@ -21,7 +21,7 @@ const io = socketio(server);
 
 // for static server
 // app.use(express.static(__dirname + `../build`));
-// app.use(express.static(`${__dirname}/../build`));
+app.use(express.static(`${__dirname}/../build`));
 
 app.use(cors());
 
@@ -163,10 +163,10 @@ io.on("connect", socket => {
   });
 });
 
-// const path = require("path");
-// app.get("*", (req, res) => {
-//   res.sendFile(path.join(__dirname, "../build/index.html"));
-// });
+const path = require("path");
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../build/index.html"));
+});
 
 let port = SERVER_PORT || 4000;
 server.listen(port, () => console.log(`Listening on port ${port}.`));

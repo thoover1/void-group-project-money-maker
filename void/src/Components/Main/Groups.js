@@ -44,10 +44,6 @@ export default class Groups extends React.Component {
   }
 
   createGroup(group_name) {
-    // this.setState({
-    //   groups: [],
-    //   groupNames: []
-    // });
     axios
       .post(`/api/create_group`, { group_name: group_name })
       .then(res => {
@@ -106,6 +102,18 @@ export default class Groups extends React.Component {
       );
     });
 
+    let noGroupsMatch = null;
+
+    if (this.state.input.length > 0 && filteredGroups.length === 0) {
+      noGroupsMatch = (
+        <>
+      <h1>Sorry, no groups match by that specific name.</h1>
+      <br/>
+      <h1>Please check your spelling and try again.</h1>
+        </>
+      )
+    }
+
     return (
       <div className="groups-holder">
         <input
@@ -114,6 +122,7 @@ export default class Groups extends React.Component {
           placeholder="Group Search"
           onChange={e => this.universalInput("input", e.target.value)}
         />
+        {noGroupsMatch}
         {this.state.createGroup ? (
           <div className="create-group-container">
             <input

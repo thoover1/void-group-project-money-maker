@@ -27,7 +27,6 @@ class AuthComponent extends React.Component {
         password,
         email
       });
-      console.log(registeredUser.data);
       this.props.setUser(registeredUser.data);
     } catch (error) {
       this.setState({

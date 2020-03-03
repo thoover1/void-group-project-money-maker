@@ -72,7 +72,7 @@ export default class Landing extends React.Component {
               <div className="name-1">Gina Perez</div>
               <img
                 className="image-1"
-                src="https://media.licdn.com/dms/image/C4E03AQH0WWaKW9gMhQ/profile-displayphoto-shrink_200_200/0?e=1582156800&v=beta&t=oP3Eyz0rXa1DkIx-5_Ox_PjbA8iPttPWsmazqWK52qE"
+                src="https://media-exp1.licdn.com/dms/image/C4E03AQH0WWaKW9gMhQ/profile-displayphoto-shrink_200_200/0?e=1588809600&v=beta&t=Oy_RfnXz0KX3hwW3n3hZ9ncP6RjbTNTA2xU6KOc1mGY"
                 alt="Gina Perez"
               ></img>
             </div>
@@ -104,7 +104,7 @@ export default class Landing extends React.Component {
               <div className="name-2">Joely Vernier</div>
               <img
                 className="image-2"
-                src="https://media.licdn.com/dms/image/C5603AQFnjXu66Xpeqw/profile-displayphoto-shrink_800_800/0?e=1582156800&v=beta&t=zZVYNVZlFtKQ25EP6y938bp9UGZhr79Tw4c-q5IPWE4"
+                src="https://media-exp1.licdn.com/dms/image/C5603AQFnjXu66Xpeqw/profile-displayphoto-shrink_200_200/0?e=1586390400&v=beta&t=xJYlGpeioyM27qC-x8Ub-D1fgf-ELGjla9Imb3n3JP8"
                 alt="Joely Vernier"
               ></img>
             </div>
@@ -136,7 +136,7 @@ export default class Landing extends React.Component {
               <div className="name-3">Thomas Hoover</div>
               <img
                 className="image-3"
-                src="https://media.licdn.com/dms/image/C5603AQHw6ySUVOcgTA/profile-displayphoto-shrink_800_800/0?e=1582156800&v=beta&t=Yj8QI-W6nTTdnUxj4G9qaIUhQNFpV0X9-0Mpjww17iY"
+                src="https://media-exp1.licdn.com/dms/image/C5603AQHw6ySUVOcgTA/profile-displayphoto-shrink_200_200/0?e=1588809600&v=beta&t=-8uxCfHgeZd9mSiGqrKdCAvoXHv8JgHCnamnf1mr3dw"
                 alt="Thomas Hoover"
               ></img>
             </div>
@@ -168,7 +168,7 @@ export default class Landing extends React.Component {
               <div className="name-4">Isaac Hansen</div>
               <img
                 className="image-4"
-                src="https://media.licdn.com/dms/image/C5603AQGACH3GQ9lhKw/profile-displayphoto-shrink_800_800/0?e=1582156800&v=beta&t=vo_WDoEAPj9IIOPwb6iz8jcNtglfK4x7YS1z-n7nAdc"
+                src="https://media-exp1.licdn.com/dms/image/C5603AQGACH3GQ9lhKw/profile-displayphoto-shrink_200_200/0?e=1588809600&v=beta&t=DnQ_DlxKVZnURBLrk4g052LhQQ75E7Kj_p_JG1veq_E"
                 alt="Isaac Hansen"
               ></img>
             </div>

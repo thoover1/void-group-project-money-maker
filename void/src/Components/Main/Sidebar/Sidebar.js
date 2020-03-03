@@ -314,7 +314,7 @@ class Sidebar extends Component {
                   className="minus-button" 
                 ></button> 
               ) : ( 
-                <img className="user-avi" src={img1} alt="user profile pic" /> 
+                <img className="user-avi" src={img1} alt='' /> 
               )
             ) : (
               <button
@@ -341,7 +341,7 @@ class Sidebar extends Component {
                   className="minus-button"
                 ></button>
               ) : (
-                <img className="user-avi" src={img2} alt="user profile pic" />
+                <img className="user-avi" src={img2} alt='' />
               )
             ) : (
               <button
@@ -368,7 +368,7 @@ class Sidebar extends Component {
                   className="minus-button"
                 ></button>
               ) : (
-                <img className="user-avi" src={img3} alt="user profile pic" />
+                <img className="user-avi" src={img3} alt='' />
               )
             ) : (
               <button
@@ -395,7 +395,7 @@ class Sidebar extends Component {
                   className="minus-button"
                 ></button>
               ) : (
-                <img className="user-avi" src={img4} alt="user profile pic" />
+                <img className="user-avi" src={img4} alt='' />
               )
             ) : (
               <button
@@ -422,7 +422,7 @@ class Sidebar extends Component {
                   className="minus-button"
                 ></button>
               ) : (
-                <img className="user-avi" src={img5} alt="user profile pic" />
+                <img className="user-avi" src={img5} alt='' />
               )
             ) : (
               <button
@@ -449,7 +449,7 @@ class Sidebar extends Component {
                   className="minus-button"
                 ></button>
               ) : (
-                <img className="user-avi" src={img6} alt="user profile pic" />
+                <img className="user-avi" src={img6} alt='' />
               )
             ) : (
               <button
@@ -476,7 +476,7 @@ class Sidebar extends Component {
                   className="minus-button"
                 ></button>
               ) : (
-                <img className="user-avi" src={img7} alt="user profile pic" />
+                <img className="user-avi" src={img7} alt='' />
               )
             ) : (
               <button
@@ -503,7 +503,7 @@ class Sidebar extends Component {
                   className="minus-button"
                 ></button>
               ) : (
-                <img className="user-avi" src={img8} alt="user profile pic" />
+                <img className="user-avi" src={img8} alt='' />
               )
             ) : (
               <button
@@ -530,7 +530,7 @@ class Sidebar extends Component {
                   className="minus-button"
                 ></button>
               ) : (
-                <img className="user-avi" src={img9} alt="user profile pic" />
+                <img className="user-avi" src={img9} alt='' />
               )
             ) : (
               <button
@@ -557,7 +557,7 @@ class Sidebar extends Component {
                   className="minus-button"
                 ></button>
               ) : (
-                <img className="user-avi" src={img10} alt="user profile pic" />
+                <img className="user-avi" src={img10} alt='' />
               )
             ) : (
               <button

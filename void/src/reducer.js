@@ -52,17 +52,3 @@ export function getGroup(group_name) {
     payload: group_name
   };
 }
-
-// export function enterPassword(password) {
-//   return {
-//     type: PASSWORD,
-//     payload: password
-//   };
-// }
-
-// export function enterEmail(email) {
-//   return {
-//     type: EMAIL,
-//     payload: email
-//   };
-// }

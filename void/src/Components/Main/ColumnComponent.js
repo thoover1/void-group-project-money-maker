@@ -7,11 +7,7 @@ import TaskComponent from "./TaskComponent";
 import { connect } from "react-redux";
 
 const Tasker = styled.div`
-  background-color: ${props =>
-    props.isDraggingOver
-      ? // "#2460ad"
-        "white"
-      : "white"};
+  background-color: ${props => (props.isDraggingOver ? "white" : "white")};
 `;
 
 class ColumnComponent extends PureComponent {
@@ -101,14 +97,12 @@ class ColumnComponent extends PureComponent {
   render() {
     let mappedTasks;
     let task = [];
-    // let { editTask, taskEdit } = this.state;
     for (var i = 0; i < this.props.tasks.length; i++) {
       if (
         this.props.tasks[i]["column_id"] === this.props.allColumns.column_id
       ) {
         task.push(this.props.tasks[i]);
         mappedTasks = task.map((allTasks, index) => {
-          console.log(mappedTasks);
           return (
             <Draggable
               draggableId={allTasks.task_id.toString()}
@@ -119,7 +113,6 @@ class ColumnComponent extends PureComponent {
                 <TaskComponent
                   provided={provided}
                   snapshot={snapshot}
-                  // isDragging={snapshot.isDragging}
                   task_id={allTasks.task_id}
                   task_name={allTasks.task_name}
                   deleteTask={this.deleteTask}
@@ -154,7 +147,7 @@ class ColumnComponent extends PureComponent {
                       this.props.allColumns.column_id,
                       this.state.newName
                     );
-                    this.setState({ nameChange: false })
+                    this.setState({ nameChange: false });
                   }}
                 >
                   Save

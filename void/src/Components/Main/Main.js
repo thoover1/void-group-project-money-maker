@@ -183,7 +183,6 @@ class Main extends Component {
       });
   }
   render() {
-    console.log(this.state.columns);
     const mappedColumns = this.state.columns.sort(function(a, b) {
       return a.column_id - b.column_id;
     });
@@ -291,6 +290,7 @@ class Main extends Component {
                   {this.state.addColumn ? (
                     <div className="adder">
                       <input
+                      placeholder='New Column Name'
                         onChange={e =>
                           this.setState({ newColumn: e.target.value })
                         }

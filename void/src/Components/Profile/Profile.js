@@ -26,7 +26,6 @@ class Profile extends Component {
     this.updatePic = this.updatePic.bind(this);
     this.deleteAccount = this.deleteAccount.bind(this);
     this.toggle = this.toggle.bind(this);
-    // this.fileSelectedHandler = this.fileSelectedHandler.bind(this);
   }
 
   componentDidMount() {
@@ -130,7 +129,7 @@ class Profile extends Component {
                 src={this.props.user.image}
                 className="user-image"
                 onClick={() => this.toggle("editImage", true)}
-                alt={`${this.props.user.username}'s profile pic`}
+                alt=''
               />
               <div className="middle">
                 <div

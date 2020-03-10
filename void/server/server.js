@@ -1,3 +1,7 @@
+// SQL injection still an issue
+// maybe need to refactor how querying is setup =>
+// i.e. instead of having a db instances folder, query straight from url request with values array passed as second argument...
+
 require("dotenv").config();
 
 const gc = require("./controllers/groupCtrl");
